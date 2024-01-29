@@ -1,2 +1,2 @@
-\set dbname logdb_trafficlight3000
-\set username trafficlight3000
+\set dbname ecommercedb
+\set username userdb
