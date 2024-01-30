@@ -3,6 +3,7 @@
 //
 
 #include "main.h"
+
 using namespace std;
 
 // typedef enum {costumer,fornitore,trasportatore} Type;
@@ -15,6 +16,7 @@ class Utente{
         string password;
         string purchType[];
     public:
+
         Utente(const string nameC, const string surnameC, const string emailC, const string passwordC, const string *purchTypeC){
             name = nameC;
             surname = surnameC;

@@ -4,6 +4,7 @@
 
 #ifndef MAIN_H
 #define MAIN_H
+
 #include <con2redis.h>
 #include <pgsql.h>
 #include <stdio.h>
@@ -12,6 +13,7 @@
 #include <unistd.h>
 #include <time.h>
 #include <math.h>
+
 #define READ_STREAM "stream2"
 #define WRITE_STREAM "stream1"
 
