@@ -44,6 +44,7 @@ int main() {
 
     Utente utente(name, surname, email, password, purchType);
 
+    utente.registration(db1);
     //registration(db1, utente);
 
     while (1){
@@ -56,7 +57,5 @@ int main() {
     }  // while ()
 
     redisFree(c2r);
-
-
 
 };

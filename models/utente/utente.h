@@ -38,4 +38,6 @@ class Utente{
         string getPassword(){
             return password;
         }
+
+        void registration(Con2DB db){};
 };
