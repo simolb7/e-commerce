@@ -3,9 +3,10 @@
 //
 
 #include "main.h"
-using namespace std
 
-typedef enum {costumer,fornitore,trasportatore} Type;
+using namespace std;
+
+// typedef enum {costumer,fornitore,trasportatore} Type;
 
 class Utente{
     private:
@@ -15,6 +16,28 @@ class Utente{
         string password;
         string purchType[];
     public:
-        Utente(const string &name, const string &surname, const string &email, const string &password, const string[] &purchType)
-        : name(name), surname(surname), email(email), password(password), purchType(purchType) {}
+
+        Utente(const string nameC, const string surnameC, const string emailC, const string passwordC, const string *purchTypeC){
+            name = nameC;
+            surname = surnameC;
+            email = emailC;
+            password = passwordC;
+            *purchType = *purchTypeC;
+        }
+
+        string getName(){
+            return name;
+        }
+
+        string getSurname(){
+            return surname;
+        }
+
+        string getEmail(){
+            return email;
+        }
+
+        string getPassword(){
+            return password;
+        }
 };
