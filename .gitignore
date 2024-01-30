@@ -1,3 +1,7 @@
 *.o
 *.sh~
 *.sql~
+.DS_Store
+
+.idea/
+.vscode/
