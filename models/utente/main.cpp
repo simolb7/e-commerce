@@ -10,6 +10,7 @@ using namespace std;
 int main() {
     redisContext *c2r;
     redisReply *reply;
+
     Con2DB db1("localost", "5432", "userdb", "47002", "ecommercedb");
     int pid;
     unsigned seed;
@@ -38,6 +39,7 @@ int main() {
 
     //printf("main(): pid %d: user %s: connected to redis\n", pid, username);
 
+
     /* Create streams/groups */
     initStreams(c2r, READ_STREAM);
     initStreams(c2r, WRITE_STREAM);
@@ -47,7 +49,7 @@ int main() {
     //registration(db1, utente);
 
     while (1){
-        
+
 
         usleep(1000);
 
@@ -56,7 +58,6 @@ int main() {
     }  // while ()
 
     redisFree(c2r);
-
 
 
 };
