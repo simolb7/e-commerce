@@ -8,8 +8,8 @@
 using namespace std;
 
 int main() {
-    redisContext *c2r;
-    redisReply *reply;
+    //redisContext *c2r;
+    //redisReply *reply;
 
     Con2DB db1("localost", "5432", "userdb", "47002", "ecommercedb");
     int pid;
@@ -35,29 +35,27 @@ int main() {
 
     //printf("main(): pid %d: user %s: connecting to redis ...\n", pid, username);
 
-    c2r = redisConnect("localhost", 6379);
+    //c2r = redisConnect("localhost", 6379);
 
     //printf("main(): pid %d: user %s: connected to redis\n", pid, username);
 
 
     /* Create streams/groups */
-    initStreams(c2r, READ_STREAM);
-    initStreams(c2r, WRITE_STREAM);
+    //initStreams(c2r, READ_STREAM);
+    //initStreams(c2r, WRITE_STREAM);
 
-    Utente utente(name, surname, email, password, purchType);
+    Utente utente1(name, surname, email, password, purchType);
 
-    utente.registration(db1);
-    //registration(db1, utente);
+    //utente.registration(db1);
+    registration(db1, utente1);
 
-    while (1){
+    /*while (1){
 
 
         usleep(1000);
 
-        /* sleep   */
-        //micro_sleep(1000000);
-    }  // while ()
-
-    redisFree(c2r);
+    }*/
+    
+    //redisFree(c2r);
 
 };
