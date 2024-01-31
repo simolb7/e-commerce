@@ -1,6 +1,8 @@
-#include <main.h>
 
-void registration(Con2DB db, Utente utente){
+#include <main.h>
+#include <utente.h>
+
+void Utente::registration(Con2DB db){
     string nome  = utente.getName();
     string cognome  = utente.getSurname();
     string email  = utente.getEmail();

@@ -3,23 +3,25 @@
 //
 
 #include <main.h>
-#include <utente.h>
 
 using namespace std;
+//using namespace operazioni;
 
 int main() {
     //redisContext *c2r;
     //redisReply *reply;
 
-    Con2DB db1("localost", "5432", "userdb", "47002", "ecommercedb");
+    //Con2DB db1("localost", "5432", "userdb", "47002", "ecommercedb");
     int pid;
     unsigned seed;
 
+    /*
     string name = "Marco";
     string surname = "Rossi";
     string email = "marcorossi69@gmail.com";
     string password = "redigotham";
     string purchType[] = {"Paypal", "Mastercard", "Visa", "BitCoin", "ETH"};
+    */
 
     #if (DEBUG > 0)
         setvbuf(stdout, (char*) NULL, _IONBF, 0);
@@ -44,10 +46,10 @@ int main() {
     //initStreams(c2r, READ_STREAM);
     //initStreams(c2r, WRITE_STREAM);
 
-    Utente utente1(name, surname, email, password, purchType);
+    //Utente utente1(name, surname, email, password, purchType);
 
     //utente.registration(db1);
-    registration(db1, utente1);
+    utente.registration(db1);
 
     /*while (1){
 
@@ -57,5 +59,7 @@ int main() {
     }*/
     
     //redisFree(c2r);
+
+    return 0;
 
 };

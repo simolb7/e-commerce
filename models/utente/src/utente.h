@@ -14,14 +14,12 @@ class Utente{
         string surname;
         string email;
         string password;
-        string purchType[];
-
+        string purchType[5];
+        
     public:
-        Utente(const string nameC, const string surnameC, const string emailC, const string passwordC, const string *purchTypeC){
-            name = nameC;
-            surname = surnameC;
-            email = emailC;
-            password = passwordC;
+        Utente(const string nameC, const string surnameC, const string emailC, const string passwordC, const string *purchTypeC) : 
+        name(nameC), surname(surnameC), email(emailC), password(passwordC)
+        {
             *purchType = *purchTypeC;
         }
 
@@ -40,4 +38,6 @@ class Utente{
         string getPassword(){
             return password;
         }
+
+        void registration(Con2DB db1){};
 };
