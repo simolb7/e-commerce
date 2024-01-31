@@ -7,6 +7,18 @@ GRANT ALL PRIVILEGES ON DATABASE :dbname to :username ;
 
 ALTER TABLE TimeVar OWNER TO :username ;
 ALTER TABLE LogTable OWNER TO :username ;
+ALTER TABLE Utente OWNER TO :username ;
+ALTER TABLE Costumer OWNER TO :username ;
+ALTER TABLE Fornitore OWNER TO :username ;
+ALTER TABLE Trasportatore OWNER TO :username ;
+ALTER TABLE MetPag OWNER TO :username ;
+ALTER TABLE MPUte OWNER TO :username ;
+ALTER TABLE Categoria OWNER TO :username ;
+ALTER TABLE Oggetto OWNER TO :username ;
+ALTER TABLE Vendita OWNER TO :username ;
+ALTER TABLE Acquisto OWNER TO :username ;
+ALTER TABLE AcqOgg OWNER TO :username ;
+
 
 -- grant all privileges on all tables in schema public to :username ;
 -- grant all privileges on all sequences in schema public to :username ;
