@@ -1,7 +1,3 @@
-//
-// Created by simolb on 1/29/24.
-//
-
 #include <main.h>
 
 using namespace std;
@@ -14,14 +10,6 @@ int main() {
     //Con2DB db1("localost", "5432", "userdb", "47002", "ecommercedb");
     int pid;
     unsigned seed;
-
-    /*
-    string name = "Marco";
-    string surname = "Rossi";
-    string email = "marcorossi69@gmail.com";
-    string password = "redigotham";
-    string purchType[] = {"Paypal", "Mastercard", "Visa", "BitCoin", "ETH"};
-    */
 
     #if (DEBUG > 0)
         setvbuf(stdout, (char*) NULL, _IONBF, 0);
@@ -46,10 +34,17 @@ int main() {
     //initStreams(c2r, READ_STREAM);
     //initStreams(c2r, WRITE_STREAM);
 
-    //Utente utente1(name, surname, email, password, purchType);
+    char const *name = "Marco";
+    char const *surname = "Rossi";
+    char const *email = "marcorossi69@gmail.com";
+    char const *password = "redigotham";
+    char const *purchType = "Carta di credito";
 
-    //utente.registration(db1);
-    utente.registration();
+    Con2DB db("localhost", "5432", "userdb", "47002", "ecommercedb");
+
+    Utente utente(name, surname, email, password, purchType);
+
+    utente.registration(utente, db);
 
     /*while (1){
 
