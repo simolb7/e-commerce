@@ -13,7 +13,6 @@
 #include <unistd.h>
 #include <time.h>
 #include <math.h>
-//#include <operazioni.h>
 #include <utente.h>
 #include <../../../con2db/pgsql.h>
 
@@ -22,20 +21,24 @@
 
 using namespace std;
 
-/*#define NAME  "Marco"
-#define SURNAME string "Rossi"
-#define EMAIL string "marcorossi69@gmail.com"
-#define PASSWORD string "redigotham"
-#define PURCHTYPE ["Paypal", "Mastercard", "Visa", "BitCoin", "ETH"]*/
+/*
+#define NAME "Marco"
+#define SURNAME "Rossi"
+#define EMAIL "marcorossi69@gmail.com"
+#define PASSWORD "redigotham"
+#define PURCHTYPE "carta di credito"
+*/
 
-char const *name = "Marco";
-char const *surname = "Rossi";
-char const *email = "marcorossi69@gmail.com";
-char const *password = "redigotham";
-char const *purchType = "Carta di credito";
+extern char const *name;
+extern char const *surname;
+extern char const *email;
+extern char const *password;
+extern char const *purchType;
 
-Con2DB db("localost", "5432", "userdb", "47002", "ecommercedb");
-Utente utente(name, surname, email, password, purchType);
+
+extern Con2DB db;
+extern Utente utente;
+//extern Utente utente(NAME, SURNAME, EMAIL, PASSWORD, PURCHTYPE);
 
 
 #endif //MAIN_H
