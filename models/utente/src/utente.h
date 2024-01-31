@@ -10,34 +10,34 @@ using namespace std;
 
 class Utente{
     private:
-        string name;
-        string surname;
-        string email;
-        string password;
-        string purchType[5];
+        string nameU;
+        string surnameU;
+        string emailU;
+        string passwordU;
+        string purchTypeU[5];
         
     public:
         Utente(const string nameC, const string surnameC, const string emailC, const string passwordC, const string *purchTypeC) : 
-        name(nameC), surname(surnameC), email(emailC), password(passwordC)
+        nameU(nameC), surnameU(surnameC), emailU(emailC), passwordU(passwordC)
         {
-            *purchType = *purchTypeC;
+            *purchTypeU = *purchTypeC;
         }
 
         string getName(){
-            return name;
+            return nameU;
         }
 
         string getSurname(){
-            return surname;
+            return surnameU;
         }
 
         string getEmail(){
-            return email;
+            return emailU;
         }
 
         string getPassword(){
-            return password;
+            return passwordU;
         }
 
-        void registration(Con2DB db1){};
+        void registration();
 };

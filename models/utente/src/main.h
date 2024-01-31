@@ -32,9 +32,9 @@ string name = "Marco";
 string surname = "Rossi";
 string email = "marcorossi69@gmail.com";
 string password = "redigotham";
-string purchType[] = {"Paypal", "Mastercard", "Visa", "BitCoin", "ETH"};
+string purchType[5] = {"Paypal", "Mastercard", "Visa", "BitCoin", "ETH"};
 
-Con2DB db1("localost", "5432", "userdb", "47002", "ecommercedb");
+Con2DB db("localost", "5432", "userdb", "47002", "ecommercedb");
 Utente utente(name, surname, email, password, purchType);
 
 

@@ -1,8 +1,7 @@
 
 #include <main.h>
-#include <utente.h>
 
-void Utente::registration(Con2DB db){
+void Utente::registration(){
     string nome  = utente.getName();
     string cognome  = utente.getSurname();
     string email  = utente.getEmail();
@@ -15,7 +14,7 @@ void Utente::registration(Con2DB db){
     PQclear(res);
 
     sprintf(sqlcmd, 
-    "INSERT INTO Utente VALUES (\'%s\', \'%s\', \'%s\', \'%s\') ON CONFLICT DO NOTHING", nome, cognome, email, password);
+    "INSERT INTO Utente VALUES (%s, %s, %s, %s) ON CONFLICT DO NOTHING", nome, cognome, email, password);
     res = db.ExecSQLcmd(sqlcmd);
     PQclear(res);
 

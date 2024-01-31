@@ -49,7 +49,7 @@ int main() {
     //Utente utente1(name, surname, email, password, purchType);
 
     //utente.registration(db1);
-    utente.registration(db1);
+    utente.registration();
 
     /*while (1){
 
