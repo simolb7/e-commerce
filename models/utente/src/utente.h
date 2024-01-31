@@ -10,21 +10,19 @@ using namespace std;
 
 class Utente{
     private:
-        string nameU;
-        string surnameU;
-        string emailU;
-        string passwordU;
-        string purchTypeU[5];
+        char *nameU;
+        const char *surnameU;
+        const char *emailU;
+        const char *passwordU;
+        const char *purchTypeU;
         
     public:
-        Utente(const string nameC, const string surnameC, const string emailC, const string passwordC, const string *purchTypeC) : 
-        nameU(nameC), surnameU(surnameC), emailU(emailC), passwordU(passwordC)
-        {
-            *purchTypeU = *purchTypeC;
-        }
+        Utente(char *nameC, const char *surnameC, const char *emailC, const char *passwordC, const char *purchTypeC) : 
+        nameU(nameC), surnameU(surnameC), emailU(emailC), passwordU(passwordC), purchTypeU(purchTypeC){}
+        
 
-        string getName(){
-            return nameU;
+        char* getName(){
+            return *nameU;
         }
 
         string getSurname(){

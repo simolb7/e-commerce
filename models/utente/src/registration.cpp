@@ -2,7 +2,7 @@
 #include <main.h>
 
 void Utente::registration(){
-    string nome  = utente.getName();
+    char *nome  = utente.getName();
     string cognome  = utente.getSurname();
     string email  = utente.getEmail();
     string password  = utente.getPassword();
