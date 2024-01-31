@@ -28,11 +28,11 @@ using namespace std;
 #define PASSWORD string "redigotham"
 #define PURCHTYPE ["Paypal", "Mastercard", "Visa", "BitCoin", "ETH"]*/
 
-char *name = "Marco";
-char *surname = "Rossi";
-char *email = "marcorossi69@gmail.com";
-char *password = "redigotham";
-char *purchType = "Carta di credito";
+char const *name = "Marco";
+char const *surname = "Rossi";
+char const *email = "marcorossi69@gmail.com";
+char const *password = "redigotham";
+char const *purchType = "Carta di credito";
 
 Con2DB db("localost", "5432", "userdb", "47002", "ecommercedb");
 Utente utente(name, surname, email, password, purchType);

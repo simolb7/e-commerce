@@ -2,10 +2,10 @@
 #include <main.h>
 
 void Utente::registration(){
-    char *nome  = utente.getName();
-    string cognome  = utente.getSurname();
-    string email  = utente.getEmail();
-    string password  = utente.getPassword();
+    char const *nomeR  = utente.getName();
+    char const *cognomeR  = utente.getSurname();
+    char const *emailR  = utente.getEmail();
+    char const *passwordR  = utente.getPassword();
     PGresult *res;
     char sqlcmd[1000];
 
@@ -14,7 +14,7 @@ void Utente::registration(){
     PQclear(res);
 
     sprintf(sqlcmd, 
-    "INSERT INTO Utente VALUES (%s, %s, %s, %s) ON CONFLICT DO NOTHING", nome, cognome, email, password);
+    "INSERT INTO Utente VALUES (%s, %s, %s, %s) ON CONFLICT DO NOTHING", nomeR, cognomeR, emailR, passwordR);
     res = db.ExecSQLcmd(sqlcmd);
     PQclear(res);
 

@@ -10,30 +10,30 @@ using namespace std;
 
 class Utente{
     private:
-        char *nameU;
-        const char *surnameU;
-        const char *emailU;
-        const char *passwordU;
-        const char *purchTypeU;
+        char const *nameU;
+        char const *surnameU;
+        char const *emailU;
+        char const *passwordU;
+        char const *purchTypeU;
         
     public:
-        Utente(char *nameC, const char *surnameC, const char *emailC, const char *passwordC, const char *purchTypeC) : 
+        Utente(char const *nameC, char const *surnameC, char const *emailC, char const *passwordC, char const *purchTypeC) : 
         nameU(nameC), surnameU(surnameC), emailU(emailC), passwordU(passwordC), purchTypeU(purchTypeC){}
         
 
-        char* getName(){
-            return *nameU;
+        char const * getName(){
+            return nameU;
         }
 
-        string getSurname(){
+        char const * getSurname(){
             return surnameU;
         }
 
-        string getEmail(){
+        char const  * getEmail(){
             return emailU;
         }
 
-        string getPassword(){
+        char const * getPassword(){
             return passwordU;
         }
 
