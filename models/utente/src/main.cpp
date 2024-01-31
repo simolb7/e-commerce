@@ -3,23 +3,25 @@
 //
 
 #include <main.h>
-#include <utente.h>
 
 using namespace std;
+//using namespace operazioni;
 
 int main() {
-    redisContext *c2r;
-    redisReply *reply;
+    //redisContext *c2r;
+    //redisReply *reply;
 
-    Con2DB db1("localost", "5432", "userdb", "47002", "ecommercedb");
+    //Con2DB db1("localost", "5432", "userdb", "47002", "ecommercedb");
     int pid;
     unsigned seed;
 
+    /*
     string name = "Marco";
     string surname = "Rossi";
     string email = "marcorossi69@gmail.com";
     string password = "redigotham";
     string purchType[] = {"Paypal", "Mastercard", "Visa", "BitCoin", "ETH"};
+    */
 
     #if (DEBUG > 0)
         setvbuf(stdout, (char*) NULL, _IONBF, 0);
@@ -35,29 +37,29 @@ int main() {
 
     //printf("main(): pid %d: user %s: connecting to redis ...\n", pid, username);
 
-    c2r = redisConnect("localhost", 6379);
+    //c2r = redisConnect("localhost", 6379);
 
     //printf("main(): pid %d: user %s: connected to redis\n", pid, username);
 
 
     /* Create streams/groups */
-    initStreams(c2r, READ_STREAM);
-    initStreams(c2r, WRITE_STREAM);
+    //initStreams(c2r, READ_STREAM);
+    //initStreams(c2r, WRITE_STREAM);
 
-    Utente utente(name, surname, email, password, purchType);
+    //Utente utente1(name, surname, email, password, purchType);
 
-    //registration(db1, utente);
+    //utente.registration(db1);
+    utente.registration();
 
-    while (1){
+    /*while (1){
 
 
         usleep(1000);
 
-        /* sleep   */
-        //micro_sleep(1000000);
-    }  // while ()
+    }*/
+    
+    //redisFree(c2r);
 
-    redisFree(c2r);
-
+    return 0;
 
 };

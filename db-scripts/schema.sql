@@ -12,9 +12,9 @@ create domain TimePoint as timestamp ;
 CREATE DOMAIN  StringS AS VARCHAR(30) ;
 CREATE DOMAIN  StringM as VARCHAR(200) ;
 CREATE DOMAIN  StringL as VARCHAR(1000) ;
-CREATE DOMAIN PIva as INTEGER(11);
-CREATE DOMAIN BarCode as INTEGER(20);
-CREATE DOMAIN IntG0 as INTEGER check VALUES>0;
+CREATE DOMAIN PIva as VARCHAR(11);
+CREATE DOMAIN BarCode as VARCHAR(20);
+CREATE DOMAIN IntG0 as INTEGER CHECK (VALUE > 0);
 
 -- Pick the one most appropriate for your application
 --CREATE DOMAIN VarType AS real ;
@@ -55,52 +55,51 @@ CREATE TABLE IF NOT EXISTS Utente (
         nameU StringS,
         surnameU StringS,
         email StringM,
-        passwordU TEXT,
-); 
+        passwordU StringM
+);
 
 CREATE TABLE IF NOT EXISTS Costumer (
-        idC int NOT NULL,
+        idC int UNIQUE NOT NULL,
         CONSTRAINT idC_ref FOREIGN KEY(idC) REFERENCES Utente(idU)
 );
 
 CREATE TABLE IF NOT EXISTS Fornitore (
-        idF int NOT NULL,
+        idF int UNIQUE NOT NULL,
         PIvaF PIva,
         CONSTRAINT idF_ref FOREIGN KEY(idF) REFERENCES Utente(idU)
 );
 
 CREATE TABLE IF NOT EXISTS Trasportatore (
-        idT int NOT NULL,
-        azienda SteingM,
+        idT int UNIQUE NOT NULL,
+        azienda StringM,
         CONSTRAINT idT_ref FOREIGN KEY(idT) REFERENCES Utente(idU)
 );
 
 CREATE TABLE IF NOT EXISTS MetPag (
         idMP serial PRIMARY KEY,
-        nameMP StringM UNIQUE,
+        nameMP StringM UNIQUE
 );
 
 CREATE TABLE IF NOT EXISTS MPUte (
         utente int NOT NULL,
         metpag int NOT NULL,
-        CONSTRAINT utente_ref FOREIGN KEY(utente) REFERENCES Utente(idU)
+        CONSTRAINT utente_ref FOREIGN KEY(utente) REFERENCES Utente(idU),
         CONSTRAINT metpag_ref FOREIGN KEY(metpag) REFERENCES MetPag(idMP)
+);
+
+CREATE TABLE IF NOT EXISTS Categoria (
+        idCat serial PRIMARY KEY,
+        nameCat StringS UNIQUE
 );
 
 CREATE TABLE IF NOT EXISTS Oggetto (
         idO serial PRIMARY KEY,
         nameO StringS,
         descr StringL,
-        CBar BarCod UNIQUE,
+        CBar BarCode UNIQUE,
         category int NOT NULL,
         CONSTRAINT cat_ref FOREIGN KEY(category) REFERENCES Categoria(idCat)
 );
-
-CREATE TABLE IF NOT EXISTS Categoria (
-        idCat serial PRIMARY KEY,
-        nameCat StringS UNIQUE,
-);
-
 CREATE TABLE IF NOT EXISTS Vendita (
         idVen serial PRIMARY KEY,
         prezzo real,
@@ -108,7 +107,7 @@ CREATE TABLE IF NOT EXISTS Vendita (
         istante TIMESTAMP,
         fornitore int NOT NULL,
         oggetto int NOT NULL,
-        CONSTRAINT fornitore_ref FOREIGN KEY(fornitore) REFERENCES Fornitore(idF)
+        CONSTRAINT fornitore_ref FOREIGN KEY(fornitore) REFERENCES Fornitore(idF),
         CONSTRAINT oggetto_ref FOREIGN KEY(oggetto) REFERENCES Oggetto(idO)
 );
 
@@ -118,7 +117,7 @@ CREATE TABLE IF NOT EXISTS Acquisto (
         istante TIMESTAMP,
         costumer int NOT NULL,
         trasportatore int NOT NULL,
-        CONSTRAINT costumer_ref FOREIGN KEY(costumer) REFERENCES Costumer(idC)
+        CONSTRAINT costumer_ref FOREIGN KEY(costumer) REFERENCES Costumer(idC),
         CONSTRAINT trasportatore_ref FOREIGN KEY(trasportatore) REFERENCES Trasportatore(idT)
 );
 
@@ -126,7 +125,7 @@ CREATE TABLE IF NOT EXISTS AcqOgg (
         oggetto int NOT NULL,
         acquisto int NOT NULL,
         quantity IntG0,
-        CONSTRAINT oggetto_ref FOREIGN KEY(oggetto) REFERENCES Oggetto(idO)
+        CONSTRAINT oggetto_ref FOREIGN KEY(oggetto) REFERENCES Oggetto(idO),
         CONSTRAINT acquisto_ref FOREIGN KEY(acquisto) REFERENCES Acquisto(idAcq)
 );
 
