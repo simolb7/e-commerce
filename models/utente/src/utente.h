@@ -36,4 +36,6 @@ class Utente{
         }
 
         void registration(Utente utente1, Con2DB db1);
+
+        void login(Utente utente1, Con2DB db1);
 };
