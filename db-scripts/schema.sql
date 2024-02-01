@@ -54,7 +54,7 @@ CREATE TABLE IF NOT EXISTS Utente (
         idU serial PRIMARY KEY,
         nameU StringS,
         surnameU StringS,
-        email StringM,
+        emailU StringM,
         passwordU StringM
 );
 
