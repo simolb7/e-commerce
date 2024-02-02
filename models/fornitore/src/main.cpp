@@ -41,6 +41,7 @@ int main(){
         //verifica che ci sia stata una risposta
         assertReply(c2r, reply);
         //mostra la risposta e indenta rispetto al valore della colonna (0)
+        printf("\nCULO\n");
         dumpReply(reply, 0);
         for (k=0; k < ReadNumStreams(reply); k++)
         {
