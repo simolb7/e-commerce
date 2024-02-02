@@ -1,9 +1,5 @@
-//
-// Created by simolb on 1/29/24.
-//
 #include <../../../con2db/pgsql.h>
 using namespace std;
-
 // typedef enum {costumer,fornitore,trasportatore} Type;
 
 class Utente{
@@ -35,7 +31,7 @@ class Utente{
             return passwordU;
         }
 
-        void registration(Utente utente1, Con2DB db1);
+        void registration(Utente utente1, Con2DB db1, char const *ruolo1);
 
         void login(Utente utente1, Con2DB db1);
 };
