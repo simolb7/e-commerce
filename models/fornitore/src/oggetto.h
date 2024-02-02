@@ -27,5 +27,5 @@ class Oggetto{
             return categoriaO;
         }
 
-        void addOggetto(Con2DB db1);
+        void addOggetto(Oggetto oggetto1, Con2DB db1);
 };

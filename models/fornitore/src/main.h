@@ -10,13 +10,24 @@
 #include <unistd.h>
 #include <time.h>
 #include <math.h>
-#include <../../utente/src/utente.h>
 #include <../../../con2db/pgsql.h>
 
 #define READ_STREAM "stream2"
 #define WRITE_STREAM "stream1"
 
 using namespace std;
+
+extern char const *nomeOgg;
+extern char const *descrizioneOgg;
+extern char const *barCodeOgg;
+extern char const *categoriaOgg;
+
+extern char const *name;
+extern char const *surname;
+extern char const *email;
+extern char const *password;
+extern char const *purchType;
+extern char const *ruolo;
 
 extern Con2DB db;
 #endif //MAIN_H
