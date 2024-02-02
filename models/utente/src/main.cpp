@@ -1,5 +1,4 @@
 #include <main.h>
-
 using namespace std;
 //using namespace operazioni;
 
@@ -39,12 +38,15 @@ int main() {
     char const *email = "marcorossi69@gmail.com";
     char const *password = "redigotham";
     char const *purchType = "Carta di credito";
+    char const *ruolo = "Costumer";
 
     Con2DB db("localhost", "5432", "userdb", "47002", "ecommercedb");
 
     Utente utente(name, surname, email, password, purchType);
 
-    utente.registration(utente, db);
+    utente.registration(utente, db, ruolo);
+
+    utente.login(utente, db);
 
     /*while (1){
 

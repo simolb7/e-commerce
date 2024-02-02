@@ -15,6 +15,7 @@ CREATE DOMAIN  StringL as VARCHAR(1000) ;
 CREATE DOMAIN PIva as VARCHAR(11);
 CREATE DOMAIN BarCode as VARCHAR(20);
 CREATE DOMAIN IntG0 as INTEGER CHECK (VALUE > 0);
+CREATE DOMAIN IntGE0 as INTEGER CHECK (VALUE >= 0);
 
 -- Pick the one most appropriate for your application
 --CREATE DOMAIN VarType AS real ;
@@ -54,7 +55,7 @@ CREATE TABLE IF NOT EXISTS Utente (
         idU serial PRIMARY KEY,
         nameU StringS,
         surnameU StringS,
-        email StringM,
+        emailU StringM,
         passwordU StringM
 );
 
@@ -100,10 +101,11 @@ CREATE TABLE IF NOT EXISTS Oggetto (
         category int NOT NULL,
         CONSTRAINT cat_ref FOREIGN KEY(category) REFERENCES Categoria(idCat)
 );
-CREATE TABLE IF NOT EXISTS Vendita (
-        idVen serial PRIMARY KEY,
+CREATE TABLE IF NOT EXISTS Inventario (
+        idInv serial PRIMARY KEY,
         prezzo real,
-        quantity IntG0,
+        QuantitaS IntG0,
+        QuantitaAtt IntGE0,
         istante TIMESTAMP,
         fornitore int NOT NULL,
         oggetto int NOT NULL,
