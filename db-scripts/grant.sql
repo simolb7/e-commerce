@@ -15,7 +15,7 @@ ALTER TABLE MetPag OWNER TO :username ;
 ALTER TABLE MPUte OWNER TO :username ;
 ALTER TABLE Categoria OWNER TO :username ;
 ALTER TABLE Oggetto OWNER TO :username ;
-ALTER TABLE Vendita OWNER TO :username ;
+ALTER TABLE Inventario OWNER TO :username ;
 ALTER TABLE Acquisto OWNER TO :username ;
 ALTER TABLE AcqOgg OWNER TO :username ;
 

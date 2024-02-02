@@ -7,9 +7,10 @@
 
 //#include <con2redis.h>
 
+#include <iostream>
 #include <stdio.h>
 #include <stdlib.h>
-#include <string>
+#include <string.h>
 #include <unistd.h>
 #include <time.h>
 #include <math.h>
@@ -34,6 +35,7 @@ extern char const *surname;
 extern char const *email;
 extern char const *password;
 extern char const *purchType;
+extern char const *ruolo;
 
 
 extern Con2DB db;
