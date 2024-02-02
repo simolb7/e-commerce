@@ -38,7 +38,7 @@ int main() {
     char const *email = "marcorossi69@gmail.com";
     char const *password = "redigotham";
     char const *purchType = "Carta di credito";
-    char const *ruolo = "Costumer";
+    char const *ruolo = "Fornitore";
 
     Con2DB db("localhost", "5432", "userdb", "47002", "ecommercedb");
 

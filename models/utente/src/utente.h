@@ -3,7 +3,7 @@ using namespace std;
 // typedef enum {costumer,fornitore,trasportatore} Type;
 
 class Utente{
-    private:
+    protected:
         char const *nameU;
         char const *surnameU;
         char const *emailU;
