@@ -1,5 +1,10 @@
 #include <main.h>
-#include <fornitore.h>
+#include "oggetto.h"
+#include "fornitore.h"
+
+
+#define READ_STREAM "connCostumer"
+#define WRITE_STREAM "connTrasportatore"
 
 int main(){
 
@@ -34,26 +39,28 @@ int main(){
 
     initStreams(c2r, READ_STREAM);
     initStreams(c2r, WRITE_STREAM);
-    bool cond = true;
 
+    
+    bool cond = true;
     while(cond) {
         reply = RedisCommand(c2r, "XREADGROUP GROUP diameter %s BLOCK %d COUNT 2 NOACK STREAMS %s >", 
 			  username, block, READ_STREAM);
         //verifica che ci sia stata una risposta
         assertReply(c2r, reply);
         //mostra la risposta e indenta rispetto al valore della colonna (0)
+        printf("\nCULO\n");
         dumpReply(reply, 0);
         for (k=0; k < ReadNumStreams(reply); k++)
         {
             ReadStreamName(reply, streamname, k);
             for (i=0; i < ReadStreamNumMsg(reply, k); i++) {
                 ReadStreamNumMsgID(reply, k, i, msgid);
-                printf("main(): pid %d: user %s: stream %s, streamnum %d, msg %d, msgid %s with %d values\n",
-                    pid, username, streamname, k, i, msgid, ReadStreamMsgNumVal(reply, k, i));
+                //printf("main(): pid %d: user %s: stream %s, streamnum %d, msg %d, msgid %s with %d values\n",
+                //    pid, username, streamname, k, i, msgid, ReadStreamMsgNumVal(reply, k, i));
                 for (h = 0; h < ReadStreamMsgNumVal(reply, k, i); h++)
                 {
                     ReadStreamMsgVal(reply, k, i, h, fval);
-                    printf("main(): pid %d: user %s: streamnum %d, msg %d, msgid %s value %d = %s\n", pid, username, k, i, msgid, h, fval);
+                    printf("Nuovo ordine ricevuto: user %s: streamnum %d, msg %d, msgid %s value %d = %s\n", username, k, i, msgid, h, fval);
                 }	      	      
             }
         }
@@ -83,6 +90,7 @@ int main(){
 
     Con2DB db("localhost", "5432", "userdb", "47002", "ecommercedb");
 
+    
     Oggetto oggetto(nomeOgg, descrizioneOgg, barCodeOgg, categoriaOgg);
 
     oggetto.addOggetto(oggetto, db);
@@ -90,6 +98,6 @@ int main(){
     Fornitore fornitore(name, surname, email, password, purchType);
 
     fornitore.addInventario(oggetto, fornitore, db);
-
+    
     return 0;
 };
