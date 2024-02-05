@@ -1,4 +1,6 @@
 #include <main.h>
+#include "oggetto.h"
+#include "fornitore.h"
 
 
 #define READ_STREAM "connCostumer"
@@ -88,6 +90,7 @@ int main(){
 
     Con2DB db("localhost", "5432", "userdb", "47002", "ecommercedb");
 
+    
     Oggetto oggetto(nomeOgg, descrizioneOgg, barCodeOgg, categoriaOgg);
 
     oggetto.addOggetto(oggetto, db);
@@ -95,6 +98,6 @@ int main(){
     Fornitore fornitore(name, surname, email, password, purchType);
 
     fornitore.addInventario(oggetto, fornitore, db);
-
+    
     return 0;
 };
