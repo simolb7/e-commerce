@@ -107,8 +107,8 @@ CREATE TABLE IF NOT EXISTS Inventario (
         QuantitaS IntG0,
         QuantitaAtt IntGE0,
         istante TIMESTAMP,
-        fornitore int NOT NULL,
-        oggetto int NOT NULL,
+        fornitore int NOT NULL UNIQUE,
+        oggetto int NOT NULL UNIQUE,
         CONSTRAINT fornitore_ref FOREIGN KEY(fornitore) REFERENCES Fornitore(idF),
         CONSTRAINT oggetto_ref FOREIGN KEY(oggetto) REFERENCES Oggetto(idO)
 );
