@@ -8,6 +8,7 @@ void Utente::registration(Utente utente1, Con2DB db1, char const *ruolo1){
     char const *costumer = "Costumer";
     char const *fornitore = "Fornitore";
     char const *trasportatore = "Trasportatore";
+    char const *pIva = "12345678901";
     PGresult *res;
     char sqlcmd[1000];
     int idU;
@@ -31,6 +32,12 @@ void Utente::registration(Utente utente1, Con2DB db1, char const *ruolo1){
     if (strcmp(ruolo1, costumer) == 0){
         sprintf(sqlcmd,
         "INSERT INTO Costumer VALUES (\'%d\') ON CONFLICT DO NOTHING", idU);
+        res = db1.ExecSQLcmd(sqlcmd);
+        PQclear(res);
+    }
+    else if (strcmp(ruolo1, fornitore) == 0){
+        sprintf(sqlcmd,
+        "INSERT INTO Fornitore VALUES (\'%d\', \'%s\') ON CONFLICT DO NOTHING", idU, pIva);
         res = db1.ExecSQLcmd(sqlcmd);
         PQclear(res);
     }
