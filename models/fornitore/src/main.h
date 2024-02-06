@@ -1,8 +1,6 @@
 #ifndef MAIN_H
 #define MAIN_H
 
-//#include <con2redis.h>
-
 #include <iostream>
 #include <stdio.h>
 #include <stdlib.h>
@@ -11,9 +9,7 @@
 #include <time.h>
 #include <math.h>
 #include <../../../con2db/pgsql.h>
-
-#define READ_STREAM "stream2"
-#define WRITE_STREAM "stream1"
+#include <../../../con2redis/src/con2redis.h>
 
 using namespace std;
 

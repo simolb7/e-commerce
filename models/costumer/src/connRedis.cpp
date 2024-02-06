@@ -1,13 +1,12 @@
 #include <main.h>
 using namespace std;
-
-//using namespace operazioni;
+#define READ_STREAM "stream2"
+#define WRITE_STREAM "stream1"
 
 int main() {
     redisContext *c2r;
     redisReply *reply;
 
-    //Con2DB db1("localost", "5432", "userdb", "47002", "ecommercedb");
     int pid;
     unsigned seed;
     char key1[100];
@@ -15,29 +14,6 @@ int main() {
     char username[100];
     bool cond;
 
-
-    #if (DEBUG > 0)
-        setvbuf(stdout, (char*) NULL, _IONBF, 0);
-        setvbuf(stderr, (char*) NULL, _IONBF, 0);
-    #endif
-
-    char const *name = "Marco";
-    char const *surname = "Rossi";
-    char const *email = "marcorossi69@gmail.com";
-    char const *password = "redigotham";
-    char const *purchType = "Carta di credito";
-    char const *ruolo = "Fornitore";
-
-    
-    /*
-    Con2DB db("localhost", "5432", "userdb", "47002", "ecommercedb");
-
-    Utente utente(name, surname, email, password, purchType);
-
-    utente.registration(utente, db, ruolo);
-
-    utente.login(utente, db);
-    */
     seed = (unsigned) time(NULL);
     srand(seed);
     sprintf(username, "%u", rand());  
@@ -72,4 +48,6 @@ int main() {
 
     }
     redisFree(c2r);
-};
+
+    
+}

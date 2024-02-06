@@ -16,6 +16,7 @@
 #include <math.h>
 #include <utente.h>
 #include <../../../con2db/pgsql.h>
+#include <../../../con2redis/src/con2redis.h>
 
 #define READ_STREAM "stream2"
 #define WRITE_STREAM "stream1"
@@ -41,6 +42,9 @@ extern char const *ruolo;
 extern Con2DB db;
 extern Utente utente;
 //extern Utente utente(NAME, SURNAME, EMAIL, PASSWORD, PURCHTYPE);
+
+int micro_sleep(long usec);
+
 
 
 #endif //MAIN_H
