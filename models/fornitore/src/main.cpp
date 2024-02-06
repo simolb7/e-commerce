@@ -33,6 +33,7 @@ int main(){
     assertReply(c2r, reply);
     dumpReply(reply, 0);
 
+    
     reply = RedisCommand(c2r, "DEL %s", WRITE_STREAM);
     assertReply(c2r, reply);
     dumpReply(reply, 0);
@@ -76,9 +77,11 @@ int main(){
     }    
     redisFree(c2r);
     
+    //char const *nomeOgg = "Mouse Logitech";
     char const *nomeOgg = "Monitor LG";
     char const *descrizioneOgg = "grandi palle, bel pisello";
     char const *barCodeOgg = "12345678900987654321";
+    //char const *barCodeOgg = "12345678900987654322";
     char const *categoriaOgg = "Elettronica";
 
     char const *name = "Marco";
@@ -97,7 +100,8 @@ int main(){
 
     Fornitore fornitore(name, surname, email, password, purchType);
 
-    fornitore.addInventario(oggetto, fornitore, db);
-    
+    //fornitore.addInventario(oggetto, fornitore, db);
+    fornitore.addQuantity(oggetto, fornitore, db, 10);
+
     return 0;
 };
