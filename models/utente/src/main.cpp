@@ -2,6 +2,7 @@
 using namespace std;
 
 #define WRITE_STREAM "customer2fornitore"
+#define READ_STREAM "trasportatore2costumer"
 
 //using namespace operazioni;
 
@@ -11,8 +12,8 @@ int main() {
 
     //Con2DB db1("localost", "5432", "userdb", "47002", "ecommercedb");
     int pid;
-    char *key = "Prova key";
-    char *value = "Prova value";
+    char *key = "key Costumer";
+    char *value = "Nuovo ordine";
     char *username = "marcorossi69@gmail.com";
 
 
@@ -31,6 +32,8 @@ int main() {
     printf("main(): pid %d: user %s: connected to redis\n", pid, username);
 
     initStreams(c2r, WRITE_STREAM);
+    initStreams(c2r, READ_STREAM);
+
     sendMsg(c2r, reply, WRITE_STREAM, key, value);
     redisFree(c2r);
     
