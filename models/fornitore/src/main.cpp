@@ -1,5 +1,4 @@
 #include <main.h>
-#include "oggetto.h"
 #include "fornitore.h"
 
 
@@ -10,8 +9,8 @@ int main(){
 
     int pid;
     unsigned seed;
-    redisContext *c2r;
-    redisReply *reply;
+    //redisContext *c2r;
+    //redisReply *reply;
     char username[100];
     int block = 1000000000;
     char streamname[100];
@@ -21,6 +20,7 @@ int main(){
     char value[100];
     int i, k, h;
 
+    /*
     seed = (unsigned) time(NULL);
     srand(seed);
     sprintf(username, "%u", rand());  
@@ -76,7 +76,8 @@ int main(){
         freeReplyObject(reply);
     }    
     redisFree(c2r);
-    
+    */
+
     //char const *nomeOgg = "Mouse Logitech";
     char const *nomeOgg = "Monitor LG";
     char const *descrizioneOgg = "grandi palle, bel pisello";
@@ -100,7 +101,7 @@ int main(){
 
     Fornitore fornitore(name, surname, email, password, purchType);
 
-    //fornitore.addInventario(oggetto, fornitore, db);
+    fornitore.addInventario(oggetto, fornitore, db);
     fornitore.addQuantity(oggetto, fornitore, db, 10);
 
     return 0;
