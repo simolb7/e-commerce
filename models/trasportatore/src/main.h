@@ -13,11 +13,6 @@
 
 using namespace std;
 
-extern char const *nomeOgg;
-extern char const *descrizioneOgg;
-extern char const *barCodeOgg;
-extern char const *categoriaOgg;
-
 extern char const *name;
 extern char const *surname;
 extern char const *email;

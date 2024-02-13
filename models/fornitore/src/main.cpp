@@ -4,7 +4,7 @@
 
 
 #define READ_STREAM "customer2fornitore"
-//#define WRITE_STREAM "writeTrasportatore"
+#define WRITE_STREAM "fornitore2trasportatore"
 
 int main(){
     redisContext *c2r;
@@ -13,21 +13,29 @@ int main(){
     int pid;
     char *username = "fornitore@gmail.com";;
     char *fval;
+    char *key = "key fornitore";
+    char *value = "Nuovo spedizione assegnata";
 
     pid = getpid();
     printf("main(): pid %d: user %s: connecting to redis ...\n", pid, username);
     c2r = redisConnect("localhost", 6379);
     printf("main(): pid %d: user %s: connected to redis\n", pid, username);
-
+    /*
     reply = RedisCommand(c2r, "DEL %s", READ_STREAM);
     assertReply(c2r, reply);
     dumpReply(reply, 0);
-
+    */
     initStreams(c2r, READ_STREAM);
+    initStreams(c2r, WRITE_STREAM);
+
     fval = readMsg(c2r, reply, READ_STREAM, username);
     printf("result fval : %s", fval);
-    redisFree(c2r);
+    sendMsg(c2r, reply, WRITE_STREAM, key, value);
+
+
+
     
+    /*
     //char const *nomeOgg = "Mouse Logitech";
     char const *nomeOgg = "Monitor LG";
     char const *descrizioneOgg = "grandi palle, bel pisello";
@@ -53,6 +61,7 @@ int main(){
 
     //fornitore.addInventario(oggetto, fornitore, db);
     fornitore.addQuantity(oggetto, fornitore, db, 10);
-    
+    */
+    redisFree(c2r);
     return 0;
 };
