@@ -9,5 +9,11 @@ class Trasportatore: virtual public Utente{
         Trasportatore(char const *nameC, char const *surnameC, char const *emailC, char const *passwordC, char const *purchTypeC) : 
         Utente(nameC, surnameC, emailC, passwordC, purchTypeC){};
     
-        void updateStatus(char *idOrdine, Con2DB db1);
+        void updateStatus(int idOrdine, Con2DB db1);
+
+        void getStatus(int idOrdine, Con2DB db1, char *status);
+
+        void getOrders(Trasportatore trasportatore, Con2DB db1, int orders[]);
+
+        
 };

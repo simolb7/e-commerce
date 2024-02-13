@@ -25,8 +25,8 @@ int main(){
 
     fval = readMsg(c2r, reply, READ_STREAM, username);
     printf("result fval : %s", fval);
-    sendMsg(c2r, reply, WRITE_STREAM, key, value);
     
+    sendMsg(c2r, reply, WRITE_STREAM, key, value);
     
     
     redisFree(c2r);
