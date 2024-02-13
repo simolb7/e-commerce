@@ -5,6 +5,8 @@ void Costumer::acquisto(char * idInv, Costumer costumer1, int quantita, Con2DB d
     int idCost;
     int idA;
     int row;
+    int qAtt;
+    int qAgg;
     PGresult *res;
     char sqlcmd[1000];
 
@@ -24,6 +26,12 @@ void Costumer::acquisto(char * idInv, Costumer costumer1, int quantita, Con2DB d
     PQclear(res);
 
     sprintf(sqlcmd,
+    "SELECT quantitaAtt FROM Inventario WHERE (idInv = \'%d\')", idInv);
+    res = db1.ExecSQLtuples(sqlcmd);
+    qAtt = atoi(PQgetvalue(res, 0, PQfnumber(res, "quantitaAtt")));
+    PQclear(res);
+
+    sprintf(sqlcmd,
     "SELECT idAcq FROM Acquisto");
     res = db1.ExecSQLtuples(sqlcmd);
     row = PQntuples(res);
@@ -35,6 +43,13 @@ void Costumer::acquisto(char * idInv, Costumer costumer1, int quantita, Con2DB d
     res = db1.ExecSQLcmd(sqlcmd);
     PQclear(res);
 
+    qAgg = qAtt - quantita;
+
+    sprintf(sqlcmd,
+    "UPDATE Inventario SET quantitaAtt = \'%d\' WHERE (idInv = \'%d\')", qAgg, idInv);
+    res = db1.ExecSQLcmd(sqlcmd);
+    PQclear(res);
+    
     sprintf(sqlcmd, "COMMIT");
     res = db1.ExecSQLcmd(sqlcmd);
     PQclear(res);
