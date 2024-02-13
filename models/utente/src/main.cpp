@@ -16,8 +16,6 @@ int main() {
     char *value = "Nuovo ordine";
     char *username = "marcorossi69@gmail.com";
 
-
-
     char const *name = "Marco";
     char const *surname = "Rossi";
     char const *email = "marcorossi69@gmail.com";
