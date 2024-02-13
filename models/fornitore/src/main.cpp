@@ -20,11 +20,7 @@ int main(){
     printf("main(): pid %d: user %s: connecting to redis ...\n", pid, username);
     c2r = redisConnect("localhost", 6379);
     printf("main(): pid %d: user %s: connected to redis\n", pid, username);
-    /*
-    reply = RedisCommand(c2r, "DEL %s", READ_STREAM);
-    assertReply(c2r, reply);
-    dumpReply(reply, 0);
-    */
+
     initStreams(c2r, READ_STREAM);
     initStreams(c2r, WRITE_STREAM);
 
@@ -32,10 +28,6 @@ int main(){
     printf("result fval : %s", fval);
     sendMsg(c2r, reply, WRITE_STREAM, key, value);
 
-
-
-    
-    /*
     //char const *nomeOgg = "Mouse Logitech";
     char const *nomeOgg = "Monitor LG";
     char const *descrizioneOgg = "grandi palle, bel pisello";
@@ -61,7 +53,7 @@ int main(){
 
     fornitore.addInventario(oggetto, fornitore, db);
     fornitore.addQuantity(oggetto, fornitore, db, 10);
-    */
+    
     redisFree(c2r);
     return 0;
 };
