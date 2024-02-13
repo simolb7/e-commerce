@@ -55,7 +55,7 @@ CREATE TABLE IF NOT EXISTS Utente (
         idU serial PRIMARY KEY,
         nameU StringS,
         surnameU StringS,
-        emailU StringM,
+        emailU StringM UNIQUE,
         passwordU StringM
 );
 
@@ -123,11 +123,11 @@ CREATE TABLE IF NOT EXISTS Acquisto (
         CONSTRAINT trasportatore_ref FOREIGN KEY(trasportatore) REFERENCES Trasportatore(idT)
 );
 
-CREATE TABLE IF NOT EXISTS AcqOgg (
-        oggetto int NOT NULL,
+CREATE TABLE IF NOT EXISTS AcqInv (
+        inventario int NOT NULL,
         acquisto int NOT NULL,
         quantity IntG0,
-        CONSTRAINT oggetto_ref FOREIGN KEY(oggetto) REFERENCES Oggetto(idO),
+        CONSTRAINT inventario_ref FOREIGN KEY(inventario) REFERENCES Inventario(idInv),
         CONSTRAINT acquisto_ref FOREIGN KEY(acquisto) REFERENCES Acquisto(idAcq)
 );
 

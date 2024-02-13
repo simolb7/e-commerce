@@ -59,7 +59,7 @@ int main(){
 
     Fornitore fornitore(name, surname, email, password, purchType);
 
-    //fornitore.addInventario(oggetto, fornitore, db);
+    fornitore.addInventario(oggetto, fornitore, db);
     fornitore.addQuantity(oggetto, fornitore, db, 10);
     */
     redisFree(c2r);

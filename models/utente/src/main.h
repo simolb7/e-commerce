@@ -35,9 +35,24 @@ extern char const *password;
 extern char const *purchType;
 extern char const *ruolo;
 
+extern char const *name2;
+extern char const *surname2;
+extern char const *email2;
+extern char const *password2;
+extern char const *purchType2;
+extern char const *ruolo2;
+
+extern char const *name3;
+extern char const *surname3;
+extern char const *email3;
+extern char const *password3;
+extern char const *purchType3;
+extern char const *ruolo3;
 
 extern Con2DB db;
 extern Utente utente;
+extern Utente utente2;
+extern Utente utente3;
 //extern Utente utente(NAME, SURNAME, EMAIL, PASSWORD, PURCHTYPE);
 
 int micro_sleep(long usec);

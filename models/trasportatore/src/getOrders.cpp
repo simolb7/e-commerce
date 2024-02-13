@@ -1,6 +1,4 @@
 #include <main.h>
-#include "trasportatore.h"
-
 
 void Trasportatore::getOrders(Trasportatore trasportatore, Con2DB db1, int orders[]){
 
@@ -21,13 +19,12 @@ void Trasportatore::getOrders(Trasportatore trasportatore, Con2DB db1, int order
     PQclear(res);
 
     sprintf(sqlcmd, 
-            "SELECT * FROM Acquisto WHERE (trasportatore = \'%d\')", idT);
+            "SELECT idAcq FROM Acquisto WHERE (trasportatore = \'%d\')", idT);
     res = db1.ExecSQLtuples(sqlcmd);
-
     row = PQntuples(res);
-
     for(int i = 0; i < row; i++){
-        orders[i] = atoi(PQgetvalue(res, 0, PQfnumber(res, "idAcq")));
+        int val = atoi(PQgetvalue(res, i, PQfnumber(res, "idAcq")));
+        orders[i] = val;
     }
     PQclear(res);
     
@@ -35,4 +32,4 @@ void Trasportatore::getOrders(Trasportatore trasportatore, Con2DB db1, int order
     res = db1.ExecSQLcmd(sqlcmd);
     PQclear(res);
 
-}
+};
