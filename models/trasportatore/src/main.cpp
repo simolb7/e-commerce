@@ -4,7 +4,7 @@
 #define WRITE_STREAM "trasportatore2costumer"
 
 int main(){
-    /*
+    
     redisContext *c2r;
     redisReply *reply;
 
@@ -14,21 +14,7 @@ int main(){
     char *username = "trasportatore@gmail.com";
     char *fval;
 
-    pid = getpid();
-    printf("main(): pid %d: user %s: connecting to redis ...\n", pid, username);
-    c2r = redisConnect("localhost", 6379);
-    printf("main(): pid %d: user %s: connected to redis\n", pid, username);
-
-    initStreams(c2r, READ_STREAM);
-    initStreams(c2r, WRITE_STREAM);
-
-    fval = readMsg(c2r, reply, READ_STREAM, username);
-    printf("result fval : %s", fval);
-    
-    sendMsg(c2r, reply, WRITE_STREAM, key, value);
-    
-    
-    redisFree(c2r);*/
+    // db
 
     char const *name = "Stefania";
     char const *surname = "Bianchi";
@@ -43,15 +29,34 @@ int main(){
 
     Trasportatore trasportatore(name, surname, email, password, purchType);
 
+    
+
+    //redis
+
+    pid = getpid();
+    printf("main(): pid %d: user %s: connecting to redis ...\n", pid, username);
+    c2r = redisConnect("localhost", 6379);
+    printf("main(): pid %d: user %s: connected to redis\n", pid, username);
+
+    initStreams(c2r, READ_STREAM);
+    initStreams(c2r, WRITE_STREAM);
+
+    fval = readMsg(c2r, reply, READ_STREAM, username);
+    printf("result fval : %s", fval);
+
     trasportatore.getOrders(trasportatore, db, ordini);
 
     int idO = ordini[0];
-
-    //const char *status;
-
-    //trasportatore.getStatus(idO, db, status);
-
+    
+    sendMsg(c2r, reply, WRITE_STREAM, key, value);
+    sleep(5);
     trasportatore.updateStatus(idO, db);
+    sendMsg(c2r, reply, WRITE_STREAM, key, value);
+    sleep(5);
+    trasportatore.updateStatus(idO, db);
+    sendMsg(c2r, reply, WRITE_STREAM, key, value);
+
+
     redisFree(c2r);
     return 0;
     

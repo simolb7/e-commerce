@@ -2,7 +2,7 @@
 #include "trasportatore.h"
 
 
-void Trasportatore::getStatus(int idOrdine, Con2DB db1, char *status){
+void Trasportatore::getStatus(int idOrdine, Con2DB db1, const char *status){
 
     PGresult *res;
     char sqlcmd[1000];
