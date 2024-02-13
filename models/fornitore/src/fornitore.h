@@ -1,3 +1,4 @@
+#pragma once
 #include <../../utente/src/utente.h>
 #include <../../../con2db/pgsql.h>
 #include <oggetto.h> 

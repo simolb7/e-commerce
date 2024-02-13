@@ -18,9 +18,6 @@
 #include <../../../con2db/pgsql.h>
 #include <../../../con2redis/src/con2redis.h>
 
-#define READ_STREAM "stream2"
-#define WRITE_STREAM "stream1"
-
 using namespace std;
 
 /*

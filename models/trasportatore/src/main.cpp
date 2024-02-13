@@ -52,6 +52,7 @@ int main(){
     //trasportatore.getStatus(idO, db, status);
 
     trasportatore.updateStatus(idO, db);
-
+    redisFree(c2r);
     return 0;
+    
 }
