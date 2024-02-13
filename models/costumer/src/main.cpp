@@ -1,6 +1,18 @@
 #include <main.h>
 
+#define WRITE_STREAM "customer2fornitore"
+#define READ_STREAM "trasportatore2costumer"
+
 int main(){
+
+    redisContext *c2r;
+    redisReply *reply;
+
+    int pid;
+    char *key = "key Costumer";
+    char *value = "Nuovo ordine";
+    char *username = "luigiverdi420@gmail.com";
+
     //char const *nomeOgg = "Mouse Logitech";
     char const *nomeOgg = "Monitor LG";
     char const *descrizioneOgg = "grandi palle, bel pisello";
@@ -23,14 +35,24 @@ int main(){
 
     costumer.ricerca(nomeOgg, 5, lista, db);
 
-    
-    cout << lista[0][0] << endl;
-    cout << lista[0][1] << endl;
-    cout << lista[0][2] << endl;
-    cout << lista[0][3] << endl;
-
     costumer.acquisto(lista[0][0], costumer, 3, db);
 
+    pid = getpid();
+
+    printf("main(): pid %d: user %s: connecting to redis ...\n", pid, username);
+    c2r = redisConnect("localhost", 6379);
+    printf("main(): pid %d: user %s: connected to redis\n", pid, username);
+
+    initStreams(c2r, WRITE_STREAM);
+    initStreams(c2r, READ_STREAM);
+
+    sendMsg(c2r, reply, WRITE_STREAM, key, value);
+
+    while(1){
+        readMsg(c2r, reply, READ_STREAM, username);
+    };
+
+    redisFree(c2r);
 
     return 0;
 };
