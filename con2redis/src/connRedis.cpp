@@ -4,13 +4,13 @@
 int block = 1000000000;
 char fval[100];
 
-void sendMsg(redisContext *c2r, redisReply *reply, char const *stream, char const *key, char const *value){
+void sendMsg(redisContext *c2r, redisReply *reply, char *stream, char *key, char *value){
     reply = RedisCommand(c2r, "XADD %s * %s %s", stream, key, value);
     assertReplyType(c2r, reply, REDIS_REPLY_STRING);
     freeReplyObject(reply);
 };
 
-char *readMsg(redisContext *c2r, redisReply *reply, char *stream, char const *username) {
+char *readMsg(redisContext *c2r, redisReply *reply, char *stream, char *username) {
     reply = RedisCommand(c2r, "XREADGROUP GROUP diameter %s BLOCK %d COUNT 2 NOACK STREAMS %s >", username, block, stream);
     //verifica che ci sia stata una risposta
     assertReply(c2r, reply);
@@ -22,8 +22,8 @@ char *readMsg(redisContext *c2r, redisReply *reply, char *stream, char const *us
         for (int i=0; i < ReadStreamNumMsg(reply, k); i++) {
             //inserisce in msgid l'id del messaggio analizzato
             //for per iterare negli elementi del messaggio singolo (coppia chiave-valore)
-            int culo = ReadStreamMsgNumVal(reply, k, i);
-            for (int h = 1; h < culo; h++) {
+            int n = ReadStreamMsgNumVal(reply, k, i);
+            for (int h = 1; h < n; h++) {
                 //legge il messaggio singolo dall'array con indice [h] e lo mette in fval 
                 ReadStreamMsgVal(reply, k, i, h, fval);
             }	      	      

@@ -1,3 +1,4 @@
+#pragma once
 #include <../../../con2db/pgsql.h>
 using namespace std;
 

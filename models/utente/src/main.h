@@ -6,7 +6,7 @@
 #define MAIN_H
 
 //#include <con2redis.h>
-
+#pragma once
 #include <iostream>
 #include <stdio.h>
 #include <stdlib.h>

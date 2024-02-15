@@ -1,6 +1,5 @@
-#pragma once
 #include <main.h>
-#include "fornitore.h"
+#include <fornitore.h>
 
 
 #define READ_STREAM "customer2fornitore"
@@ -11,10 +10,10 @@ int main(){
     redisReply *reply;
 
     int pid;
-    char *username = "fornitore@gmail.com";;
-    char *fval;
-    char *key = "key fornitore";
-    char *value = "Nuovo spedizione assegnata";
+    char username[100] = "fornitore@gmail.com";;
+    char const *fval;
+    char key[100] = "key fornitore";
+    char value[100] = "Nuovo spedizione assegnata";
 
     //char const *nomeOgg = "Mouse Logitech";
     char const *nomeOgg = "Monitor LG";
