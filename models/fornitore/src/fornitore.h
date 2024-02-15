@@ -3,7 +3,7 @@
 #include <../../../con2db/pgsql.h>
 #include <oggetto.h> 
 
-class Fornitore: virtual public Utente{
+class Fornitore: public Utente{
     
     public:
         Fornitore(char const *nameC, char const *surnameC, char const *emailC, char const *passwordC, char const *purchTypeC) : 

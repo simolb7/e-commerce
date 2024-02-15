@@ -1,6 +1,7 @@
 #ifndef MAIN_H
 #define MAIN_H
 
+#pragma once
 #include <iostream>
 #include <stdio.h>
 #include <stdlib.h>
@@ -10,6 +11,7 @@
 #include <math.h>
 #include <../../../con2db/pgsql.h>
 #include <../../../con2redis/src/con2redis.h>
+#include <fornitore.h>
 
 using namespace std;
 

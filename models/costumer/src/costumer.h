@@ -1,5 +1,6 @@
 #pragma once
-#include <main.h>
+#include <../../utente/src/utente.h>
+#include <../../../con2db/pgsql.h>
 
 class Costumer: public Utente{
     

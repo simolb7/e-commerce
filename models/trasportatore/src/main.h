@@ -1,6 +1,7 @@
 #ifndef MAIN_H
 #define MAIN_H
 
+#pragma once
 #include <iostream>
 #include <stdio.h>
 #include <stdlib.h>

@@ -1,4 +1,4 @@
-
+#pragma once
 #include <../../../con2db/pgsql.h>
 
 class Oggetto{

@@ -1,4 +1,5 @@
 #include <main.h>
+#include "costumer.h"
 
 #define WRITE_STREAM "customer2fornitore"
 #define READ_STREAM "trasportatore2costumer"
@@ -9,9 +10,9 @@ int main(){
     redisReply *reply;
 
     int pid;
-    char *key = "key Costumer";
-    char *value = "Nuovo ordine";
-    char *username = "luigiverdi420@gmail.com";
+    char key[100] = "key Costumer";
+    char value[100] = "Nuovo ordine";
+    char username[100] = "luigiverdi420@gmail.com";
 
     //char const *nomeOgg = "Mouse Logitech";
     char const *nomeOgg = "Monitor LG";
