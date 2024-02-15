@@ -1,4 +1,3 @@
-#pragma once
 #include <main.h>
 #include <fornitore.h>
 

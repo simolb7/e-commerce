@@ -28,7 +28,6 @@ void Utente::registration(Utente utente1, Con2DB db1, char const *ruolo1){
     idU = atoi(PQgetvalue(res, 0, PQfnumber(res, "idU")));
     PQclear(res);
 
-    //std::cout << idU;
     if (strcmp(ruolo1, costumer) == 0){
         sprintf(sqlcmd,
         "INSERT INTO Costumer VALUES (\'%d\') ON CONFLICT DO NOTHING", idU);
@@ -38,6 +37,12 @@ void Utente::registration(Utente utente1, Con2DB db1, char const *ruolo1){
     else if (strcmp(ruolo1, fornitore) == 0){
         sprintf(sqlcmd,
         "INSERT INTO Fornitore VALUES (\'%d\', \'%s\') ON CONFLICT DO NOTHING", idU, pIva);
+        res = db1.ExecSQLcmd(sqlcmd);
+        PQclear(res);
+    }
+    else if (strcmp(ruolo1, trasportatore) == 0){
+        sprintf(sqlcmd,
+        "INSERT INTO Trasportatore VALUES (\'%d\', 'Bartolini') ON CONFLICT DO NOTHING", idU);
         res = db1.ExecSQLcmd(sqlcmd);
         PQclear(res);
     }

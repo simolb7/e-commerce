@@ -1,33 +1,20 @@
-#pragma once
 #include <main.h>
-#include "fornitore.h"
+#include <fornitore.h>
 
 
 #define READ_STREAM "customer2fornitore"
-//#define WRITE_STREAM "writeTrasportatore"
+#define WRITE_STREAM "fornitore2trasportatore"
 
 int main(){
     redisContext *c2r;
     redisReply *reply;
 
     int pid;
-    char *username = "fornitore@gmail.com";;
-    char *fval;
+    char username[100] = "fornitore@gmail.com";;
+    char const *fval;
+    char key[100] = "key fornitore";
+    char value[100] = "Nuovo spedizione assegnata";
 
-    pid = getpid();
-    printf("main(): pid %d: user %s: connecting to redis ...\n", pid, username);
-    c2r = redisConnect("localhost", 6379);
-    printf("main(): pid %d: user %s: connected to redis\n", pid, username);
-
-    reply = RedisCommand(c2r, "DEL %s", READ_STREAM);
-    assertReply(c2r, reply);
-    dumpReply(reply, 0);
-
-    initStreams(c2r, READ_STREAM);
-    fval = readMsg(c2r, reply, READ_STREAM, username);
-    printf("result fval : %s", fval);
-    redisFree(c2r);
-    
     //char const *nomeOgg = "Mouse Logitech";
     char const *nomeOgg = "Monitor LG";
     char const *descrizioneOgg = "grandi palle, bel pisello";
@@ -51,8 +38,21 @@ int main(){
 
     Fornitore fornitore(name, surname, email, password, purchType);
 
-    //fornitore.addInventario(oggetto, fornitore, db);
+    fornitore.addInventario(oggetto, fornitore, db);
     fornitore.addQuantity(oggetto, fornitore, db, 10);
-    
+
+    pid = getpid();
+    printf("main(): pid %d: user %s: connecting to redis ...\n", pid, username);
+    c2r = redisConnect("localhost", 6379);
+    printf("main(): pid %d: user %s: connected to redis\n", pid, username);
+
+    initStreams(c2r, READ_STREAM);
+    initStreams(c2r, WRITE_STREAM);
+
+    fval = readMsg(c2r, reply, READ_STREAM, username);
+    printf("result fval : %s", fval);
+    sendMsg(c2r, reply, WRITE_STREAM, key, value);
+
+    redisFree(c2r);
     return 0;
 };

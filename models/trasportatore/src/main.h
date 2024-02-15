@@ -11,14 +11,9 @@
 #include <math.h>
 #include <../../../con2db/pgsql.h>
 #include <../../../con2redis/src/con2redis.h>
-#include <fornitore.h>
+#include <trasportatore.h>
 
 using namespace std;
-
-extern char const *nomeOgg;
-extern char const *descrizioneOgg;
-extern char const *barCodeOgg;
-extern char const *categoriaOgg;
 
 extern char const *name;
 extern char const *surname;

@@ -11,7 +11,9 @@
 #include <math.h>
 #include <../../../con2db/pgsql.h>
 #include <../../../con2redis/src/con2redis.h>
-#include <fornitore.h>
+#include <../../utente/src/utente.h>
+#include <../../fornitore/src/oggetto.h>
+#include <costumer.h>
 
 using namespace std;
 

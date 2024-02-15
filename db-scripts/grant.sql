@@ -17,7 +17,7 @@ ALTER TABLE Categoria OWNER TO :username ;
 ALTER TABLE Oggetto OWNER TO :username ;
 ALTER TABLE Inventario OWNER TO :username ;
 ALTER TABLE Acquisto OWNER TO :username ;
-ALTER TABLE AcqOgg OWNER TO :username ;
+ALTER TABLE AcqInv OWNER TO :username ;
 
 
 -- grant all privileges on all tables in schema public to :username ;

@@ -1,11 +1,11 @@
-
+/*
 #include "main.h"
 
 #include <sys/times.h>
 #include <cerrno>
 
 
-/* msleep(): Sleep for the requested number of microseconds. */
+msleep(): Sleep for the requested number of microseconds.
 int micro_sleep(long usec)
 {
     struct timespec ts;
@@ -27,4 +27,4 @@ int micro_sleep(long usec)
     
     return res;  
 
-}
+}*/
