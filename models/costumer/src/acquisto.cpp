@@ -21,7 +21,7 @@ void Costumer::acquisto(char * idInv, Costumer costumer1, int quantita, Con2DB d
     PQclear(res);
 
     sprintf(sqlcmd,
-    "INSERT INTO Acquisto VALUES (DEFAULT, 'in preparazione', now(), \'%d\', 3)", idCost);
+    "INSERT INTO Acquisto VALUES (DEFAULT, 'in preparazione', now(), \'%d\', 3) ON CONFLICT DO NOTHING", idCost);
     res = db1.ExecSQLcmd(sqlcmd);
     PQclear(res);
 

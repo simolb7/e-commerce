@@ -35,7 +35,7 @@ void Fornitore::addInventario(Oggetto oggetto1, Fornitore fornitore1, Con2DB db1
         PQclear(res);
 
         sprintf(sqlcmd,
-        "INSERT INTO Inventario VALUES (DEFAULT, 99.90, 10, 10, now(), \'%d\', \'%d\')", idFor, idOgg);
+        "INSERT INTO Inventario VALUES (DEFAULT, 99.90, 10, 10, now(), \'%d\', \'%d\') ON CONFLICT DO NOTHING", idFor, idOgg);
         res = db1.ExecSQLcmd(sqlcmd);
         PQclear(res);
 
@@ -60,7 +60,7 @@ void Fornitore::addInventario(Oggetto oggetto1, Fornitore fornitore1, Con2DB db1
         PQclear(res);
 
         sprintf(sqlcmd,
-        "INSERT INTO Inventario VALUES (DEFAULT, 99.90, 10, 10, now(), \'%d\', \'%d\')", idFor, idOgg);
+        "INSERT INTO Inventario VALUES (DEFAULT, 99.90, 10, 10, now(), \'%d\', \'%d\') ON CONFLICT DO NOTHING", idFor, idOgg);
         res = db1.ExecSQLcmd(sqlcmd);
         PQclear(res);
 

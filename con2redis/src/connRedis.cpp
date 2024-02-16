@@ -4,13 +4,13 @@
 int block = 1000000000;
 char fval[100];
 
-void sendMsg(redisContext *c2r, redisReply *reply, char *stream, char *key, char *value){
+void sendMsg(redisContext *c2r, redisReply *reply, char const *stream, char const *key, char const *value){
     reply = RedisCommand(c2r, "XADD %s * %s %s", stream, key, value);
     assertReplyType(c2r, reply, REDIS_REPLY_STRING);
     freeReplyObject(reply);
 };
 
-char *readMsg(redisContext *c2r, redisReply *reply, char *stream, char *username) {
+char *readMsg(redisContext *c2r, redisReply *reply, char const *stream, char const *username) {
     reply = RedisCommand(c2r, "XREADGROUP GROUP diameter %s BLOCK %d COUNT 2 NOACK STREAMS %s >", username, block, stream);
     //verifica che ci sia stata una risposta
     assertReply(c2r, reply);

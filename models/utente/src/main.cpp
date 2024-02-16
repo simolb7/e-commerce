@@ -6,10 +6,6 @@ using namespace std;
 int main() {
 
     //Con2DB db1("localost", "5432", "userdb", "47002", "ecommercedb");
-    int pid;
-    char *key = "key Costumer";
-    char *value = "Nuovo ordine";
-    char *username = "marcorossi69@gmail.com";
 
     char const *name = "Marco";
     char const *surname = "Rossi";

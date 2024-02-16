@@ -10,9 +10,9 @@ int main(){
     redisReply *reply;
 
     int pid;
-    char key[100] = "key Costumer";
-    char value[100] = "Nuovo ordine";
-    char username[100] = "luigiverdi420@gmail.com";
+    char const *key = "key Costumer";
+    char const *value = "Nuovo ordine";
+    char const *username = "luigiverdi420@gmail.com";
 
     //char const *nomeOgg = "Mouse Logitech";
     char const *nomeOgg = "Monitor LG";
