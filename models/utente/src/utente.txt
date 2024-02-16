@@ -1,0 +1,26 @@
+[ 
+	{
+	  "nome": "Maria",
+	  "cognome": "Rossi",
+	  "email": "marcorossi69@gmail.com",
+	  "password": "redigotham",
+	  "purchType" : "Carta di credito",
+	  "ruolo": "Costumer"
+	},
+	{
+	  "nome": "Maria",
+	  "cognome": "Bianchi",
+	  "email": "marcomaresi69@gmail.com",
+	  "password": "redigotam",
+	  "purchType" : "Carta di credito",
+	  "ruolo": "Costumer"
+	},
+	{
+	  "nome": "Antonio",
+	  "cognome": "Rechichi",
+	  "email": "xxx69@gmail.com",
+	  "password": "redigotham",
+	  "purchType" : "Carta di credito",
+	  "ruolo": "Fornitore"
+	}
+]

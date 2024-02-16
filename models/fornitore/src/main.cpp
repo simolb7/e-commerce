@@ -1,9 +1,9 @@
 #include <main.h>
 #include <fornitore.h>
 
-
 #define READ_STREAM "customer2fornitore"
 #define WRITE_STREAM "fornitore2trasportatore"
+#define DEBUG 1000
 
 int main(){
     redisContext *c2r;
@@ -40,6 +40,11 @@ int main(){
 
     fornitore.addInventario(oggetto, fornitore, db);
     fornitore.addQuantity(oggetto, fornitore, db, 10);
+
+#if (DEBUG > 0)
+    printf("Diocan sono nel debug, enrico tronci esplode domani");
+    
+#endif
 
     pid = getpid();
     printf("main(): pid %d: user %s: connecting to redis ...\n", pid, username);
