@@ -10,10 +10,10 @@ int main(){
     redisReply *reply;
 
     int pid;
-    char username[100] = "fornitore@gmail.com";;
+    char const *username = "fornitore@gmail.com";;
     char const *fval;
-    char key[100] = "key fornitore";
-    char value[100] = "Nuovo spedizione assegnata";
+    char const *key = "key fornitore";
+    char const *value = "Nuovo spedizione assegnata";
 
     //char const *nomeOgg = "Mouse Logitech";
     char const *nomeOgg = "Monitor LG";
@@ -50,7 +50,7 @@ int main(){
     initStreams(c2r, WRITE_STREAM);
 
     fval = readMsg(c2r, reply, READ_STREAM, username);
-    printf("result fval : %s", fval);
+    printf("result fval : %s\n", fval);
     sendMsg(c2r, reply, WRITE_STREAM, key, value);
 
     redisFree(c2r);
