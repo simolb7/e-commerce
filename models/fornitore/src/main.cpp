@@ -13,7 +13,7 @@ int main(){
     char const *username = "fornitore@gmail.com";;
     char const *fval;
     char const *key = "key fornitore";
-    char const *value = "Nuovo spedizione assegnata";
+    char value[] = "Nuovo spedizione assegnata";
 
     //char const *nomeOgg = "Mouse Logitech";
     char const *nomeOgg = "Monitor LG";
