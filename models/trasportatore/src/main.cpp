@@ -9,10 +9,10 @@ int main(){
     redisReply *reply;
 
     int pid;
-    char *key = "key Trasportatore";
-    char *value = "Aggiornamento stato spedizione";
-    char *username = "trasportatore@gmail.com";
-    char *fval;
+    char const *key = "key Trasportatore";
+    char const *value = "Aggiornamento stato spedizione";
+    char const *username = "trasportatore@gmail.com";
+    char const *fval;
 
     // db
 
@@ -42,7 +42,7 @@ int main(){
     initStreams(c2r, WRITE_STREAM);
 
     fval = readMsg(c2r, reply, READ_STREAM, username);
-    printf("result fval : %s", fval);
+    printf("result fval : %s\n", fval);
 
     trasportatore.getOrders(trasportatore, db, ordini);
 
