@@ -11,7 +11,7 @@ class Trasportatore: virtual public Utente{
     
         void updateStatus(int idOrdine, Con2DB db1);
 
-        void getStatus(int idOrdine, Con2DB db1, const char *statusA);
+        char *getStatus(int idOrdine, Con2DB db1);
 
         void getOrders(Trasportatore trasportatore, Con2DB db1, int orders[]);
 

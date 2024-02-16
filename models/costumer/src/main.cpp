@@ -11,7 +11,7 @@ int main(){
 
     int pid;
     char const *key = "key Costumer";
-    char const *value = "Nuovo ordine";
+    char value[] = "Nuovo ordine";
     char const *username = "luigiverdi420@gmail.com";
 
     //char const *nomeOgg = "Mouse Logitech";

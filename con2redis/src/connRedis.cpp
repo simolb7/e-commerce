@@ -4,7 +4,7 @@
 int block = 1000000000;
 char fval[100];
 
-void sendMsg(redisContext *c2r, redisReply *reply, char const *stream, char const *key, char const *value){
+void sendMsg(redisContext *c2r, redisReply *reply, char const *stream, char const *key, char *value){
     reply = RedisCommand(c2r, "XADD %s * %s %s", stream, key, value);
     assertReplyType(c2r, reply, REDIS_REPLY_STRING);
     freeReplyObject(reply);
