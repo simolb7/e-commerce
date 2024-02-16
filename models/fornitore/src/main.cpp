@@ -43,7 +43,7 @@ int main(){
 
 #if (DEBUG > 0)
     printf("Diocan sono nel debug, enrico tronci esplode domani");
-    
+
 #endif
 
     pid = getpid();

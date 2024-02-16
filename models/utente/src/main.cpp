@@ -1,12 +1,53 @@
 #include <main.h>
+#include <fstream>
+#include <iostream>
+#include <../../../nlohmann/json.hpp>
+
 using namespace std;
 
 //using namespace operazioni;
 
 int main() {
+    Con2DB db("localhost", "5432", "userdb", "47002", "ecommercedb");
+    ifstream i("../../../test_json/utente.json");
+    if (!i) {
+        cerr << "Errore nell'apertura del file utente.json" << endl;
+        return 1; // o gestisci l'errore come preferisci
+    }
 
-    //Con2DB db1("localost", "5432", "userdb", "47002", "ecommercedb");
+    nlohmann::json j;
+    try {
+        i >> j;
+    } catch (nlohmann::json::parse_error& e) {
+        cerr << "Errore di parsing JSON: " << e.what() << endl;
+        return 1; // o gestisci l'errore come preferisci
+    }
 
+    for (const auto& user : j) {
+        string nome = user["nome"];
+        const char *name = nome.c_str(); 
+
+        string cognome = user["cognome"];
+        const char *surname = cognome.c_str(); 
+
+        string emailJ = user["email"];
+        const char *email = emailJ.c_str(); 
+
+        string passwordJ = user["password"];
+        const char *password = passwordJ.c_str(); 
+
+        string purchTypeJ = user["purchType"];
+        const char *purchType = purchTypeJ.c_str();
+
+        string ruoloJ = user["ruolo"];
+        const char *ruolo = ruoloJ.c_str();
+
+        Utente utente(name, surname, email, password, purchType);
+        utente.registration(utente, db, ruolo);
+        utente.login(utente, db);
+    }
+
+    /*
     char const *name = "Marco";
     char const *surname = "Rossi";
     char const *email = "marcorossi69@gmail.com";
@@ -27,20 +68,9 @@ int main() {
     char const *password3 = "grandipalle22";
     char const *purchType3 = "Carta di credito";
     char const *ruolo3 = "Trasportatore";
+    */
     
-    Con2DB db("localhost", "5432", "userdb", "47002", "ecommercedb");
-
-    Utente utente(name, surname, email, password, purchType);
-    Utente utente2(name2, surname2, email2, password2, purchType2);
-    Utente utente3(name3, surname3, email3, password3, purchType3);
-
-    utente.registration(utente, db, ruolo);
-    utente2.registration(utente2, db, ruolo2);
-    utente3.registration(utente3, db, ruolo3);
-
-    utente.login(utente, db);
-    utente2.login(utente2, db);
-    utente3.login(utente3, db);
+    
 
     return 0;
 };
