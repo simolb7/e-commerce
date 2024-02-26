@@ -13,6 +13,7 @@
 #include <../../../con2redis/src/con2redis.h>
 #include <trasportatore.h>
 
+
 using namespace std;
 
 extern char const *name;

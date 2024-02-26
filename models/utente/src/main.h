@@ -17,6 +17,12 @@
 #include <utente.h>
 #include <../../../con2db/pgsql.h>
 #include <../../../con2redis/src/con2redis.h>
+#include <iostream>
+#include <vector>
+#include <string>
+#include <ctime>
+#include <cstdlib>
+#include <bits/stdc++.h>
 
 using namespace std;
 
