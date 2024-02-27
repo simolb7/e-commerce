@@ -1,7 +1,7 @@
 #include <main.h>
 #include <fornitore.h>
 
-void Fornitore::addInventario(Oggetto oggetto1, Fornitore fornitore1, Con2DB db1){
+void Fornitore::addInventario(Oggetto oggetto1, Fornitore fornitore1, Con2DB db1, float prezzo, int quantity){
     char const *emailF = fornitore1.getEmail();
     char const *BarCodeOg = oggetto1.getBarCodeO();
     int idFor;
@@ -35,7 +35,7 @@ void Fornitore::addInventario(Oggetto oggetto1, Fornitore fornitore1, Con2DB db1
         PQclear(res);
 
         sprintf(sqlcmd,
-        "INSERT INTO Inventario VALUES (DEFAULT, 99.90, 10, 10, now(), \'%d\', \'%d\') ON CONFLICT DO NOTHING", idFor, idOgg);
+        "INSERT INTO Inventario VALUES (DEFAULT, \'%f\', \'%d\', \'%d\', now(), \'%d\', \'%d\') ON CONFLICT DO NOTHING", prezzo, quantity, quantity, idFor, idOgg);
         res = db1.ExecSQLcmd(sqlcmd);
         PQclear(res);
 
@@ -60,7 +60,7 @@ void Fornitore::addInventario(Oggetto oggetto1, Fornitore fornitore1, Con2DB db1
         PQclear(res);
 
         sprintf(sqlcmd,
-        "INSERT INTO Inventario VALUES (DEFAULT, 99.90, 10, 10, now(), \'%d\', \'%d\') ON CONFLICT DO NOTHING", idFor, idOgg);
+        "INSERT INTO Inventario VALUES (DEFAULT, \'%f\', \'%d\', \'%d\', now(), \'%d\', \'%d\') ON CONFLICT DO NOTHING", prezzo, quantity, quantity, idFor, idOgg);       res = db1.ExecSQLcmd(sqlcmd);
         res = db1.ExecSQLcmd(sqlcmd);
         PQclear(res);
 

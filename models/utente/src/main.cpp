@@ -38,7 +38,7 @@ int main() {
 
     srand(time(nullptr)); // Inizializza il generatore di numeri casuali
 
-    int numPeople = 100; // Numero di persone da generare
+    int numPeople = 20; // Numero di persone da generare
 
     cout << "Generated People:\n";
     for (int i = 0; i < numPeople; ++i) {
@@ -55,10 +55,12 @@ int main() {
         const char *purchType = generateRandomPurchType().c_str();
         const char *email = emails.c_str(); 
         Utente utente(nome, cognome, email, password, purchType);
-        printf("Utente %d: %s, %s, email: %s, password: %s\n", i + 1, utente.getName(), utente.getSurname(), utente.getEmail(), utente.getPassword());
+        //printf("Utente %d: %s, %s, email: %s, password: %s\n", i + 1, utente.getName(), utente.getSurname(), utente.getEmail(), utente.getPassword());
         const char *ruolo = generateRandomType().c_str();
         utente.registration(utente, db, ruolo);
     }
 
     return 0;
+
+    
 }
