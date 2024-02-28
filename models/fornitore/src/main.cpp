@@ -108,26 +108,8 @@ int main(){
         Oggetto oggetto(nomeOgg, descrizioneOgg, barCodeOgg, categoriaOgg);
         oggetto.addOggetto(oggetto, db);
         fornitore.addInventario(oggetto, fornitore, db, price, quantity);
+        fornitore.addQuantity(oggetto, fornitore, db, 10);
     }
-
-    /*
-    //char const *nomeOgg = "Mouse Logitech";
-    char const *nomeOgg = "Monitor LG";
-    char const *descrizioneOgg = "grandi palle, bel pisello";
-    char const *barCodeOgg = "12345678900987654321";
-    //char const *barCodeOgg = "12345678900987654322";
-    char const *categoriaOgg = "Elettronica";
-
-    Oggetto oggetto(nomeOgg, descrizioneOgg, barCodeOgg, categoriaOgg);
-
-    oggetto.addOggetto(oggetto, db);
-
-    Fornitore fornitore(name, surname, email, password, purchType);
-
-    fornitore.addInventario(oggetto, fornitore, db);
-    fornitore.addQuantity(oggetto, fornitore, db, 10);
-
-    */
 
 #if (DEBUG > 0)
     printf("Prova");
