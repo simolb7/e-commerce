@@ -7,7 +7,7 @@ CC=g++
 # Aggiungi -I$(IDIR) per includere la directory corrente e qualsiasi altra directory specificata in IDIR
 # -lpq e -lm sono aggiunti alle LDFLAGS invece che alle CFLAGS perché sono necessari per il linking, non per la compilazione
 CFLAGS=-std=c++20 -I$(IDIR) -I/usr/include/postgresql
-LDFLAGS=-lpq -lm -lhiredis # Aggiungi le librerie necessarie per il linking qui
+LDFLAGS=-lpq -lm -lhiredis -lssl -lcrypto# Aggiungi le librerie necessarie per il linking qui
 
 DEPS = $(wildcard $(IDIR)/*.h)
 SRC = $(wildcard *.cpp)
