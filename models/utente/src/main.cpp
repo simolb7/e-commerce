@@ -2,13 +2,13 @@
 
 // Funzione per generare un nome casuale
 string generateRandomFirstName() {
-    vector<string> firstNames = {"John", "Jane", "Michael", "Emily", "David", "Sarah"};
+    vector<string> firstNames = {"Mario", "Luigi", "Giovanni", "Paolo", "Giulia", "Laura", "Francesca", "Alessandra", "Roberto", "Andrea"};
     return firstNames[rand() % firstNames.size()];
 }
 
 // Funzione per generare un cognome casuale
 string generateRandomLastName() {
-    vector<string> lastNames = {"Smith", "Johnson", "Williams", "Brown", "Jones", "Garcia"};
+    vector<string> lastNames = {"Rossi", "Bianchi", "Verdi", "Ferrari", "Russo", "Romano", "Gallo", "Conti", "Esposito", "Bruno"};
     return lastNames[rand() % lastNames.size()];
 }
 
@@ -58,6 +58,7 @@ int main() {
         //printf("Utente %d: %s, %s, email: %s, password: %s\n", i + 1, utente.getName(), utente.getSurname(), utente.getEmail(), utente.getPassword());
         const char *ruolo = generateRandomType().c_str();
         utente.registration(utente, db, ruolo);
+        utente.login(utente, db);
     }
 
     return 0;
