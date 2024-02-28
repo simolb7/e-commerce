@@ -6,6 +6,8 @@ void Costumer::ricerca(char const * nomeOg, int quantita, char * result[][4], Co
     int idOgg;
     int row;
 
+    cout << nomeOg << endl;
+
     sprintf(sqlcmd, "BEGIN");
     res = db1.ExecSQLcmd(sqlcmd);
     PQclear(res);
@@ -15,6 +17,8 @@ void Costumer::ricerca(char const * nomeOg, int quantita, char * result[][4], Co
     res = db1.ExecSQLtuples(sqlcmd);
     idOgg = atoi(PQgetvalue(res, 0, PQfnumber(res, "idO")));
     PQclear(res);
+
+    cout << idOgg << endl;
 
     sprintf(sqlcmd,
     "SELECT idInv, prezzo, QuantitaAtt, fornitore FROM Inventario WHERE (oggetto = \'%d\' AND QuantitaAtt >= \'%d\')", idOgg, quantita);
@@ -31,6 +35,14 @@ void Costumer::ricerca(char const * nomeOg, int quantita, char * result[][4], Co
         result[i][2] = quantitaAtt;
         result[i][3] = fornitore;
     };
+
+    for (int i = 0; i < 30; ++i) {
+        for (int j = 0; j < 4; ++j) {
+            cout << result[i][j] << " ";
+        }
+        cout << endl;
+    }
+
     PQclear(res);
 
     sprintf(sqlcmd, "COMMIT");
