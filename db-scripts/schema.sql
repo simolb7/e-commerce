@@ -16,6 +16,8 @@ CREATE DOMAIN PIva as VARCHAR(11);
 CREATE DOMAIN BarCode as VARCHAR(20);
 CREATE DOMAIN IntG0 as INTEGER CHECK (VALUE > 0);
 CREATE DOMAIN IntGE0 as INTEGER CHECK (VALUE >= 0);
+CREATE DOMAIN saltDomain as VARCHAR(16);
+CREATE DOMAIN hashedPsw as VARCHAR(64);
 
 -- Pick the one most appropriate for your application
 --CREATE DOMAIN VarType AS real ;
@@ -56,7 +58,8 @@ CREATE TABLE IF NOT EXISTS Utente (
         nameU StringS,
         surnameU StringS,
         emailU StringM UNIQUE,
-        passwordU StringM
+        passwordU hashedPsw,
+        salt saltDomain
 );
 
 CREATE TABLE IF NOT EXISTS Costumer (
@@ -107,10 +110,11 @@ CREATE TABLE IF NOT EXISTS Inventario (
         QuantitaS IntG0,
         QuantitaAtt IntGE0,
         istante TIMESTAMP,
-        fornitore int NOT NULL UNIQUE,
-        oggetto int NOT NULL UNIQUE,
+        fornitore int NOT NULL,
+        oggetto int NOT NULL,
         CONSTRAINT fornitore_ref FOREIGN KEY(fornitore) REFERENCES Fornitore(idF),
-        CONSTRAINT oggetto_ref FOREIGN KEY(oggetto) REFERENCES Oggetto(idO)
+        CONSTRAINT oggetto_ref FOREIGN KEY(oggetto) REFERENCES Oggetto(idO),
+        UNIQUE (fornitore, oggetto)
 );
 
 CREATE TABLE IF NOT EXISTS Acquisto (
