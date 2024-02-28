@@ -34,7 +34,12 @@ string generateRandomPurchType() {
 // Funzione per generare una persona casuale
 
 int main() {
+    const char *cost = "Costumer";
+    const char *forn = "Fornitore";
+    const char *trasp = "Trasportatore";
     Con2DB db("localhost", "5432", "userdb", "47002", "ecommercedb");
+    const char *pIva = "12345678901";
+    const char *azienda = "Bartolini";
 
     srand(time(nullptr)); // Inizializza il generatore di numeri casuali
 
@@ -57,8 +62,19 @@ int main() {
         Utente utente(nome, cognome, email, password, purchType);
         //printf("Utente %d: %s, %s, email: %s, password: %s\n", i + 1, utente.getName(), utente.getSurname(), utente.getEmail(), utente.getPassword());
         const char *ruolo = generateRandomType().c_str();
-        utente.registration(utente, db, ruolo);
-        utente.login(utente, db);
+        if (strcmp(ruolo, cost) == 0){
+            utente.registrationCostumer(utente, db);
+            utente.login(utente, db); 
+        }
+        else if (strcmp(ruolo, forn) == 0){
+            utente.registrationFornitore(utente, pIva, db);
+            utente.login(utente, db);
+        }
+        else if (strcmp(ruolo, trasp) == 0){
+            utente.registrationTrasportatore(utente, azienda, db);
+            utente.login(utente, db);
+        }
+        
     }
 
     return 0;
