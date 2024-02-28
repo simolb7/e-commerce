@@ -1,46 +1,66 @@
 #include <main.h>
-using namespace std;
 
-//using namespace operazioni;
+// Funzione per generare un nome casuale
+string generateRandomFirstName() {
+    vector<string> firstNames = {"John", "Jane", "Michael", "Emily", "David", "Sarah"};
+    return firstNames[rand() % firstNames.size()];
+}
+
+// Funzione per generare un cognome casuale
+string generateRandomLastName() {
+    vector<string> lastNames = {"Smith", "Johnson", "Williams", "Brown", "Jones", "Garcia"};
+    return lastNames[rand() % lastNames.size()];
+}
+
+string generateEmail(const char *nome, const char *cognome) { 
+    string nomes = nome;
+    string surnames = cognome;
+    int num = rand() %100;
+    string nums = to_string(num);
+    string email = nomes + surnames + nums + "@gmail.com";
+    return email;
+}
+ 
+string generateRandomType() {
+    vector<string> lastNames = {"Costumer", "Fornitore", "Trasportatore"};
+    return lastNames[rand() % lastNames.size()];
+}
+
+string generateRandomPurchType() {
+    vector<string> lastNames = {"Paypal", "Carta di credito"};
+    return lastNames[rand() % lastNames.size()];
+}
+
+// Funzione per generare una persona casuale
 
 int main() {
-
-    //Con2DB db1("localost", "5432", "userdb", "47002", "ecommercedb");
-
-    char const *name = "Marco";
-    char const *surname = "Rossi";
-    char const *email = "marcorossi69@gmail.com";
-    char const *password = "redigotham";
-    char const *purchType = "Carta di credito";
-    char const *ruolo = "Fornitore";
-
-    char const *name2 = "Luigi";
-    char const *surname2 = "Verdi";
-    char const *email2 = "luigiverdi420@gmail.com";
-    char const *password2 = "forzapergolettese";
-    char const *purchType2 = "Carta di credito";
-    char const *ruolo2 = "Costumer";
-
-    char const *name3 = "Stefania";
-    char const *surname3 = "Bianchi";
-    char const *email3 = "stefaniabianchi88@gmail.com";
-    char const *password3 = "grandipalle22";
-    char const *purchType3 = "Carta di credito";
-    char const *ruolo3 = "Trasportatore";
-    
     Con2DB db("localhost", "5432", "userdb", "47002", "ecommercedb");
 
-    Utente utente(name, surname, email, password, purchType);
-    Utente utente2(name2, surname2, email2, password2, purchType2);
-    Utente utente3(name3, surname3, email3, password3, purchType3);
+    srand(time(nullptr)); // Inizializza il generatore di numeri casuali
 
-    utente.registration(utente, db, ruolo);
-    utente2.registration(utente2, db, ruolo2);
-    utente3.registration(utente3, db, ruolo3);
+    int numPeople = 20; // Numero di persone da generare
 
-    utente.login(utente, db);
-    utente2.login(utente2, db);
-    utente3.login(utente3, db);
+    cout << "Generated People:\n";
+    for (int i = 0; i < numPeople; ++i) {
+        const char *nome = generateRandomFirstName().c_str();
+        const char *cognome = generateRandomLastName().c_str();
+        string nomes(nome);
+        transform(nomes.begin(), nomes.end(), nomes.begin(), ::tolower);
+        string cognomes(cognome);
+        transform(cognomes.begin(), cognomes.end(), cognomes.begin(), ::tolower);
+        int num = rand() %100;
+        string nums = to_string(num);
+        string emails = nomes+"."+cognomes+nums+"@gmail.com";
+        const char *password = "0000";
+        const char *purchType = generateRandomPurchType().c_str();
+        const char *email = emails.c_str(); 
+        Utente utente(nome, cognome, email, password, purchType);
+        //printf("Utente %d: %s, %s, email: %s, password: %s\n", i + 1, utente.getName(), utente.getSurname(), utente.getEmail(), utente.getPassword());
+        const char *ruolo = generateRandomType().c_str();
+        utente.registration(utente, db, ruolo);
+    }
 
     return 0;
-};
+
+    
+}

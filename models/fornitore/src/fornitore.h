@@ -9,7 +9,7 @@ class Fornitore: public Utente{
         Fornitore(char const *nameC, char const *surnameC, char const *emailC, char const *passwordC, char const *purchTypeC) : 
         Utente(nameC, surnameC, emailC, passwordC, purchTypeC){};
           
-        void addInventario(Oggetto oggetto1, Fornitore fornitore1, Con2DB db1);
+        void addInventario(Oggetto oggetto1, Fornitore fornitore1, Con2DB db1, float prezzo, int quantity);
 
         void addQuantity(Oggetto oggetto1, Fornitore fornitore1, Con2DB db1, int aggiunta);
 };

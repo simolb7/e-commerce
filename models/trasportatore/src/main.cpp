@@ -10,9 +10,10 @@ int main(){
 
     int pid;
     char const *key = "key Trasportatore";
-    char const *value = "Aggiornamento stato spedizione";
+    char const *value = "Stato spedizione: ";
     char const *username = "trasportatore@gmail.com";
     char const *fval;
+    char *statusAtt;
 
     // db
 
@@ -29,10 +30,6 @@ int main(){
 
     Trasportatore trasportatore(name, surname, email, password, purchType);
 
-    
-
-    //redis
-
     pid = getpid();
     printf("main(): pid %d: user %s: connecting to redis ...\n", pid, username);
     c2r = redisConnect("localhost", 6379);
@@ -47,15 +44,28 @@ int main(){
     trasportatore.getOrders(trasportatore, db, ordini);
 
     int idO = ordini[0];
-    
-    sendMsg(c2r, reply, WRITE_STREAM, key, value);
-    sleep(5);
-    trasportatore.updateStatus(idO, db);
-    sendMsg(c2r, reply, WRITE_STREAM, key, value);
-    sleep(5);
-    trasportatore.updateStatus(idO, db);
-    sendMsg(c2r, reply, WRITE_STREAM, key, value);
 
+    statusAtt = trasportatore.getStatus(idO, db);
+    char newValue1[100];
+    strcpy(newValue1, value);
+    strcat(newValue1, statusAtt);
+    sendMsg(c2r, reply, WRITE_STREAM, key, newValue1);
+    sleep(5);
+    trasportatore.updateStatus(idO, db);
+
+    statusAtt = trasportatore.getStatus(idO, db);
+    char newValue2[100];
+    strcpy(newValue2, value);
+    strcat(newValue2, statusAtt);
+    sendMsg(c2r, reply, WRITE_STREAM, key, newValue2);
+    sleep(5);
+    trasportatore.updateStatus(idO, db);
+
+    statusAtt = trasportatore.getStatus(idO, db);
+    char newValue3[100];
+    strcpy(newValue3, value);
+    strcat(newValue3, statusAtt);
+    sendMsg(c2r, reply, WRITE_STREAM, key, newValue3);
 
     redisFree(c2r);
     return 0;
