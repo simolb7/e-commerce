@@ -29,7 +29,7 @@ int main(){
     char const *descrizioneOgg;
     char const *barCodeOgg;
     char const *categoriaOgg;
-    char *lista[30][4];
+    string lista[30][4];
 
 
 
@@ -40,16 +40,6 @@ int main(){
     sprintf(sqlcmd, "SELECT idc FROM Costumer");
     res = db.ExecSQLtuples(sqlcmd);
     idc = atoi(PQgetvalue(res, 0, PQfnumber(res, "idc")));
-    PQclear(res);
-
-
-    sprintf(sqlcmd, "SELECT * FROM Utente WHERE idU = \'%d\'", idc);
-    res = db.ExecSQLtuples(sqlcmd);
-    name = PQgetvalue(res, 0, PQfnumber(res, "nameU"));
-    cognome = PQgetvalue(res, 0, PQfnumber(res, "surnameU"));
-    email = PQgetvalue(res, 0, PQfnumber(res, "emailU"));
-    password = PQgetvalue(res, 0, PQfnumber(res, "passwordU"));
-    purchType = "PayPal";
     PQclear(res);
 
     sprintf(sqlcmd, "COMMIT"); 
@@ -73,33 +63,13 @@ int main(){
     sprintf(sqlcmd, "COMMIT"); 
     res = db.ExecSQLcmd(sqlcmd);
     PQclear(res);
-
-    cout << nomeOgg << endl;
-    cout << descrizioneOgg << endl;
-    cout << barCodeOgg << endl;
-    cout << categoriaOgg << endl;
-
-    cout << endl;
-
-    for (int i = 0; i < 30; ++i) {
-            for (int j = 0; j < 4; ++j) {
-                cout << lista[i][j] << " ";
-            }
-            cout << endl;
-        }
-
+    
     costumer.ricerca(nomeOgg, 1, lista, db);
 
-    for (int i = 0; i < 30; ++i) {
-        for (int j = 0; j < 4; ++j) {
-            cout << lista[i][j] << " ";
-        }
-        cout << endl;
-    }
-
+    const char *idInv = lista[0][0].c_str();
+ 
+    costumer.acquisto(idInv, idc, 1, db);
     
-    costumer.acquisto(lista[0][0], costumer, 1, db);
-
     /*
     //char const *nomeOgg = "Mouse Logitech";
     char const *nomeOgg = "Monitor LG";
