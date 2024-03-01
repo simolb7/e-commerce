@@ -8,7 +8,31 @@
 
 // Funzione per generare un nome casuale
 string generateRandomObjName() {
-    vector<string> objNames = {"Mouse", "Monitor", "Tastiera", "Cuffie", "Alimentatore", "Televisore", "Smartphone", "Tablet", "Smartwatch"};
+    vector<string> objNames = {"Mouse", 
+        "Monitor", 
+        "Tastiera", 
+        "Cuffie", 
+        "Alimentatore", 
+        "Televisore", 
+        "Scheda audio",
+        "Scheda di rete",
+        "Tastiera",
+        "Stampante",
+        "Scanner",
+        "Router",
+        "Switch",
+        "Hub",
+        "Webcam",
+        "Microfono",
+        "Cuffie",
+        "Altoparlanti",
+        "Penna USB",
+        "PC case",
+        "CPU",
+        "Scheda madre",
+        "Memoria RAM",
+        "Hard Disk",
+        "GPU"};
     return objNames[rand() % objNames.size()];
 }
 

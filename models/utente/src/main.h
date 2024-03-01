@@ -7,7 +7,7 @@
 
 //#include <con2redis.h>
 #pragma once
-#include <iostream>
+//#include <iostream>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -22,8 +22,7 @@
 #include <ctime>
 #include <cstdlib>
 #include <bits/stdc++.h>
-#include <random>
-#include <openssl/sha.h>
+#include <../../../hash/src/hashsalt.h>
 
 using namespace std;
 
