@@ -7,12 +7,10 @@ void Trasportatore::getOrders(int idT, Con2DB db1, int orders[]){
     int row;
     
     sprintf(sqlcmd, "BEGIN"); 
-    cout << idT << endl;
     sprintf(sqlcmd, 
             "SELECT idAcq FROM Acquisto WHERE (trasportatore = \'%d\')", idT);
     res = db1.ExecSQLtuples(sqlcmd);
     row = PQntuples(res);
-    cout << row << endl;
     for(int i = 0; i < row; i++){
         int val = atoi(PQgetvalue(res, i, PQfnumber(res, "idAcq")));
         orders[i] = val;
