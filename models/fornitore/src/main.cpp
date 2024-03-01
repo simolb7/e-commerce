@@ -132,6 +132,7 @@ int main(){
         Oggetto oggetto(nomeOgg, descrizioneOgg, barCodeOgg, categoriaOgg);
         oggetto.addOggetto(oggetto, db);
         fornitore.addInventario(oggetto, fornitore, db, price, quantity);
+        fornitore.addQuantity(oggetto, fornitore, db, 10);
     }
 
     /*

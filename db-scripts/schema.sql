@@ -26,9 +26,11 @@ create domain VarType as double precision ;
 
 
 CREATE TYPE DomainType AS ENUM ('discrete', 'real', 'double');
+CREATE TYPE LogType AS ENUM ('info', 'warn', 'error');
+CREATE TYPE UserType AS ENUM ('customer', 'fornitore', 'trasportatore');
 CREATE TYPE StatusSpedition AS ENUM ('in preparazione', 'spedito', 'consegnato');
 
-
+/*
 -- Patient data that depend on time
 -- Variables within time series (all have the same type)
 CREATE TABLE IF NOT EXISTS TimeVar (
@@ -52,6 +54,7 @@ CREATE TABLE IF NOT EXISTS LogTable (
         PRIMARY KEY (nanosec, vid),
         CONSTRAINT vid_ref FOREIGN KEY(vid) REFERENCES TimeVar(vid)
 );
+*/
 
 CREATE TABLE IF NOT EXISTS Utente (
         idU serial PRIMARY KEY,
@@ -135,7 +138,31 @@ CREATE TABLE IF NOT EXISTS AcqInv (
         CONSTRAINT acquisto_ref FOREIGN KEY(acquisto) REFERENCES Acquisto(idAcq)
 );
 
+CREATE TABLE IF NOT EXISTS LogReg (
+        idLR serial PRIMARY KEY,
+        istante TIMESTAMP,
+        logSeverity LogType,
+        pid int NOT NULL,
+        emailU StringM,
+        ruolo UserType
+);
 
+CREATE TABLE IF NOT EXISTS LogLogin (
+        idLL serial PRIMARY KEY,
+        istante TIMESTAMP,
+        logSeverity LogType,
+        pid int NOT NULL,
+        emailU StringM
+);
+
+CREATE TABLE IF NOT EXISTS LogAggiunta (
+        idLA serial PRIMARY KEY,
+        istante TIMESTAMP,
+        pid int NOT NULL,
+        inventario int NOT NULL,
+        agginv IntG0,
+        CONSTRAINT inventario_ref2 FOREIGN KEY(inventario) REFERENCES Inventario(idInv)
+);
 
 
 
