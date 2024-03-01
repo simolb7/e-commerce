@@ -9,7 +9,7 @@ class Costumer: public Utente{
         Costumer(char const *nameC, char const *surnameC, char const *emailC, char const *passwordC, char const *purchTypeC) : 
         Utente(nameC, surnameC, emailC, passwordC, purchTypeC){};
 
-        void acquisto(const char * idInv, int idCost, int quantita, Con2DB db1);
+        void acquisto(const char * idInv, int idCost, int idTrasp, int quantita, Con2DB db1);
 
         void ricerca(char const * nomeOg, int quantita, std::string result[30][4], Con2DB db1);
 };

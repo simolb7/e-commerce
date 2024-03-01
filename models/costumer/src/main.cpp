@@ -18,6 +18,7 @@ int main(){
     PGresult *res;
     char sqlcmd[1000];
     int idc;
+    int idtrasp;
 
     const char *name;
     const char *cognome;
@@ -63,35 +64,27 @@ int main(){
     sprintf(sqlcmd, "COMMIT"); 
     res = db.ExecSQLcmd(sqlcmd);
     PQclear(res);
+
+    sprintf(sqlcmd, "BEGIN"); 
+    res = db.ExecSQLcmd(sqlcmd);
+    PQclear(res);
+
+    sprintf(sqlcmd, "SELECT idt FROM Trasportatore");
+    res = db.ExecSQLtuples(sqlcmd);
+    idtrasp = atoi(PQgetvalue(res, 0, PQfnumber(res, "idt")));
+    PQclear(res);
+
+    sprintf(sqlcmd, "COMMIT"); 
+    res = db.ExecSQLcmd(sqlcmd);
+    PQclear(res);
+
     
     costumer.ricerca(nomeOgg, 1, lista, db);
 
     const char *idInv = lista[0][0].c_str();
  
-    costumer.acquisto(idInv, idc, 1, db);
+    costumer.acquisto(idInv, idc, idtrasp, 1, db);
     
-    /*
-    //char const *nomeOgg = "Mouse Logitech";
-    char const *nomeOgg = "Monitor LG";
-    char const *descrizioneOgg = "grandi palle, bel pisello";
-    char const *barCodeOgg = "12345678900987654321";
-    //char const *barCodeOgg = "12345678900987654322";
-    char const *categoriaOgg = "Elettronica";
-
-    char const *name = "Luigi";
-    char const *surname = "Verdi";
-    char const *email = "luigiverdi420@gmail.com";
-    char const *password = "forzapergolettese";
-    char const *purchType = "Carta di credito";
-    char const *ruolo = "Costumer";
-    
-    costumer.ricerca(nomeOgg, 5, lista, db);
-
-    costumer.acquisto(lista[0][0], costumer, 3, db);
-
-    */
-
-    /*
 
     pid = getpid();
 
@@ -109,7 +102,7 @@ int main(){
     };
 
     redisFree(c2r);
-    */
+    
 
     
     return 0;

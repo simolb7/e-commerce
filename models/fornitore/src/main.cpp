@@ -115,7 +115,7 @@ int main(){
     printf("Prova");
 
 #endif
-    /*
+    
     pid = getpid();
     printf("main(): pid %d: user %s: connecting to redis ...\n", pid, username);
     c2r = redisConnect("localhost", 6379);
@@ -130,6 +130,6 @@ int main(){
 
     redisFree(c2r);
     
-    */
+    
     return 0;
 };

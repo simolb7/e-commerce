@@ -1,6 +1,6 @@
 #include <main.h>
 
-void Costumer::acquisto(const char * idInv, int idCost, int quantita, Con2DB db1){
+void Costumer::acquisto(const char * idInv, int idCost, int idTrasp, int quantita, Con2DB db1){
 
    
     int idA;
@@ -15,7 +15,7 @@ void Costumer::acquisto(const char * idInv, int idCost, int quantita, Con2DB db1
     PQclear(res);
 
     sprintf(sqlcmd,
-    "INSERT INTO Acquisto VALUES (DEFAULT, 'in preparazione', now(), \'%d\', 3) ON CONFLICT DO NOTHING", idCost);
+    "INSERT INTO Acquisto VALUES (DEFAULT, 'in preparazione', now(), \'%d\', \'%d\') ON CONFLICT DO NOTHING", idCost, idTrasp);
     res = db1.ExecSQLcmd(sqlcmd);
     PQclear(res);
 
