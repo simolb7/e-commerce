@@ -8,6 +8,9 @@ void Utente::registrationCostumer(Utente utente1, Con2DB db1){
     PGresult *res;
     char sqlcmd[1000];
     int idU;
+    int pid;
+
+    pid = getpid();
 
     std::string salt = generateSalt();
     std::string hashedPassword = hashPassword(passwordR, salt);
@@ -35,6 +38,11 @@ void Utente::registrationCostumer(Utente utente1, Con2DB db1){
 
     sprintf(sqlcmd,
     "INSERT INTO Costumer VALUES (\'%d\') ON CONFLICT DO NOTHING", idU);
+    res = db1.ExecSQLcmd(sqlcmd);
+    PQclear(res);
+
+    sprintf(sqlcmd,
+    "INSERT INTO LogReg VALUES (DEFAULT, now(), 'info', \'%d\', \'%s\', 'customer') ON CONFLICT DO NOTHING", pid, emailR);
     res = db1.ExecSQLcmd(sqlcmd);
     PQclear(res);
     
