@@ -31,7 +31,7 @@ void Utente::login(Utente utente1, Con2DB db1){
     res = db1.ExecSQLcmd(sqlcmd);
     PQclear(res);
 
-    if (strcmp(controllo, t)== 0){
+    if (strcmp(controllo, t) == 0){
         sprintf(sqlcmd, "BEGIN"); 
         res = db1.ExecSQLcmd(sqlcmd);
         PQclear(res);
