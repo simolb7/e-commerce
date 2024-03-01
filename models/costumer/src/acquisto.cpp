@@ -1,8 +1,8 @@
 #include <main.h>
 
-void Costumer::acquisto(char * idInv, Costumer costumer1, int quantita, Con2DB db1){
-    char const *emailCost = costumer1.getEmail();
-    int idCost;
+void Costumer::acquisto(const char * idInv, int idCost, int idTrasp, int quantita, Con2DB db1){
+
+   
     int idA;
     int row;
     int qAtt;
@@ -15,13 +15,7 @@ void Costumer::acquisto(char * idInv, Costumer costumer1, int quantita, Con2DB d
     PQclear(res);
 
     sprintf(sqlcmd,
-    "SELECT idU FROM Utente WHERE (emailU = \'%s\')", emailCost);
-    res = db1.ExecSQLtuples(sqlcmd);
-    idCost = atoi(PQgetvalue(res, 0, PQfnumber(res, "idU")));
-    PQclear(res);
-
-    sprintf(sqlcmd,
-    "INSERT INTO Acquisto VALUES (DEFAULT, 'in preparazione', now(), \'%d\', 3) ON CONFLICT DO NOTHING", idCost);
+    "INSERT INTO Acquisto VALUES (DEFAULT, 'in preparazione', now(), \'%d\', \'%d\') ON CONFLICT DO NOTHING", idCost, idTrasp);
     res = db1.ExecSQLcmd(sqlcmd);
     PQclear(res);
 
@@ -49,7 +43,7 @@ void Costumer::acquisto(char * idInv, Costumer costumer1, int quantita, Con2DB d
     "UPDATE Inventario SET quantitaAtt = \'%d\' WHERE (idInv = \'%s\')", qAgg, idInv);
     res = db1.ExecSQLcmd(sqlcmd);
     PQclear(res);
-    
+
     sprintf(sqlcmd, "COMMIT");
     res = db1.ExecSQLcmd(sqlcmd);
     PQclear(res);

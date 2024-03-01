@@ -1,6 +1,6 @@
 #include <main.h>
 
-void Costumer::ricerca(char const * nomeOg, int quantita, char * result[][4], Con2DB db1){
+void Costumer::ricerca(char const * nomeOg, int quantita, string result[30][4], Con2DB db1){
     PGresult *res;
     char sqlcmd[1000];
     int idOgg;
@@ -31,6 +31,7 @@ void Costumer::ricerca(char const * nomeOg, int quantita, char * result[][4], Co
         result[i][2] = quantitaAtt;
         result[i][3] = fornitore;
     };
+
     PQclear(res);
 
     sprintf(sqlcmd, "COMMIT");

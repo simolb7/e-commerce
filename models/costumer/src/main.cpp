@@ -8,35 +8,83 @@ int main(){
 
     redisContext *c2r;
     redisReply *reply;
+    Con2DB db("localhost", "5432", "userdb", "47002", "ecommercedb");
+
 
     int pid;
     char const *key = "key Costumer";
     char value[] = "Nuovo ordine";
     char const *username = "luigiverdi420@gmail.com";
+    PGresult *res;
+    char sqlcmd[1000];
+    int idc;
+    int idtrasp;
 
-    //char const *nomeOgg = "Mouse Logitech";
-    char const *nomeOgg = "Monitor LG";
-    char const *descrizioneOgg = "grandi palle, bel pisello";
-    char const *barCodeOgg = "12345678900987654321";
-    //char const *barCodeOgg = "12345678900987654322";
-    char const *categoriaOgg = "Elettronica";
+    const char *name;
+    const char *cognome;
+    const char *email;
+    const char *password;
+    const char *purchType;
 
-    char const *name = "Luigi";
-    char const *surname = "Verdi";
-    char const *email = "luigiverdi420@gmail.com";
-    char const *password = "forzapergolettese";
-    char const *purchType = "Carta di credito";
-    char const *ruolo = "Costumer";
+    char const *nomeOgg;
+    char const *descrizioneOgg;
+    char const *barCodeOgg;
+    char const *categoriaOgg;
+    string lista[30][4];
 
-    char * lista[10][4];
 
-    Con2DB db("localhost", "5432", "userdb", "47002", "ecommercedb");
 
-    Costumer costumer(name, surname, email, password, purchType);
+    sprintf(sqlcmd, "BEGIN"); 
+    res = db.ExecSQLcmd(sqlcmd);
+    PQclear(res);
 
-    costumer.ricerca(nomeOgg, 5, lista, db);
+    sprintf(sqlcmd, "SELECT idc FROM Costumer");
+    res = db.ExecSQLtuples(sqlcmd);
+    idc = atoi(PQgetvalue(res, 0, PQfnumber(res, "idc")));
+    PQclear(res);
 
-    costumer.acquisto(lista[0][0], costumer, 3, db);
+    sprintf(sqlcmd, "COMMIT"); 
+    res = db.ExecSQLcmd(sqlcmd);
+    PQclear(res);
+
+    Costumer costumer(name, cognome, email, password, purchType);
+
+    sprintf(sqlcmd, "BEGIN"); 
+    res = db.ExecSQLcmd(sqlcmd);
+    PQclear(res);
+
+    sprintf(sqlcmd, "SELECT * FROM Oggetto WHERE ido = \'%d\'", 1);
+    res = db.ExecSQLtuples(sqlcmd);
+    nomeOgg = PQgetvalue(res, 0, PQfnumber(res, "nameo"));
+    descrizioneOgg = PQgetvalue(res, 0, PQfnumber(res, "descr"));
+    barCodeOgg = PQgetvalue(res, 0, PQfnumber(res, "cbar"));
+    categoriaOgg = PQgetvalue(res, 0, PQfnumber(res, "category"));
+    PQclear(res);
+
+    sprintf(sqlcmd, "COMMIT"); 
+    res = db.ExecSQLcmd(sqlcmd);
+    PQclear(res);
+
+    sprintf(sqlcmd, "BEGIN"); 
+    res = db.ExecSQLcmd(sqlcmd);
+    PQclear(res);
+
+    sprintf(sqlcmd, "SELECT idt FROM Trasportatore");
+    res = db.ExecSQLtuples(sqlcmd);
+    idtrasp = atoi(PQgetvalue(res, 0, PQfnumber(res, "idt")));
+    PQclear(res);
+
+    sprintf(sqlcmd, "COMMIT"); 
+    res = db.ExecSQLcmd(sqlcmd);
+    PQclear(res);
+
+    
+    costumer.ricerca(nomeOgg, 1, lista, db);
+
+    const char *idInv = lista[0][0].c_str();
+ 
+    costumer.acquisto(idInv, idc, idtrasp, 1, db);
+    
 
     pid = getpid();
 
@@ -54,6 +102,8 @@ int main(){
     };
 
     redisFree(c2r);
+    
 
+    
     return 0;
 };

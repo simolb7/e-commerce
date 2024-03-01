@@ -8,6 +8,7 @@
 
 // Funzione per generare un nome casuale
 string generateRandomObjName() {
+
     vector<string> objNames = {"Mouse", 
         "Monitor", 
         "Tastiera", 
@@ -33,6 +34,7 @@ string generateRandomObjName() {
         "Memoria RAM",
         "Hard Disk",
         "GPU"};
+
     return objNames[rand() % objNames.size()];
 }
 
@@ -117,10 +119,10 @@ int main(){
 
     srand(time(nullptr)); // Inizializza il generatore di numeri casuali
 
-    int numPeople = 5; // Numero di persone da generare
+    int numProd = 5; // Numero di persone da generare
 
     cout << "Generated Products:\n";
-    for (int i = 0; i < numPeople; ++i) {
+    for (int i = 0; i < numProd; ++i) {
         const char *nomeOgg = generateRandomObjName().c_str();
         const char *descrizioneOgg = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.";
         const char* barCodeOgg = generateRandomBarCode().c_str();
@@ -135,44 +137,26 @@ int main(){
         fornitore.addQuantity(oggetto, fornitore, db, 10);
     }
 
-    /*
-    //char const *nomeOgg = "Mouse Logitech";
-    char const *nomeOgg = "Monitor LG";
-    char const *descrizioneOgg = "grandi palle, bel pisello";
-    char const *barCodeOgg = "12345678900987654321";
-    //char const *barCodeOgg = "12345678900987654322";
-    char const *categoriaOgg = "Elettronica";
-
-    Oggetto oggetto(nomeOgg, descrizioneOgg, barCodeOgg, categoriaOgg);
-
-    oggetto.addOggetto(oggetto, db);
-
-    Fornitore fornitore(name, surname, email, password, purchType);
-
-    fornitore.addInventario(oggetto, fornitore, db);
-    fornitore.addQuantity(oggetto, fornitore, db, 10);
-
-    */
-
 #if (DEBUG > 0)
     printf("Prova");
 
 #endif
-    /*
+    
     pid = getpid();
-    printf("main(): pid %d: user %s: connecting to redis ...\n", pid, username);
+    printf("main(): pid %d: user %s: connecting to redis ...\n", pid, email);
     c2r = redisConnect("localhost", 6379);
-    printf("main(): pid %d: user %s: connected to redis\n", pid, username);
+    printf("main(): pid %d: user %s: connected to redis\n", pid, email);
 
     initStreams(c2r, READ_STREAM);
     initStreams(c2r, WRITE_STREAM);
 
-    fval = readMsg(c2r, reply, READ_STREAM, username);
-    printf("result fval : %s\n", fval);
-    sendMsg(c2r, reply, WRITE_STREAM, key, value);
-
+    while(1){
+        fval = readMsg(c2r, reply, READ_STREAM, username);
+        printf("result fval : %s\n", fval);
+        sendMsg(c2r, reply, WRITE_STREAM, key, value);
+    }
     redisFree(c2r);
     
-    */
+    
     return 0;
 };

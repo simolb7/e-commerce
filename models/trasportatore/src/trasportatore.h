@@ -13,7 +13,7 @@ class Trasportatore: virtual public Utente{
 
         char *getStatus(int idOrdine, Con2DB db1);
 
-        void getOrders(Trasportatore trasportatore, Con2DB db1, int orders[]);
+        void getOrders(int idT, Con2DB db1, int orders[]);
 
         
 };
