@@ -88,9 +88,9 @@ CREATE TABLE IF NOT EXISTS MetPag (
 );
 
 CREATE TABLE IF NOT EXISTS MPUte (
-        utente int NOT NULL,
+        costumer int NOT NULL,
         metpag int NOT NULL,
-        CONSTRAINT utente_ref FOREIGN KEY(utente) REFERENCES Utente(idU),
+        CONSTRAINT costumer_ref1 FOREIGN KEY(costumer) REFERENCES Costumer(idC),
         CONSTRAINT metpag_ref FOREIGN KEY(metpag) REFERENCES MetPag(idMP)
 );
 

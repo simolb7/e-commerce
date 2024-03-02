@@ -1,6 +1,8 @@
 #include <main.h>
 
-void Utente::registrationCostumer(Utente utente1, Con2DB db1){
+#include <../../../hash/src/hashsalt.h>
+
+void Utente::registrationCostumer(Utente utente1, Con2DB db1, int purch){
     char const *nomeR  = utente1.getName();
     char const *cognomeR  = utente1.getSurname();
     char const *emailR  = utente1.getEmail();
@@ -68,6 +70,11 @@ void Utente::registrationCostumer(Utente utente1, Con2DB db1){
 
         sprintf(sqlcmd,
         "INSERT INTO Costumer VALUES (\'%d\') ON CONFLICT DO NOTHING", idU);
+        res = db1.ExecSQLcmd(sqlcmd);
+        PQclear(res);
+
+        sprintf(sqlcmd,
+        "INSERT INTO MPUte VALUES (\'%d\', \'%d\') ON CONFLICT DO NOTHING", idU, purch);
         res = db1.ExecSQLcmd(sqlcmd);
         PQclear(res);
 

@@ -32,7 +32,7 @@ class Utente{
             return passwordU;
         }
 
-        void registrationCostumer(Utente utente1, Con2DB db1);
+        void registrationCostumer(Utente utente1, Con2DB db1, int purch);
 
         void registrationFornitore(Utente utente1, const char *pIva, Con2DB db1);
 
