@@ -16,7 +16,8 @@ string generateRandomObjName() {
         "Televisore", 
         "Scheda audio",
         "Scheda di rete",
-        "Tastiera",
+        "Tastiera"
+        /*
         "Stampante",
         "Scanner",
         "Router",
@@ -32,7 +33,9 @@ string generateRandomObjName() {
         "Scheda madre",
         "Memoria RAM",
         "Hard Disk",
-        "GPU"};
+        "GPU"
+        */
+       };
     return objNames[rand() % objNames.size()];
 }
 
@@ -127,8 +130,8 @@ int main(){
         char const *categoriaOgg = "Elettronica";
         float price = generatePrice();
         int quantity = (rand() %20)+1;
-        cout << nomeOgg << endl;
-        cout << barCodeOgg << endl;
+        //cout << nomeOgg << endl;
+        //cout << barCodeOgg << endl;
         Oggetto oggetto(nomeOgg, descrizioneOgg, barCodeOgg, categoriaOgg);
         oggetto.addOggetto(oggetto, db);
         fornitore.addInventario(oggetto, fornitore, db, price, quantity);

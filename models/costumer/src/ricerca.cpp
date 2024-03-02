@@ -20,6 +20,7 @@ void Costumer::ricerca(char const * nomeOg, int quantita, string result[30][4], 
     "SELECT idInv, prezzo, QuantitaAtt, fornitore FROM Inventario WHERE (oggetto = \'%d\' AND QuantitaAtt >= \'%d\')", idOgg, quantita);
     res = db1.ExecSQLtuples(sqlcmd);
     row = PQntuples(res);
+   
     for (int i = 0; i < row; i++){
         char * idInv = PQgetvalue(res, i, PQfnumber(res, "idInv"));
         char * prezzo = PQgetvalue(res, i, PQfnumber(res, "prezzo"));

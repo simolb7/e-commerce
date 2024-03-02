@@ -43,17 +43,9 @@ int main(){
     idc = atoi(PQgetvalue(res, 0, PQfnumber(res, "idc")));
     PQclear(res);
 
-    sprintf(sqlcmd, "COMMIT"); 
-    res = db.ExecSQLcmd(sqlcmd);
-    PQclear(res);
-
     Costumer costumer(name, cognome, email, password, purchType);
 
-    sprintf(sqlcmd, "BEGIN"); 
-    res = db.ExecSQLcmd(sqlcmd);
-    PQclear(res);
-
-    sprintf(sqlcmd, "SELECT * FROM Oggetto WHERE ido = \'%d\'", 1);
+    sprintf(sqlcmd, "SELECT * FROM Oggetto");
     res = db.ExecSQLtuples(sqlcmd);
     nomeOgg = PQgetvalue(res, 0, PQfnumber(res, "nameo"));
     descrizioneOgg = PQgetvalue(res, 0, PQfnumber(res, "descr"));
@@ -61,13 +53,7 @@ int main(){
     categoriaOgg = PQgetvalue(res, 0, PQfnumber(res, "category"));
     PQclear(res);
 
-    sprintf(sqlcmd, "COMMIT"); 
-    res = db.ExecSQLcmd(sqlcmd);
-    PQclear(res);
-
-    sprintf(sqlcmd, "BEGIN"); 
-    res = db.ExecSQLcmd(sqlcmd);
-    PQclear(res);
+    cout << nomeOgg << endl;
 
     sprintf(sqlcmd, "SELECT idt FROM Trasportatore");
     res = db.ExecSQLtuples(sqlcmd);
@@ -82,7 +68,7 @@ int main(){
     costumer.ricerca(nomeOgg, 1, lista, db);
 
     const char *idInv = lista[0][0].c_str();
- 
+
     costumer.acquisto(idInv, idc, idtrasp, 1, db);
     
 
