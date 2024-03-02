@@ -14,6 +14,7 @@ int main(){
     char const *username = "trasportatore@gmail.com";
     char const *fval;
     char *statusAtt;
+    char const *statusConsegnato = "consegnato";
     int ordini[10]; //da rivedere
     PGresult *res;
     char sqlcmd[1000];
@@ -60,31 +61,43 @@ int main(){
 
         fval = readMsg(c2r, reply, READ_STREAM, username);
         printf("result fval : %s\n", fval);
+        
+        for (int i = 0; i < 10; ++i) {
+            ordini[i] = -1; // Utilizzando -1 come valore speciale
+        }
+
         trasportatore.getOrders(idt, db, ordini);
 
-        int idO = ordini[0];
+        for (int i = 0; i < 10; i++) {
+            if (ordini[i] != -1){
+                const char *check = trasportatore.getStatus(ordini[i], db);
+                if (strcmp(check, statusConsegnato) != 0){
+                    statusAtt = trasportatore.getStatus(ordini[i], db);
+                    char newValue1[100];
+                    strcpy(newValue1, value);
+                    strcat(newValue1, statusAtt);
+                    sendMsg(c2r, reply, WRITE_STREAM, key, newValue1);
+                    sleep(5);
+                    trasportatore.updateStatus(ordini[i], db);
 
-        statusAtt = trasportatore.getStatus(idO, db);
-        char newValue1[100];
-        strcpy(newValue1, value);
-        strcat(newValue1, statusAtt);
-        sendMsg(c2r, reply, WRITE_STREAM, key, newValue1);
-        sleep(5);
-        trasportatore.updateStatus(idO, db);
+                    statusAtt = trasportatore.getStatus(ordini[i], db);
+                    char newValue2[100];
+                    strcpy(newValue2, value);
+                    strcat(newValue2, statusAtt);
+                    sendMsg(c2r, reply, WRITE_STREAM, key, newValue2);
+                    sleep(5);
+                    trasportatore.updateStatus(ordini[i], db);
 
-        statusAtt = trasportatore.getStatus(idO, db);
-        char newValue2[100];
-        strcpy(newValue2, value);
-        strcat(newValue2, statusAtt);
-        sendMsg(c2r, reply, WRITE_STREAM, key, newValue2);
-        sleep(5);
-        trasportatore.updateStatus(idO, db);
-
-        statusAtt = trasportatore.getStatus(idO, db);
-        char newValue3[100];
-        strcpy(newValue3, value);
-        strcat(newValue3, statusAtt);
-        sendMsg(c2r, reply, WRITE_STREAM, key, newValue3);
+                    statusAtt = trasportatore.getStatus(ordini[i], db);
+                    char newValue3[100];
+                    strcpy(newValue3, value);
+                    strcat(newValue3, statusAtt);
+                    sendMsg(c2r, reply, WRITE_STREAM, key, newValue3);
+                }
+            } else {
+                break;
+            }
+        }
     }
 
 
