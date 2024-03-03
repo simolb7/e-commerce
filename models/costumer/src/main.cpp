@@ -30,8 +30,16 @@ int main(){
     char const *descrizioneOgg;
     char const *barCodeOgg;
     char const *categoriaOgg;
+    
     string lista[30][4];
+    char const *ctrlValue = "-1";
 
+    for (int i = 0; i < 30; i++){
+        lista[i][0] = "-1";
+        lista[i][1] = "-1";
+        lista[i][2] = "-1";
+        lista[i][3] = "-1";
+    }
 
 
     sprintf(sqlcmd, "BEGIN"); 
@@ -45,15 +53,13 @@ int main(){
 
     Costumer costumer(name, cognome, email, password, purchType);
 
-    sprintf(sqlcmd, "SELECT * FROM Oggetto");
+    sprintf(sqlcmd, "SELECT * FROM Oggetto WHERE ido = \'%d\'", 1);
     res = db.ExecSQLtuples(sqlcmd);
     nomeOgg = PQgetvalue(res, 0, PQfnumber(res, "nameo"));
     descrizioneOgg = PQgetvalue(res, 0, PQfnumber(res, "descr"));
     barCodeOgg = PQgetvalue(res, 0, PQfnumber(res, "cbar"));
     categoriaOgg = PQgetvalue(res, 0, PQfnumber(res, "category"));
     PQclear(res);
-
-    cout << nomeOgg << endl;
 
     sprintf(sqlcmd, "SELECT idt FROM Trasportatore");
     res = db.ExecSQLtuples(sqlcmd);
@@ -64,32 +70,32 @@ int main(){
     res = db.ExecSQLcmd(sqlcmd);
     PQclear(res);
 
-    
     costumer.ricerca(nomeOgg, 1, lista, db);
 
     const char *idInv = lista[0][0].c_str();
 
-    costumer.acquisto(idInv, idc, idtrasp, 1, db);
-    
+    if (strcmp(idInv, ctrlValue) != 0){
+        costumer.acquisto(idInv, idc, idtrasp, 1, db);
 
-    pid = getpid();
+        pid = getpid();
 
-    printf("main(): pid %d: user %s: connecting to redis ...\n", pid, username);
-    c2r = redisConnect("localhost", 6379);
-    printf("main(): pid %d: user %s: connected to redis\n", pid, username);
+        printf("main(): pid %d: user %s: connecting to redis ...\n", pid, username);
+        c2r = redisConnect("localhost", 6379);
+        printf("main(): pid %d: user %s: connected to redis\n", pid, username);
 
-    initStreams(c2r, WRITE_STREAM);
-    initStreams(c2r, READ_STREAM);
+        initStreams(c2r, WRITE_STREAM);
+        initStreams(c2r, READ_STREAM);
 
-    sendMsg(c2r, reply, WRITE_STREAM, key, value);
+        sendMsg(c2r, reply, WRITE_STREAM, key, value);
 
-    while(1){
-        readMsg(c2r, reply, READ_STREAM, username);
-    };
+        while(1){
+            readMsg(c2r, reply, READ_STREAM, username);
+        };
 
-    redisFree(c2r);
-    
+        redisFree(c2r); 
+    } else {
+        redisFree(c2r);
+    }
 
-    
     return 0;
 };
