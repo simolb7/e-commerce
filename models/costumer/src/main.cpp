@@ -1,6 +1,7 @@
 #include <main.h>
 #include "costumer.h"
 
+
 #define WRITE_STREAM "customer2fornitore"
 #define READ_STREAM "trasportatore2costumer"
 
@@ -81,7 +82,12 @@ int main(){
     initStreams(c2r, WRITE_STREAM);
     initStreams(c2r, READ_STREAM);
 
-    sendMsg(c2r, reply, WRITE_STREAM, key, value);
+    double elapsedMs = 0.0;
+
+    sendMsg(c2r, reply, WRITE_STREAM, key, value, elapsedMs);
+    
+
+    printf("Tempo trascorso: %.2f millisecondi Da COSTUMER\n", elapsedMs);
 
     while(1){
         readMsg(c2r, reply, READ_STREAM, username);

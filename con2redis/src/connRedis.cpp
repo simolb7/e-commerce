@@ -1,13 +1,26 @@
 #include "con2redis.h"
 #include "local.h"
+#include <chrono>
+#include <iostream>
+
 
 int block = 1000000000;
 char fval[100];
 
-void sendMsg(redisContext *c2r, redisReply *reply, char const *stream, char const *key, char *value){
+void sendMsg(redisContext *c2r, redisReply *reply, char const *stream, char const *key, char *value, double& elapsedMs){
+
+    auto start = std::chrono::steady_clock::now();
+
     reply = RedisCommand(c2r, "XADD %s * %s %s", stream, key, value);
     assertReplyType(c2r, reply, REDIS_REPLY_STRING);
     freeReplyObject(reply);
+
+    auto end = std::chrono::steady_clock::now();
+
+    auto elapsedNs = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+    elapsedMs = elapsedNs / 1000000.0;
+    printf("Tempo trascorso: %.2f millisecondi", elapsedMs);
+    
 };
 
 char *readMsg(redisContext *c2r, redisReply *reply, char const *stream, char const *username) {

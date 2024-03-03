@@ -151,10 +151,12 @@ int main(){
     initStreams(c2r, READ_STREAM);
     initStreams(c2r, WRITE_STREAM);
 
+    double elapsedMs= 0.0;
+
     while(1){
         fval = readMsg(c2r, reply, READ_STREAM, username);
         printf("result fval : %s\n", fval);
-        sendMsg(c2r, reply, WRITE_STREAM, key, value);
+        sendMsg(c2r, reply, WRITE_STREAM, key, value, elapsedMs);
     }
     redisFree(c2r);
     

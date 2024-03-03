@@ -68,6 +68,8 @@ int main(){
 
         trasportatore.getOrders(idt, db, ordini);
 
+        double elasedMs= 0.0;
+
         for (int i = 0; i < 10; i++) {
             if (ordini[i] != -1){
                 const char *check = trasportatore.getStatus(ordini[i], db);
@@ -76,7 +78,7 @@ int main(){
                     char newValue1[100];
                     strcpy(newValue1, value);
                     strcat(newValue1, statusAtt);
-                    sendMsg(c2r, reply, WRITE_STREAM, key, newValue1);
+                    sendMsg(c2r, reply, WRITE_STREAM, key, newValue1, elasedMs);
                     sleep(5);
                     trasportatore.updateStatus(ordini[i], db);
 
@@ -84,7 +86,7 @@ int main(){
                     char newValue2[100];
                     strcpy(newValue2, value);
                     strcat(newValue2, statusAtt);
-                    sendMsg(c2r, reply, WRITE_STREAM, key, newValue2);
+                    sendMsg(c2r, reply, WRITE_STREAM, key, newValue2, elasedMs);
                     sleep(5);
                     trasportatore.updateStatus(ordini[i], db);
 
@@ -92,7 +94,7 @@ int main(){
                     char newValue3[100];
                     strcpy(newValue3, value);
                     strcat(newValue3, statusAtt);
-                    sendMsg(c2r, reply, WRITE_STREAM, key, newValue3);
+                    sendMsg(c2r, reply, WRITE_STREAM, key, newValue3, elasedMs);
                 }
             } else {
                 break;
