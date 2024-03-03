@@ -83,14 +83,12 @@ int main(){
     initStreams(c2r, READ_STREAM);
 
     double elapsedMs = 0.0;
+    double ReadElapsedMs = 0.0;
 
     sendMsg(c2r, reply, WRITE_STREAM, key, value, elapsedMs);
-    
-
-    printf("Tempo trascorso: %.2f millisecondi Da COSTUMER\n", elapsedMs);
 
     while(1){
-        readMsg(c2r, reply, READ_STREAM, username);
+        readMsg(c2r, reply, READ_STREAM, username, ReadElapsedMs);
     };
 
     redisFree(c2r);

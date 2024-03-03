@@ -57,9 +57,11 @@ int main(){
     initStreams(c2r, READ_STREAM);
     initStreams(c2r, WRITE_STREAM);
 
+    double ReadElapsedMs = 0.0;
+
     while(1){
 
-        fval = readMsg(c2r, reply, READ_STREAM, username);
+        fval = readMsg(c2r, reply, READ_STREAM, username, ReadElapsedMs);
         printf("result fval : %s\n", fval);
         
         for (int i = 0; i < 10; ++i) {
@@ -69,6 +71,7 @@ int main(){
         trasportatore.getOrders(idt, db, ordini);
 
         double elasedMs= 0.0;
+        
 
         for (int i = 0; i < 10; i++) {
             if (ordini[i] != -1){

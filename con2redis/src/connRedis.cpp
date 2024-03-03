@@ -19,11 +19,13 @@ void sendMsg(redisContext *c2r, redisReply *reply, char const *stream, char cons
 
     auto elapsedNs = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
     elapsedMs = elapsedNs / 1000000.0;
-    printf("Tempo trascorso: %.2f millisecondi", elapsedMs);
+    printf("Tempo trascorso per la scrittura: %.2f millisecondi", elapsedMs);
     
 };
 
-char *readMsg(redisContext *c2r, redisReply *reply, char const *stream, char const *username) {
+char *readMsg(redisContext *c2r, redisReply *reply, char const *stream, char const *username, double &ReadElapsedMs) {
+
+    auto start = std::chrono::steady_clock::now();
     reply = RedisCommand(c2r, "XREADGROUP GROUP diameter %s BLOCK %d COUNT 2 NOACK STREAMS %s >", username, block, stream);
     //verifica che ci sia stata una risposta
     assertReply(c2r, reply);
@@ -42,6 +44,12 @@ char *readMsg(redisContext *c2r, redisReply *reply, char const *stream, char con
             }	      	      
         }
     }
+
+    auto end = std::chrono::steady_clock::now();
+
+    auto elapsedNs = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+    ReadElapsedMs = elapsedNs / 1000000.0;
+    printf("Tempo trascorso per la lettura: %.2f  millisecondi \n", ReadElapsedMs);
     //fval = value
     return fval;
 }

@@ -56,5 +56,5 @@ int ReadStreamMsgVal(redisReply *r, long unsigned int streamnum, int msgnum, int
 //custom
 void sendMsg(redisContext *c2r, redisReply *reply, char const *stream, char const *key, char *value, double& elapsedMs);
 
-char *readMsg(redisContext *c2r, redisReply *reply, char const *stream, char const *username);
+char *readMsg(redisContext *c2r, redisReply *reply, char const *stream, char const *username, double& ReadElapsedMs);
 #endif
