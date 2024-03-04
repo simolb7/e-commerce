@@ -31,8 +31,16 @@ int main(){
     char const *descrizioneOgg;
     char const *barCodeOgg;
     char const *categoriaOgg;
+    
     string lista[30][4];
+    char const *ctrlValue = "-1";
 
+    for (int i = 0; i < 30; i++){
+        lista[i][0] = "-1";
+        lista[i][1] = "-1";
+        lista[i][2] = "-1";
+        lista[i][3] = "-1";
+    }
 
 
     sprintf(sqlcmd, "BEGIN"); 
@@ -46,7 +54,7 @@ int main(){
 
     Costumer costumer(name, cognome, email, password, purchType);
 
-    sprintf(sqlcmd, "SELECT * FROM Oggetto");
+    sprintf(sqlcmd, "SELECT * FROM Oggetto WHERE ido = \'%d\'", 1);
     res = db.ExecSQLtuples(sqlcmd);
     nomeOgg = PQgetvalue(res, 0, PQfnumber(res, "nameo"));
     descrizioneOgg = PQgetvalue(res, 0, PQfnumber(res, "descr"));
@@ -63,69 +71,69 @@ int main(){
     res = db.ExecSQLcmd(sqlcmd);
     PQclear(res);
 
-    
     costumer.ricerca(nomeOgg, 1, lista, db);
 
     const char *idInv = lista[0][0].c_str();
 
-    costumer.acquisto(idInv, idc, idtrasp, 1, db);
-    
+    if (strcmp(idInv, ctrlValue) != 0){
+        costumer.acquisto(idInv, idc, idtrasp, 1, db);
 
-    pid = getpid();
+        pid = getpid();
 
-    printf("main(): pid %d: user %s: connecting to redis ...\n", pid, username);
-    c2r = redisConnect("localhost", 6379);
-    printf("main(): pid %d: user %s: connected to redis\n", pid, username);
+        printf("main(): pid %d: user %s: connecting to redis ...\n", pid, username);
+        c2r = redisConnect("localhost", 6379);
+        printf("main(): pid %d: user %s: connected to redis\n", pid, username);
 
-    initStreams(c2r, WRITE_STREAM);
-    initStreams(c2r, READ_STREAM);
+        initStreams(c2r, WRITE_STREAM);
+        initStreams(c2r, READ_STREAM);
 
-    double elapsedMs = 0.0;
-    double ReadElapsedMs = 0.0;
+        double elapsedMs = 0.0;
+        double ReadElapsedMs = 0.0;
 
-    sendMsg(c2r, reply, WRITE_STREAM, key, value, elapsedMs);
+        sendMsg(c2r, reply, WRITE_STREAM, key, value, elapsedMs);
 
-    string strElapsedMs = to_string(elapsedMs); 
-    char const *elap = strElapsedMs.c_str();
-
-    sprintf(sqlcmd, "BEGIN"); 
-    res = db.ExecSQLcmd(sqlcmd);
-    PQclear(res);
-
-    sprintf(sqlcmd,
-    "INSERT INTO LogSender VALUES(DEFAULT, now(), \'%d\', \'%d\', \'%d\', \'%s\') ON CONFLICT DO NOTHING",
-    pid, idc, idtrasp, elap);
-    res = db.ExecSQLcmd(sqlcmd);
-    PQclear(res);
-
-    sprintf(sqlcmd, "COMMIT"); 
-    res = db.ExecSQLcmd(sqlcmd);
-    PQclear(res);
-
-    while(1){
-        readMsg(c2r, reply, READ_STREAM, username, ReadElapsedMs);
-
-        string strReadElapsedMs = to_string(ReadElapsedMs); 
-        char const *elapRead = strReadElapsedMs.c_str();
+        string strElapsedMs = to_string(elapsedMs); 
+        char const *elap = strElapsedMs.c_str();
 
         sprintf(sqlcmd, "BEGIN"); 
         res = db.ExecSQLcmd(sqlcmd);
         PQclear(res);
 
         sprintf(sqlcmd,
-        "INSERT INTO LogReader VALUES(DEFAULT, now(), \'%d\', \'%d\', \'%s\') ON CONFLICT DO NOTHING",
-        pid, idc, elapRead);
+        "INSERT INTO LogSender VALUES(DEFAULT, now(), \'%d\', \'%d\', \'%d\', \'%s\') ON CONFLICT DO NOTHING",
+        pid, idc, idtrasp, elap);
         res = db.ExecSQLcmd(sqlcmd);
         PQclear(res);
 
         sprintf(sqlcmd, "COMMIT"); 
         res = db.ExecSQLcmd(sqlcmd);
-        PQclear(res);      
-    };
+        PQclear(res);
 
-    redisFree(c2r);
-    
+        while(1){
+            readMsg(c2r, reply, READ_STREAM, username, ReadElapsedMs);
 
-    
+            string strReadElapsedMs = to_string(ReadElapsedMs); 
+            char const *elapRead = strReadElapsedMs.c_str();
+
+            sprintf(sqlcmd, "BEGIN"); 
+            res = db.ExecSQLcmd(sqlcmd);
+            PQclear(res);
+
+            sprintf(sqlcmd,
+            "INSERT INTO LogReader VALUES(DEFAULT, now(), \'%d\', \'%d\', \'%s\') ON CONFLICT DO NOTHING",
+            pid, idc, elapRead);
+            res = db.ExecSQLcmd(sqlcmd);
+            PQclear(res);
+
+            sprintf(sqlcmd, "COMMIT"); 
+            res = db.ExecSQLcmd(sqlcmd);
+            PQclear(res);      
+        };
+
+            redisFree(c2r); 
+    } else {
+        redisFree(c2r);
+    }
+
     return 0;
 };
