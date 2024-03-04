@@ -19,7 +19,6 @@ void sendMsg(redisContext *c2r, redisReply *reply, char const *stream, char cons
 
     auto elapsedNs = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
     elapsedMs = elapsedNs / 1000000.0;
-    printf("Tempo trascorso per la scrittura: %.2f millisecondi", elapsedMs);
     
 };
 
@@ -49,7 +48,5 @@ char *readMsg(redisContext *c2r, redisReply *reply, char const *stream, char con
 
     auto elapsedNs = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
     ReadElapsedMs = elapsedNs / 1000000.0;
-    printf("Tempo trascorso per la lettura: %.2f  millisecondi \n", ReadElapsedMs);
-    //fval = value
     return fval;
 }

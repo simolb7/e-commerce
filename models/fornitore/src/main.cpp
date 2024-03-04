@@ -122,7 +122,6 @@ int main(){
 
     int numProd = 5; // Numero di persone da generare
 
-    cout << "Generated Products:\n";
     for (int i = 0; i < numProd; ++i) {
         const char *nomeOgg = generateRandomObjName().c_str();
         const char *descrizioneOgg = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.";
@@ -130,8 +129,6 @@ int main(){
         char const *categoriaOgg = "Elettronica";
         float price = generatePrice();
         int quantity = (rand() %20)+1;
-        //cout << nomeOgg << endl;
-        //cout << barCodeOgg << endl;
         Oggetto oggetto(nomeOgg, descrizioneOgg, barCodeOgg, categoriaOgg);
         oggetto.addOggetto(oggetto, db);
         fornitore.addInventario(oggetto, fornitore, db, price, quantity);
