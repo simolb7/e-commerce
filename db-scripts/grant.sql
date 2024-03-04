@@ -21,6 +21,8 @@ ALTER TABLE AcqInv OWNER TO :username ;
 ALTER TABLE LogReg OWNER TO :username ;
 ALTER TABLE LogLogin OWNER TO :username ;
 ALTER TABLE LogAggiunta OWNER TO :username ;
+ALTER TABLE LogSender OWNER TO :username;
+ALTER TABLE LogReader OWNER TO :username;
 
 
 -- grant all privileges on all tables in schema public to :username ;

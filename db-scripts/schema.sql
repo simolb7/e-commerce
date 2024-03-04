@@ -164,6 +164,27 @@ CREATE TABLE IF NOT EXISTS LogAggiunta (
         CONSTRAINT inventario_ref2 FOREIGN KEY(inventario) REFERENCES Inventario(idInv)
 );
 
+CREATE TABLE IF NOT EXISTS LogSender (
+        idLS serial PRIMARY KEY,
+        istante TIMESTAMP,
+        pid int NOT NULL,
+        sender int NOT NULL,
+        receiver int NOT NULL,
+        elapsed StringM NOT NULL,
+        CONSTRAINT sender_ref FOREIGN KEY(sender) REFERENCES Utente(idU),
+        CONSTRAINT receiver_ref FOREIGN KEY(receiver) REFERENCES Utente(idU)
+);
+
+CREATE TABLE IF NOT EXISTS LogReader(
+        idLRD serial PRIMARY KEY,
+        istante TIMESTAMP,
+        pid int NOT NULL,
+        reader int NOT NULL,
+        elapsed StringM NOT NULL,
+        CONSTRAINT reader_ref FOREIGN KEY(reader) REFERENCES Utente(idU)
+);
+
+
 
 
 

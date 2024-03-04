@@ -1,6 +1,7 @@
 #include <main.h>
 #include "costumer.h"
 
+
 #define WRITE_STREAM "customer2fornitore"
 #define READ_STREAM "trasportatore2costumer"
 
@@ -53,8 +54,6 @@ int main(){
     categoriaOgg = PQgetvalue(res, 0, PQfnumber(res, "category"));
     PQclear(res);
 
-    cout << nomeOgg << endl;
-
     sprintf(sqlcmd, "SELECT idt FROM Trasportatore");
     res = db.ExecSQLtuples(sqlcmd);
     idtrasp = atoi(PQgetvalue(res, 0, PQfnumber(res, "idt")));
@@ -81,10 +80,47 @@ int main(){
     initStreams(c2r, WRITE_STREAM);
     initStreams(c2r, READ_STREAM);
 
-    sendMsg(c2r, reply, WRITE_STREAM, key, value);
+    double elapsedMs = 0.0;
+    double ReadElapsedMs = 0.0;
+
+    sendMsg(c2r, reply, WRITE_STREAM, key, value, elapsedMs);
+
+    string strElapsedMs = to_string(elapsedMs); 
+    char const *elap = strElapsedMs.c_str();
+
+    sprintf(sqlcmd, "BEGIN"); 
+    res = db.ExecSQLcmd(sqlcmd);
+    PQclear(res);
+
+    sprintf(sqlcmd,
+    "INSERT INTO LogSender VALUES(DEFAULT, now(), \'%d\', \'%d\', \'%d\', \'%s\') ON CONFLICT DO NOTHING",
+    pid, idc, idtrasp, elap);
+    res = db.ExecSQLcmd(sqlcmd);
+    PQclear(res);
+
+    sprintf(sqlcmd, "COMMIT"); 
+    res = db.ExecSQLcmd(sqlcmd);
+    PQclear(res);
 
     while(1){
-        readMsg(c2r, reply, READ_STREAM, username);
+        readMsg(c2r, reply, READ_STREAM, username, ReadElapsedMs);
+
+        string strReadElapsedMs = to_string(ReadElapsedMs); 
+        char const *elapRead = strReadElapsedMs.c_str();
+
+        sprintf(sqlcmd, "BEGIN"); 
+        res = db.ExecSQLcmd(sqlcmd);
+        PQclear(res);
+
+        sprintf(sqlcmd,
+        "INSERT INTO LogReader VALUES(DEFAULT, now(), \'%d\', \'%d\', \'%s\') ON CONFLICT DO NOTHING",
+        pid, idc, elapRead);
+        res = db.ExecSQLcmd(sqlcmd);
+        PQclear(res);
+
+        sprintf(sqlcmd, "COMMIT"); 
+        res = db.ExecSQLcmd(sqlcmd);
+        PQclear(res);      
     };
 
     redisFree(c2r);

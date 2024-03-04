@@ -1,16 +1,30 @@
 #include "con2redis.h"
 #include "local.h"
+#include <chrono>
+#include <iostream>
+
 
 int block = 1000000000;
 char fval[100];
 
-void sendMsg(redisContext *c2r, redisReply *reply, char const *stream, char const *key, char *value){
+void sendMsg(redisContext *c2r, redisReply *reply, char const *stream, char const *key, char *value, double& elapsedMs){
+
+    auto start = std::chrono::steady_clock::now();
+
     reply = RedisCommand(c2r, "XADD %s * %s %s", stream, key, value);
     assertReplyType(c2r, reply, REDIS_REPLY_STRING);
     freeReplyObject(reply);
+
+    auto end = std::chrono::steady_clock::now();
+
+    auto elapsedNs = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+    elapsedMs = elapsedNs / 1000000.0;
+    
 };
 
-char *readMsg(redisContext *c2r, redisReply *reply, char const *stream, char const *username) {
+char *readMsg(redisContext *c2r, redisReply *reply, char const *stream, char const *username, double &ReadElapsedMs) {
+
+    auto start = std::chrono::steady_clock::now();
     reply = RedisCommand(c2r, "XREADGROUP GROUP diameter %s BLOCK %d COUNT 2 NOACK STREAMS %s >", username, block, stream);
     //verifica che ci sia stata una risposta
     assertReply(c2r, reply);
@@ -29,6 +43,10 @@ char *readMsg(redisContext *c2r, redisReply *reply, char const *stream, char con
             }	      	      
         }
     }
-    //fval = value
+
+    auto end = std::chrono::steady_clock::now();
+
+    auto elapsedNs = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+    ReadElapsedMs = elapsedNs / 1000000.0;
     return fval;
 }

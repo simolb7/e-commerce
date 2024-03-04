@@ -122,7 +122,6 @@ int main(){
 
     int numProd = 5; // Numero di persone da generare
 
-    cout << "Generated Products:\n";
     for (int i = 0; i < numProd; ++i) {
         const char *nomeOgg = generateRandomObjName().c_str();
         const char *descrizioneOgg = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.";
@@ -130,8 +129,6 @@ int main(){
         char const *categoriaOgg = "Elettronica";
         float price = generatePrice();
         int quantity = (rand() %20)+1;
-        //cout << nomeOgg << endl;
-        //cout << barCodeOgg << endl;
         Oggetto oggetto(nomeOgg, descrizioneOgg, barCodeOgg, categoriaOgg);
         oggetto.addOggetto(oggetto, db);
         fornitore.addInventario(oggetto, fornitore, db, price, quantity);
@@ -151,10 +148,13 @@ int main(){
     initStreams(c2r, READ_STREAM);
     initStreams(c2r, WRITE_STREAM);
 
+    double elapsedMs= 0.0;
+    double ReadElapsedMs = 0.0;
+
     while(1){
-        fval = readMsg(c2r, reply, READ_STREAM, username);
+        fval = readMsg(c2r, reply, READ_STREAM, username, ReadElapsedMs);
         printf("result fval : %s\n", fval);
-        sendMsg(c2r, reply, WRITE_STREAM, key, value);
+        sendMsg(c2r, reply, WRITE_STREAM, key, value, elapsedMs);
     }
     redisFree(c2r);
     
