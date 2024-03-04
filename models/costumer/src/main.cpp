@@ -87,50 +87,50 @@ int main(){
         initStreams(c2r, WRITE_STREAM);
         initStreams(c2r, READ_STREAM);
 
-    double elapsedMs = 0.0;
-    double ReadElapsedMs = 0.0;
+        double elapsedMs = 0.0;
+        double ReadElapsedMs = 0.0;
 
-    sendMsg(c2r, reply, WRITE_STREAM, key, value, elapsedMs);
+        sendMsg(c2r, reply, WRITE_STREAM, key, value, elapsedMs);
 
-    string strElapsedMs = to_string(elapsedMs); 
-    char const *elap = strElapsedMs.c_str();
-
-    sprintf(sqlcmd, "BEGIN"); 
-    res = db.ExecSQLcmd(sqlcmd);
-    PQclear(res);
-
-    sprintf(sqlcmd,
-    "INSERT INTO LogSender VALUES(DEFAULT, now(), \'%d\', \'%d\', \'%d\', \'%s\') ON CONFLICT DO NOTHING",
-    pid, idc, idtrasp, elap);
-    res = db.ExecSQLcmd(sqlcmd);
-    PQclear(res);
-
-    sprintf(sqlcmd, "COMMIT"); 
-    res = db.ExecSQLcmd(sqlcmd);
-    PQclear(res);
-
-    while(1){
-        readMsg(c2r, reply, READ_STREAM, username, ReadElapsedMs);
-
-        string strReadElapsedMs = to_string(ReadElapsedMs); 
-        char const *elapRead = strReadElapsedMs.c_str();
+        string strElapsedMs = to_string(elapsedMs); 
+        char const *elap = strElapsedMs.c_str();
 
         sprintf(sqlcmd, "BEGIN"); 
         res = db.ExecSQLcmd(sqlcmd);
         PQclear(res);
 
         sprintf(sqlcmd,
-        "INSERT INTO LogReader VALUES(DEFAULT, now(), \'%d\', \'%d\', \'%s\') ON CONFLICT DO NOTHING",
-        pid, idc, elapRead);
+        "INSERT INTO LogSender VALUES(DEFAULT, now(), \'%d\', \'%d\', \'%d\', \'%s\') ON CONFLICT DO NOTHING",
+        pid, idc, idtrasp, elap);
         res = db.ExecSQLcmd(sqlcmd);
         PQclear(res);
 
         sprintf(sqlcmd, "COMMIT"); 
         res = db.ExecSQLcmd(sqlcmd);
-        PQclear(res);      
-    };
+        PQclear(res);
 
-        redisFree(c2r); 
+        while(1){
+            readMsg(c2r, reply, READ_STREAM, username, ReadElapsedMs);
+
+            string strReadElapsedMs = to_string(ReadElapsedMs); 
+            char const *elapRead = strReadElapsedMs.c_str();
+
+            sprintf(sqlcmd, "BEGIN"); 
+            res = db.ExecSQLcmd(sqlcmd);
+            PQclear(res);
+
+            sprintf(sqlcmd,
+            "INSERT INTO LogReader VALUES(DEFAULT, now(), \'%d\', \'%d\', \'%s\') ON CONFLICT DO NOTHING",
+            pid, idc, elapRead);
+            res = db.ExecSQLcmd(sqlcmd);
+            PQclear(res);
+
+            sprintf(sqlcmd, "COMMIT"); 
+            res = db.ExecSQLcmd(sqlcmd);
+            PQclear(res);      
+        };
+
+            redisFree(c2r); 
     } else {
         redisFree(c2r);
     }

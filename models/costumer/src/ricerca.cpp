@@ -14,7 +14,7 @@ void Costumer::ricerca(char const * nomeOg, int quantita, string result[30][4], 
     PQclear(res);
 
     sprintf(sqlcmd,
-    "SELECT EXISTS (SELECT idO FROM Oggetto WHERE (nomeO = \'%s\'))", nomeOg);
+    "SELECT EXISTS (SELECT idO FROM Oggetto WHERE (nameO = \'%s\'))", nomeOg);
     res = db1.ExecSQLtuples(sqlcmd);
     controllo = PQgetvalue(res, 0, PQfnumber(res, "exists"));
     PQclear(res);
@@ -27,7 +27,7 @@ void Costumer::ricerca(char const * nomeOg, int quantita, string result[30][4], 
         PQclear(res);
 
         sprintf(sqlcmd,
-        "SELECT EXISTS (SELECT idInv FROM Inventario WHERE (oggetto = \'%d\' AND QuantitaAtt >= \'%d\')", idOgg, quantita);
+        "SELECT EXISTS (SELECT idInv FROM Inventario WHERE (oggetto = \'%d\' AND QuantitaAtt >= \'%d\'))", idOgg, quantita);
         res = db1.ExecSQLtuples(sqlcmd);
         controllo2 = PQgetvalue(res, 0, PQfnumber(res, "exists"));
         PQclear(res);
