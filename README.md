@@ -17,11 +17,12 @@ Per informazioni piu dettagliate si consiglia la lettura della relazione del pro
 
 ## Installazione e configurazione
 
-È possibile clonare la repo di github, si consiglia di inserirla in *Documents/Github*, in modo da poter utilizzare lo script che permette di compilare tutto il codice in automatico. È possibile comunque compilare a mano.
+Una volta clonata la repo di github, è possibile compilare tutto il codice in automatico eseguendo lo script *make.sh*. È possibile comunque compilare a mano.
 
-Nel caso in cui si abbia clonato la repository in *Documents/Github*, runnare il seguente comando sul terminale per compilare tutto il progetto
+Per compilare tutto il progetto, inserirsi all'interno della cartella del progetto:
 
 ```
+cd Documents/Github/e-commerce
 ./make.sh
 ```
 
