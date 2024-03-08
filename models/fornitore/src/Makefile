@@ -15,9 +15,10 @@ OBJ = $(patsubst %.cpp,$(ODIR)/%.o,$(SRC))
 
 con2db_OBJ=$(wildcard ../../../con2db/*.o)
 con2redis_OBJ=$(wildcard ../../../con2redis/obj/*.o)
+test_OBJ=$(wildcard ../../../test/obj/*.o)
 
 # Aggiorna il target 'all' per costruire l'eseguibile specificando il target corretto
-all: con2db con2redis $(BDIR)/main
+all: con2db con2redis test $(BDIR)/main
 
 con2db:
 	$(MAKE) -C ../../../con2db
@@ -25,12 +26,15 @@ con2db:
 con2redis:
 	$(MAKE) -C ../../../con2redis/src
 
+test:
+	$(MAKE) -C ../../../test/src
+
 # Utilizza le CFLAGS per la compilazione e specifica le directory degli header
 $(ODIR)/%.o: %.cpp $(DEPS)
 	$(CC) -c -o $@ $< $(CFLAGS)
 
 # Utilizza $(LDFLAGS) per il processo di linkaggio per includere le librerie necessarie
-$(BDIR)/main: $(OBJ) $(con2db_OBJ) $(con2redis_OBJ)
+$(BDIR)/main: $(OBJ) $(con2db_OBJ) $(con2redis_OBJ) $(test_OBJ)
 	$(CC) -o $@ $^ $(CFLAGS) $(LDFLAGS)
 
 .PHONY: clean
