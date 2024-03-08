@@ -6,8 +6,8 @@
 class Costumer: public Utente{
     
     public:
-        Costumer(char const *nameC, char const *surnameC, char const *emailC, char const *passwordC, char const *purchTypeC) : 
-        Utente(nameC, surnameC, emailC, passwordC, purchTypeC){};
+        Costumer(char const *nameC, char const *surnameC, char const *emailC) : 
+        Utente(nameC, surnameC, emailC){};
 
         void acquisto(const char * idInv, int idCost, int idTrasp, int quantita, Con2DB db1);
 

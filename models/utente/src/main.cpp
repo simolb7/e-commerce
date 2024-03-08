@@ -50,22 +50,22 @@ int main() {
         const char *password = "0000";
         const char *purchType = generateRandomPurchType().c_str();
         const char *email = emails.c_str(); 
-        Utente utente(nome, cognome, email, password, purchType);
+        Utente utente(nome, cognome, email);
         const char *ruolo = generateRandomType().c_str();
         int purch = (rand() %3)+1;
         if (strcmp(ruolo, cost) == 0){
-            utente.registrationCostumer(utente, db, purch);
-            utente.login(utente, db); 
+            utente.registrationCostumer(utente, db, password, purch);
+            utente.login(utente, password, db); 
         }
         else if (strcmp(ruolo, forn) == 0){
             const char *pIva = generateRandomPIva().c_str();
-            utente.registrationFornitore(utente, pIva, db);
-            utente.login(utente, db);
+            utente.registrationFornitore(utente, pIva, password, db);
+            utente.login(utente, password, db);
         }
         else if (strcmp(ruolo, trasp) == 0){
             const char *azienda = generateRandomAzienda().c_str();
-            utente.registrationTrasportatore(utente, azienda, db);
-            utente.login(utente, db);
+            utente.registrationTrasportatore(utente, password, azienda, db);
+            utente.login(utente, password, db);
         }
         
     }

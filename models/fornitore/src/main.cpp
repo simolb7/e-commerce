@@ -46,15 +46,13 @@ int main(){
     name = PQgetvalue(res, 0, PQfnumber(res, "nameU"));
     cognome = PQgetvalue(res, 0, PQfnumber(res, "surnameU"));
     email = PQgetvalue(res, 0, PQfnumber(res, "emailU"));
-    password = PQgetvalue(res, 0, PQfnumber(res, "passwordU"));
-    purchType = "PayPal";
     PQclear(res);
 
     sprintf(sqlcmd, "COMMIT"); 
     res = db.ExecSQLcmd(sqlcmd);
     PQclear(res);
 
-    Fornitore fornitore(name, cognome, email, password, purchType);
+    Fornitore fornitore(name, cognome, email);
 
     srand(time(nullptr)); // Inizializza il generatore di numeri casuali
 

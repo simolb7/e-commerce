@@ -39,15 +39,13 @@ int main(){
     char const *name = PQgetvalue(res, 0, PQfnumber(res, "nameU"));
     char const *surname = PQgetvalue(res, 0, PQfnumber(res, "surnameU"));
     char const *email = PQgetvalue(res, 0, PQfnumber(res, "emailU"));
-    char const *password = PQgetvalue(res, 0, PQfnumber(res, "passwordU"));
-    char const *purchType = "PayPal";
     PQclear(res);
 
     sprintf(sqlcmd, "COMMIT"); 
     res = db.ExecSQLcmd(sqlcmd);
     PQclear(res);
 
-    Trasportatore trasportatore(name, surname, email, password, purchType);
+    Trasportatore trasportatore(name, surname, email);
 
     pid = getpid();
     printf("main(): pid %d: user %s: connecting to redis ...\n", pid, email);

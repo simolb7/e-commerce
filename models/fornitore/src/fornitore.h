@@ -6,8 +6,8 @@
 class Fornitore: public Utente{
     
     public:
-        Fornitore(char const *nameC, char const *surnameC, char const *emailC, char const *passwordC, char const *purchTypeC) : 
-        Utente(nameC, surnameC, emailC, passwordC, purchTypeC){};
+        Fornitore(char const *nameC, char const *surnameC, char const *emailC) : 
+        Utente(nameC, surnameC, emailC){};
           
         void addInventario(Oggetto oggetto1, Fornitore fornitore1, Con2DB db1, float prezzo, int quantity);
 

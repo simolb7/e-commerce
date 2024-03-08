@@ -2,11 +2,10 @@
 
 #include <../../../hash/src/hashsalt.h>
 
-void Utente::registrationCostumer(Utente utente1, Con2DB db1, int purch){
+void Utente::registrationCostumer(Utente utente1, Con2DB db1, const char *passwordR, int purch){
     char const *nomeR  = utente1.getName();
     char const *cognomeR  = utente1.getSurname();
     char const *emailR  = utente1.getEmail();
-    const string passwordR(utente1.getPassword());
     PGresult *res;
     char sqlcmd[1000];
     int idU;
@@ -90,11 +89,10 @@ void Utente::registrationCostumer(Utente utente1, Con2DB db1, int purch){
 };
 
 
-void Utente::registrationFornitore(Utente utente1, const char *pIva, Con2DB db1){
+void Utente::registrationFornitore(Utente utente1, const char *passwordR, const char *pIva, Con2DB db1){
     char const *nomeR  = utente1.getName();
     char const *cognomeR  = utente1.getSurname();
     char const *emailR  = utente1.getEmail();
-    const string passwordR(utente1.getPassword());
     PGresult *res;
     char sqlcmd[1000];
     int idU;
@@ -173,11 +171,10 @@ void Utente::registrationFornitore(Utente utente1, const char *pIva, Con2DB db1)
 };
 
 
-void Utente::registrationTrasportatore(Utente utente1, const char *azienda, Con2DB db1){
+void Utente::registrationTrasportatore(Utente utente1, const char *passwordR, const char *azienda, Con2DB db1){
     char const *nomeR  = utente1.getName();
     char const *cognomeR  = utente1.getSurname();
     char const *emailR  = utente1.getEmail();
-    const string passwordR(utente1.getPassword());
     PGresult *res;
     char sqlcmd[1000];
     int idU;

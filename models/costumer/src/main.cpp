@@ -52,7 +52,7 @@ int main(){
     idc = atoi(PQgetvalue(res, 0, PQfnumber(res, "idc")));
     PQclear(res);
 
-    Costumer costumer(name, cognome, email, password, purchType);
+    Costumer costumer(name, cognome, email);
 
     sprintf(sqlcmd, "SELECT * FROM Oggetto WHERE ido = \'%d\'", 1);
     res = db.ExecSQLtuples(sqlcmd);

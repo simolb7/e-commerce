@@ -8,12 +8,10 @@ class Utente{
         char const *nameU;
         char const *surnameU;
         char const *emailU;
-        char const *passwordU;
-        char const *purchTypeU;
         
     public:
-        Utente(char const *nameC, char const *surnameC, char const *emailC, char const *passwordC, char const *purchTypeC) : 
-        nameU(nameC), surnameU(surnameC), emailU(emailC), passwordU(passwordC), purchTypeU(purchTypeC){}
+        Utente(char const *nameC, char const *surnameC, char const *emailC) : 
+        nameU(nameC), surnameU(surnameC), emailU(emailC){}
         
 
         char const * getName(){
@@ -28,15 +26,11 @@ class Utente{
             return emailU;
         }
 
-        char const * getPassword(){
-            return passwordU;
-        }
+        void registrationCostumer(Utente utente1, Con2DB db1, const char *password, int purch);
 
-        void registrationCostumer(Utente utente1, Con2DB db1, int purch);
+        void registrationFornitore(Utente utente1, const char *password, const char *pIva, Con2DB db1);
 
-        void registrationFornitore(Utente utente1, const char *pIva, Con2DB db1);
+        void registrationTrasportatore(Utente utente1, const char *password, const char *azienda, Con2DB db1);
 
-        void registrationTrasportatore(Utente utente1, const char *azienda, Con2DB db1);
-
-        void login(Utente utente1, Con2DB db1);
+        void login(Utente utente1, const char *password, Con2DB db1);
 };

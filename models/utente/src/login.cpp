@@ -1,8 +1,7 @@
 #include <main.h>
 
-void Utente::login(Utente utente1, Con2DB db1){
+void Utente::login(Utente utente1, const char *passwordL, Con2DB db1){
     char const *emailL = utente1.getEmail();
-    const string passwordL(utente1.getPassword());
     char const *passwordP;
     const char *salt;
     PGresult *res;
