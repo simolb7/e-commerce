@@ -26,6 +26,16 @@ Per informazioni piu dettagliate si consiglia la lettura della relazione del pro
 ## Installazione e configurazione
 
 Una volta clonata la repo di github, è possibile compilare tutto il codice in automatico eseguendo lo script *make.sh*. È possibile comunque compilare a mano.
+Prima di effettuare qualsiasi make, controllare nelle cartelle la presenza della cartella obj oltre ad src:
+* con2redis
+* hash
+* test
+
+Controllare la presenza delle cartelle obj ed bin, oltre ad src, nelle seguente cartelle:
+* utente
+* costumer
+* fornitore
+* trasportatore
 
 Per compilare tutto il progetto, inserirsi all'interno della cartella del progetto:
 
