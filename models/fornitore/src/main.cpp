@@ -1,75 +1,13 @@
 #include <main.h>
 #include <fornitore.h>
+#include <../../../test/src/test.h>
 
 #define READ_STREAM "customer2fornitore"
 #define WRITE_STREAM "fornitore2trasportatore"
 #define DEBUG 1000
 
 
-// Funzione per generare un nome casuale
-string generateRandomObjName() {
-    vector<string> objNames = {"Mouse", 
-        "Monitor", 
-        "Tastiera", 
-        "Cuffie", 
-        "Alimentatore", 
-        "Televisore", 
-        "Scheda audio",
-        "Scheda di rete",
-        "Tastiera"
-        /*
-        "Stampante",
-        "Scanner",
-        "Router",
-        "Switch",
-        "Hub",
-        "Webcam",
-        "Microfono",
-        "Cuffie",
-        "Altoparlanti",
-        "Penna USB",
-        "PC case",
-        "CPU",
-        "Scheda madre",
-        "Memoria RAM",
-        "Hard Disk",
-        "GPU"
-        */
-       };
-    return objNames[rand() % objNames.size()];
-}
 
-// Funzione per generare un cognome casuale
-string generateRandomBarCode() {
-    
-    std::random_device rd;
-    std::mt19937 generator(rd());
-    std::uniform_int_distribution<int> distribution(0, 9);
-
-    std::string number;
-    for (int i = 0; i < 13; ++i) {
-        number += std::to_string(distribution(generator));
-    }
-
-    return number;
-
-}
-
-string generateEmail(const char *nome, const char *cognome) { 
-    string nomes = nome;
-    string surnames = cognome;
-    int num = rand() %100;
-    string nums = to_string(num);
-    string email = nomes + surnames + nums + "@gmail.com";
-    return email;
-}
-
-
-float generatePrice(){
-    int num = rand() %300;
-    float numf = static_cast<float>(num) + 0.99f;
-    return numf;
-}
 
 int main(){
     redisContext *c2r;
