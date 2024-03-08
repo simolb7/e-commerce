@@ -12,7 +12,15 @@ Backend per un sito di e-commerce, sviluppato per il corso "Software engineering
 
 ## Introduzione
 È stato sviluppato un backend basico per un sito di e-commerce. Ogni attore del sistema avrà un proprio terminale separato e con funzioni dedicate al proprio scopo, la comunicazione fra processi è gestita tramite stream **redis**, che permettono ai vari attori in esecuzione di rimanere in ascolto ed eventualmente scrivere. I dati sono memorizzati in un database tramite **Postgres**.
+
 Per informazioni piu dettagliate si consiglia la lettura della relazione del progetto.
+
+## Pre-requisiti
+
+È richiesta la presenza delle librerie:
+
+* hiredis
+* libpq
 
 
 ## Installazione e configurazione
@@ -98,4 +106,3 @@ Il modello **costumer** è utilizzato per rappresentare un utente autenticato, s
 cd e-commerce/models/costumer/bin
 .\main.sh
 ```
-
