@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cd GitHub/e-commerce/con2redis/src/
+cd con2redis/src/
 make clean
 make
 cd ../..

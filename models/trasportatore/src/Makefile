@@ -22,12 +22,6 @@ all: con2db con2redis $(BDIR)/main
 con2db:
 	$(MAKE) -C ../../../con2db
 
-
-$(ODIR)/%.o: %.cpp $(DEPS)
-	$(CC) -c -o $@ $< $(CFLAGS)
-
-$(BDIR)/main: $(OBJ) $(DEPS)
-	$(CC) -o $@ $(OBJ) $(con2db_OBJ) $(CFLAGS)
 con2redis:
 	$(MAKE) -C ../../../con2redis/src
 
