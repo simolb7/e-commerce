@@ -92,6 +92,8 @@ int main(){
 
         sendMsg(c2r, reply, WRITE_STREAM, key, value, elapsedMs);
 
+        printf("Nuovo ordine creato\n");
+
         string strElapsedMs = to_string(elapsedMs); 
         char const *elap = strElapsedMs.c_str();
 

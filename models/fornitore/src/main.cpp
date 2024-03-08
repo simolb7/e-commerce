@@ -136,7 +136,6 @@ int main(){
     }
 
 #if (DEBUG > 0)
-    printf("Prova");
 
 #endif
     
