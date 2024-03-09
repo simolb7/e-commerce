@@ -6,7 +6,10 @@ void Trasportatore::getOrders(int idT, Con2DB db1, int orders[]){
     char sqlcmd[1000];
     int row;
     
-    sprintf(sqlcmd, "BEGIN"); 
+    sprintf(sqlcmd, "BEGIN");
+    res = db1.ExecSQLcmd(sqlcmd);
+    PQclear(res);
+
     sprintf(sqlcmd, 
             "SELECT idAcq FROM Acquisto WHERE (trasportatore = \'%d\')", idT);
     res = db1.ExecSQLtuples(sqlcmd);
