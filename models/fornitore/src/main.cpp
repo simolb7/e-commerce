@@ -17,7 +17,7 @@ int main(){
 
 
     int pid;
-    char const *username = "fornitore@gmail.com";;
+    char const *username = "fornitore";
     char const *fval;
     char const *key = "key fornitore";
     char value[] = "Nuovo spedizione assegnata";
@@ -54,24 +54,39 @@ int main(){
 
     Fornitore fornitore(name, cognome, email);
 
-    srand(time(nullptr)); // Inizializza il generatore di numeri casuali
+    
 
-    int numProd = 5; // Numero di persone da generare
+#if (DEBUG > 0)
 
+srand(time(nullptr)); // Inizializza il generatore di numeri casuali
+
+    int numProd = 10; 
+
+
+    cout << "Aggiunta "<< numProd << " prodotti -->" << endl << endl;
     for (int i = 0; i < numProd; ++i) {
+        int checkErr= (rand() %2);
+        int checkAdd = (rand() %3);
         const char *nomeOgg = generateRandomObjName().c_str();
         const char *descrizioneOgg = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.";
         const char* barCodeOgg = generateRandomBarCode().c_str();
         char const *categoriaOgg = "Elettronica";
         float price = generatePrice();
-        int quantity = (rand() %20)+1;
+        int quantity = (rand() %10)+40;
         Oggetto oggetto(nomeOgg, descrizioneOgg, barCodeOgg, categoriaOgg);
-        oggetto.addOggetto(oggetto, db);
+        if(checkErr == 0){
+            oggetto.addOggetto(oggetto, db);
+        }
         fornitore.addInventario(oggetto, fornitore, db, price, quantity);
-        fornitore.addQuantity(oggetto, fornitore, db, 10);
+        if (checkAdd == 1) {
+            int quantityAdded = (rand() %100)+1;
+            fornitore.addQuantity(oggetto, fornitore, db, quantityAdded);
+        }
+        
+        cout << endl;
     }
 
-#if (DEBUG > 0)
+    cout << "----------------------------------------------------------------" << endl << endl;
 
 #endif
     

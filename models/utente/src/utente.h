@@ -26,11 +26,11 @@ class Utente{
             return emailU;
         }
 
-        void registrationCostumer(Utente utente1, Con2DB db1, const char *password, int purch);
+        void registrationCostumer(Utente utente1, Con2DB db1, const char *passwordR, int purch);
 
-        void registrationFornitore(Utente utente1, const char *password, const char *pIva, Con2DB db1);
+        void registrationFornitore(Utente utente1, const char *passwordR, const char *pIva, Con2DB db1);
 
-        void registrationTrasportatore(Utente utente1, const char *password, const char *azienda, Con2DB db1);
+        void registrationTrasportatore(Utente utente1, const char *passwordR, const char *azienda, Con2DB db1);
 
-        void login(Utente utente1, const char *password, Con2DB db1);
+        void login(Utente utente1, const char *passwordL, Con2DB db1);
 };

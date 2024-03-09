@@ -50,6 +50,8 @@ void Fornitore::addQuantity(Oggetto oggetto1, Fornitore fornitore1, Con2DB db1, 
     res = db1.ExecSQLcmd(sqlcmd);
     PQclear(res);
 
+    cout << "\t\tAggiunta di " << aggiunta << " prodotti all'inventario"<< endl;
+    
     sprintf(sqlcmd, "COMMIT"); 
     res = db1.ExecSQLcmd(sqlcmd);
     PQclear(res);

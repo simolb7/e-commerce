@@ -39,6 +39,8 @@ void Fornitore::addInventario(Oggetto oggetto1, Fornitore fornitore1, Con2DB db1
         res = db1.ExecSQLcmd(sqlcmd);
         PQclear(res);
 
+        cout << "\tProdotto aggiunto correttamente nell'inventario per l'oggetto con barcode: "<< BarCodeOg << endl;
+
         sprintf(sqlcmd, "COMMIT"); 
         res = db1.ExecSQLcmd(sqlcmd);
         PQclear(res);
@@ -46,6 +48,8 @@ void Fornitore::addInventario(Oggetto oggetto1, Fornitore fornitore1, Con2DB db1
         sprintf(sqlcmd, "COMMIT"); 
         res = db1.ExecSQLcmd(sqlcmd);
         PQclear(res);
+
+        cout << "\tScheda tecnica non trovata, creazione dell'oggetto in corso..." << endl;
 
         oggetto1.addOggetto(oggetto1, db1);
 
@@ -63,6 +67,8 @@ void Fornitore::addInventario(Oggetto oggetto1, Fornitore fornitore1, Con2DB db1
         "INSERT INTO Inventario VALUES (DEFAULT, \'%f\', \'%d\', \'%d\', now(), \'%d\', \'%d\') ON CONFLICT DO NOTHING", prezzo, quantity, quantity, idFor, idOgg);       res = db1.ExecSQLcmd(sqlcmd);
         res = db1.ExecSQLcmd(sqlcmd);
         PQclear(res);
+
+        cout << "\tProdotto aggiunto correttamente nell'inventario per l'oggetto con barcode: "<< BarCodeOg << endl;
 
         sprintf(sqlcmd, "COMMIT"); 
         res = db1.ExecSQLcmd(sqlcmd);

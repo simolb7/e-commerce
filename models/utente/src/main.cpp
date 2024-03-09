@@ -1,8 +1,6 @@
 #include <main.h>
 #include <../../../test/src/test.h>
 
-// Funzione per generare una persona casuale
-
 int main() {
     const char *cost = "Costumer";
     const char *forn = "Fornitore";
@@ -36,10 +34,12 @@ int main() {
 
     srand(time(nullptr)); // Inizializza il generatore di numeri casuali
 
-    int numPeople = 20; // Numero di persone da generare
+    int numPeople = 50; // Numero di persone da generare
+
 
     cout << "Generated "<< numPeople << " users\n";
     for (int i = 0; i < numPeople; ++i) {
+        int checkPsw = (rand() %2);
         const char *nome = generateRandomFirstName().c_str();
         const char *cognome = generateRandomLastName().c_str();
         string nomes(nome);
@@ -57,16 +57,25 @@ int main() {
         int purch = (rand() %3)+1;
         if (strcmp(ruolo, cost) == 0){
             utente.registrationCostumer(utente, db, password, purch);
+            if (checkPsw == 1) {
+                password = "1111";
+            }
             utente.login(utente, password, db); 
         }
         else if (strcmp(ruolo, forn) == 0){
             const char *pIva = generateRandomPIva().c_str();
-            utente.registrationFornitore(utente, pIva, password, db);
+            utente.registrationFornitore(utente, password, pIva, db);
+            if (checkPsw == 1) {
+                password = "1111";
+            }
             utente.login(utente, password, db);
         }
         else if (strcmp(ruolo, trasp) == 0){
             const char *azienda = generateRandomAzienda().c_str();
             utente.registrationTrasportatore(utente, password, azienda, db);
+            if (checkPsw == 1) {
+                password = "1111";
+            }
             utente.login(utente, password, db);
         }
         
