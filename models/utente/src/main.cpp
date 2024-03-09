@@ -30,7 +30,9 @@ int main() {
     res = db.ExecSQLcmd(sqlcmd);
     PQclear(res);
 
-    sprintf(sqlcmd, "COMMIT"); 
+    sprintf(sqlcmd, "COMMIT");
+    res = db.ExecSQLcmd(sqlcmd);
+    PQclear(res);
 
     srand(time(nullptr)); // Inizializza il generatore di numeri casuali
 
