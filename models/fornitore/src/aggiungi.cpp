@@ -24,6 +24,8 @@ void Oggetto::addOggetto(Oggetto oggetto1, Con2DB db1){
     res = db1.ExecSQLcmd(sqlcmd);
     PQclear(res);
 
+    cout << "\tScheda tecnica creata correttamente per il prodotto con barcode: " << barCodeA << endl;
+
     sprintf(sqlcmd, "COMMIT"); 
     res = db1.ExecSQLcmd(sqlcmd);
     PQclear(res);

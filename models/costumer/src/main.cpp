@@ -15,7 +15,7 @@ int main(){
     int pid;
     char const *key = "key Costumer";
     char value[] = "Nuovo ordine";
-    char const *username = "luigiverdi420@gmail.com";
+    char const *username = "costumer";
     PGresult *res;
     char sqlcmd[1000];
     int idc;
@@ -26,6 +26,7 @@ int main(){
     const char *email;
     const char *password;
     const char *purchType;
+    char *NomeOggprov;
 
     char const *nomeOgg;
     char const *descrizioneOgg;
@@ -52,7 +53,21 @@ int main(){
     idc = atoi(PQgetvalue(res, 0, PQfnumber(res, "idc")));
     PQclear(res);
 
-    Costumer costumer(name, cognome, email, password, purchType);
+    sprintf(sqlcmd, "COMMIT"); 
+    res = db.ExecSQLcmd(sqlcmd);
+    PQclear(res);
+
+    Costumer costumer(name, cognome, email);
+
+    //test oggetto non trovato
+
+    costumer.ricerca("Kindle", 1, lista, db);
+
+    //fine test
+
+    sprintf(sqlcmd, "BEGIN"); 
+    res = db.ExecSQLcmd(sqlcmd);
+    PQclear(res);
 
     sprintf(sqlcmd, "SELECT * FROM Oggetto WHERE ido = \'%d\'", 1);
     res = db.ExecSQLtuples(sqlcmd);
@@ -61,6 +76,8 @@ int main(){
     barCodeOgg = PQgetvalue(res, 0, PQfnumber(res, "cbar"));
     categoriaOgg = PQgetvalue(res, 0, PQfnumber(res, "category"));
     PQclear(res);
+
+    strcpy(NomeOggprov, nomeOgg);
 
     sprintf(sqlcmd, "SELECT idt FROM Trasportatore");
     res = db.ExecSQLtuples(sqlcmd);
@@ -71,18 +88,29 @@ int main(){
     res = db.ExecSQLcmd(sqlcmd);
     PQclear(res);
 
-    costumer.ricerca(nomeOgg, 1, lista, db);
+    //test quantità non suff
+
+    costumer.ricerca(NomeOggprov, 500, lista, db);
+
+    //fine test
+
+    int quantity = (rand() %15)+1;
+    costumer.ricerca(NomeOggprov, quantity, lista, db);
+    cout << endl;
+    cout << "----------------------------------------------------------------" << endl << endl;
 
     const char *idInv = lista[0][0].c_str();
 
     if (strcmp(idInv, ctrlValue) != 0){
-        costumer.acquisto(idInv, idc, idtrasp, 1, db);
-
+        
         pid = getpid();
 
         printf("main(): pid %d: user %s: connecting to redis ...\n", pid, username);
         c2r = redisConnect("localhost", 6379);
         printf("main(): pid %d: user %s: connected to redis\n", pid, username);
+
+        costumer.acquisto(idInv, idc, idtrasp, quantity, db);
+
 
         initStreams(c2r, WRITE_STREAM);
         initStreams(c2r, READ_STREAM);
@@ -92,7 +120,7 @@ int main(){
 
         sendMsg(c2r, reply, WRITE_STREAM, key, value, elapsedMs);
 
-        printf("Nuovo ordine creato\n");
+        cout << "Nuovo ordine creato: \n\tId Prodotto: " << idInv <<  "\n\tQuantità: " << quantity << endl;
 
         string strElapsedMs = to_string(elapsedMs); 
         char const *elap = strElapsedMs.c_str();

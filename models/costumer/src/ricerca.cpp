@@ -51,15 +51,22 @@ void Costumer::ricerca(char const * nomeOg, int quantita, string result[30][4], 
             };
             PQclear(res);
 
+            cout << "Oggetto trovato nella quantità desiderata" << endl;
+
             sprintf(sqlcmd, "COMMIT");
             res = db1.ExecSQLcmd(sqlcmd);
             PQclear(res);  
         } else {
+            cout << "Oggetto con nome: " << nomeOg << " non disponibile nella quantità desiderata"<< endl;
+
             sprintf(sqlcmd, "COMMIT");
             res = db1.ExecSQLcmd(sqlcmd);
             PQclear(res);
+            
         }  
     } else {
+        cout << "Oggetto con nome: " << nomeOg << " non trovato"<< endl;
+
         sprintf(sqlcmd, "COMMIT");
         res = db1.ExecSQLcmd(sqlcmd);
         PQclear(res);

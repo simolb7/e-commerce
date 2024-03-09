@@ -39,15 +39,13 @@ int main(){
     char const *name = PQgetvalue(res, 0, PQfnumber(res, "nameU"));
     char const *surname = PQgetvalue(res, 0, PQfnumber(res, "surnameU"));
     char const *email = PQgetvalue(res, 0, PQfnumber(res, "emailU"));
-    char const *password = PQgetvalue(res, 0, PQfnumber(res, "passwordU"));
-    char const *purchType = "PayPal";
     PQclear(res);
 
     sprintf(sqlcmd, "COMMIT"); 
     res = db.ExecSQLcmd(sqlcmd);
     PQclear(res);
 
-    Trasportatore trasportatore(name, surname, email, password, purchType);
+    Trasportatore trasportatore(name, surname, email);
 
     pid = getpid();
     printf("main(): pid %d: user %s: connecting to redis ...\n", pid, email);
@@ -62,7 +60,6 @@ int main(){
     while(1){
 
         fval = readMsg(c2r, reply, READ_STREAM, username, ReadElapsedMs);
-        printf("result fval : %s\n", fval);
         
         for (int i = 0; i < 10; ++i) {
             ordini[i] = -1; // Utilizzando -1 come valore speciale
@@ -78,22 +75,25 @@ int main(){
                 const char *check = trasportatore.getStatus(ordini[i], db);
                 if (strcmp(check, statusConsegnato) != 0){
                     statusAtt = trasportatore.getStatus(ordini[i], db);
+                    cout << "Stato corrente: \n\t" << statusAtt << endl;
                     char newValue1[100];
                     strcpy(newValue1, value);
                     strcat(newValue1, statusAtt);
                     sendMsg(c2r, reply, WRITE_STREAM, key, newValue1, elasedMs);
                     sleep(5);
-                    trasportatore.updateStatus(ordini[i], db);
 
+                    trasportatore.updateStatus(ordini[i], db);
                     statusAtt = trasportatore.getStatus(ordini[i], db);
+                    cout << "Stato corrente: \n\tin preparazione -> "<< statusAtt << endl;
                     char newValue2[100];
                     strcpy(newValue2, value);
                     strcat(newValue2, statusAtt);
                     sendMsg(c2r, reply, WRITE_STREAM, key, newValue2, elasedMs);
                     sleep(5);
-                    trasportatore.updateStatus(ordini[i], db);
 
+                    trasportatore.updateStatus(ordini[i], db);
                     statusAtt = trasportatore.getStatus(ordini[i], db);
+                    cout << "Stato corrente: \n\tspedito -> "<< statusAtt << endl;
                     char newValue3[100];
                     strcpy(newValue3, value);
                     strcat(newValue3, statusAtt);

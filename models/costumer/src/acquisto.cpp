@@ -44,6 +44,8 @@ void Costumer::acquisto(const char * idInv, int idCost, int idTrasp, int quantit
     res = db1.ExecSQLcmd(sqlcmd);
     PQclear(res);
 
+    cout << "Acquisto avvenuto con successo" << endl;
+
     sprintf(sqlcmd, "COMMIT");
     res = db1.ExecSQLcmd(sqlcmd);
     PQclear(res);

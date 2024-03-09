@@ -6,8 +6,8 @@
 class Trasportatore: virtual public Utente{
     
     public:
-        Trasportatore(char const *nameC, char const *surnameC, char const *emailC, char const *passwordC, char const *purchTypeC) : 
-        Utente(nameC, surnameC, emailC, passwordC, purchTypeC){};
+        Trasportatore(char const *nameC, char const *surnameC, char const *emailC) : 
+        Utente(nameC, surnameC, emailC){};
     
         void updateStatus(int idOrdine, Con2DB db1);
 

@@ -1,8 +1,7 @@
 #include <main.h>
 
-void Utente::login(Utente utente1, Con2DB db1){
+void Utente::login(Utente utente1, const char *passwordL, Con2DB db1){
     char const *emailL = utente1.getEmail();
-    const string passwordL(utente1.getPassword());
     char const *passwordP;
     const char *salt;
     PGresult *res;
@@ -53,14 +52,14 @@ void Utente::login(Utente utente1, Con2DB db1){
             "INSERT INTO LogLogin VALUES (DEFAULT, now(), 'info', \'%d\', \'%s\') ON CONFLICT DO NOTHING", pid, emailL);
             res = db1.ExecSQLcmd(sqlcmd);
             PQclear(res);
-            std::cout << "Login avvenuto con successo" << std::endl;
+            std::cout << "Login avvenuto con successo - " << emailL << std::endl;
         } else {
             //resLog = "warn";
             sprintf(sqlcmd,
             "INSERT INTO LogLogin VALUES (DEFAULT, now(), 'warn', \'%d\', \'%s\') ON CONFLICT DO NOTHING", pid, emailL);
             res = db1.ExecSQLcmd(sqlcmd);
             PQclear(res);
-            std::cout << "Password sbagliata" << std::endl;
+            std::cout << "Password sbagliata - " << emailL << std::endl;
         }
 
         sprintf(sqlcmd, "COMMIT"); 
