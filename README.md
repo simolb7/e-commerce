@@ -82,7 +82,7 @@ sudo -i -u postgres
 
 psql
 
-\c e-commerce //si connette al db creato
+\c ecommercedb //si connette al db creato
 ```
 
 ## Utilizzo
