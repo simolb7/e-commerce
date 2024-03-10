@@ -43,32 +43,36 @@ int main(){
         lista[i][3] = "-1";
     }
 
-
+    // Inizio transazione
     sprintf(sqlcmd, "BEGIN"); 
     res = db.ExecSQLcmd(sqlcmd);
     PQclear(res);
 
+    // Ottiene l'id del customer
     sprintf(sqlcmd, "SELECT idc FROM Costumer");
     res = db.ExecSQLtuples(sqlcmd);
     idc = atoi(PQgetvalue(res, 0, PQfnumber(res, "idc")));
     PQclear(res);
 
+    // Chiude la transazione
     sprintf(sqlcmd, "COMMIT"); 
     res = db.ExecSQLcmd(sqlcmd);
     PQclear(res);
 
     Costumer costumer(name, cognome, email);
 
-    //test oggetto non trovato
+    // Prova ricerca oggetto che non esiste
 
     costumer.ricerca("Kindle", 1, lista, db);
 
-    //fine test
+    // Fine test
 
+    // Inizio transazione
     sprintf(sqlcmd, "BEGIN"); 
     res = db.ExecSQLcmd(sqlcmd);
     PQclear(res);
 
+    // Ottengo le informazioni da Oggetto dove l'id è 1
     sprintf(sqlcmd, "SELECT * FROM Oggetto WHERE ido = \'%d\'", 1);
     res = db.ExecSQLtuples(sqlcmd);
     nomeOgg = PQgetvalue(res, 0, PQfnumber(res, "nameo"));
@@ -79,20 +83,22 @@ int main(){
 
     strcpy(NomeOggprov, nomeOgg);
 
+    // Ottengo l'id del trasportatore
     sprintf(sqlcmd, "SELECT idt FROM Trasportatore");
     res = db.ExecSQLtuples(sqlcmd);
     idtrasp = atoi(PQgetvalue(res, 0, PQfnumber(res, "idt")));
     PQclear(res);
 
+    // Chiude la transazione
     sprintf(sqlcmd, "COMMIT"); 
     res = db.ExecSQLcmd(sqlcmd);
     PQclear(res);
 
-    //test quantità non suff
+    // Prova ricerca oggetto che esiste ma la cui quantità è insufficiente
 
     costumer.ricerca(NomeOggprov, 500, lista, db);
 
-    //fine test
+    // Fine test
 
     int quantity = (rand() %15)+1;
     costumer.ricerca(NomeOggprov, quantity, lista, db);
@@ -105,56 +111,65 @@ int main(){
         
         pid = getpid();
 
+        // Connessione al server redis
         printf("main(): pid %d: user %s: connecting to redis ...\n", pid, username);
         c2r = redisConnect("localhost", 6379);
         printf("main(): pid %d: user %s: connected to redis\n", pid, username);
 
         costumer.acquisto(idInv, idc, idtrasp, quantity, db);
 
-
+        // Inizializzazione dei canali di lettura e scrittura per la comunicazione con Redis
         initStreams(c2r, WRITE_STREAM);
         initStreams(c2r, READ_STREAM);
 
         double elapsedMs = 0.0;
         double ReadElapsedMs = 0.0;
 
+        // Manda un messaggio redis
         sendMsg(c2r, reply, WRITE_STREAM, key, value, elapsedMs);
 
         cout << "Nuovo ordine creato: \n\tId Prodotto: " << idInv <<  "\n\tQuantità: " << quantity << endl;
 
         string strElapsedMs = to_string(elapsedMs); 
         char const *elap = strElapsedMs.c_str();
-
+        
+        // Inizio transazione
         sprintf(sqlcmd, "BEGIN"); 
         res = db.ExecSQLcmd(sqlcmd);
         PQclear(res);
 
+        // Crea un log del messaggio
         sprintf(sqlcmd,
         "INSERT INTO LogSender VALUES(DEFAULT, now(), \'%d\', \'%d\', \'%d\', \'%s\') ON CONFLICT DO NOTHING",
         pid, idc, idtrasp, elap);
         res = db.ExecSQLcmd(sqlcmd);
         PQclear(res);
 
+        // Chiude la transazione
         sprintf(sqlcmd, "COMMIT"); 
         res = db.ExecSQLcmd(sqlcmd);
         PQclear(res);
 
         while(1){
+            // Legge dalla stream redis
             readMsg(c2r, reply, READ_STREAM, username, ReadElapsedMs);
 
             string strReadElapsedMs = to_string(ReadElapsedMs); 
             char const *elapRead = strReadElapsedMs.c_str();
 
+            // Inizio transazione
             sprintf(sqlcmd, "BEGIN"); 
             res = db.ExecSQLcmd(sqlcmd);
             PQclear(res);
-
+            
+            // Crea un log
             sprintf(sqlcmd,
             "INSERT INTO LogReader VALUES(DEFAULT, now(), \'%d\', \'%d\', \'%s\') ON CONFLICT DO NOTHING",
             pid, idc, elapRead);
             res = db.ExecSQLcmd(sqlcmd);
             PQclear(res);
-
+            
+            // Chiude la transazione
             sprintf(sqlcmd, "COMMIT"); 
             res = db.ExecSQLcmd(sqlcmd);
             PQclear(res);      
