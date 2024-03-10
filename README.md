@@ -79,7 +79,7 @@ sudo -u postgres psql postgres -f parameters.sql -f create-db-user.sql  -f schem
 //crea il database
 ```
 
-Se si vuole entrare all'interno del database per vedere i dati dopo l'esecuzione del programma bisogna runnare i seguenti comandi ed eseguire le query a proprio piacimento
+Se si vuole entrare all'interno del database per vedere i dati dopo l'esecuzione del programma bisogna runnare i seguenti comandi ed eseguire le query a proprio piacimento:
 
 ```
 sudo -i -u postgres
