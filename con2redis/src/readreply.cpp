@@ -2,7 +2,7 @@
 #include "local.h"
 
 
-
+// reads k-th stream
 int ReadNumStreams(redisReply *r)
 {
   return (r->elements);  

@@ -7,6 +7,14 @@
 int block = 1000000000;
 char fval[100];
 
+// La funzione sendMsg invia un messaggio a Redis tramite la connessione c2r.
+// Prende in input:
+// - c2r: un puntatore a una struttura redisContext che rappresenta la connessione a Redis.
+// - reply: un puntatore a redisReply che conterrà la risposta di Redis.
+// - stream: il nome dello stream Redis a cui inviare il messaggio.
+// - key: la chiave associata al messaggio all'interno dello stream.
+// - value: il valore del messaggio da inviare.
+// - elapsedMs: una variabile double passata per riferimento per memorizzare il tempo trascorso nell'operazione.
 void sendMsg(redisContext *c2r, redisReply *reply, char const *stream, char const *key, char *value, double& elapsedMs){
 
     auto start = std::chrono::steady_clock::now();
@@ -22,6 +30,13 @@ void sendMsg(redisContext *c2r, redisReply *reply, char const *stream, char cons
     
 };
 
+// La funzione readMsg legge i messaggi da uno stream in Redis utilizzando il comando "XREADGROUP".
+// Prende in input:
+// - c2r: un puntatore a una struttura redisContext che rappresenta la connessione a Redis.
+// - reply: un puntatore a redisReply che conterrà la risposta di Redis.
+// - stream: il nome dello stream Redis da cui leggere i messaggi.
+// - username: il nome del gruppo di lettori da associare alla lettura dei messaggi.
+// - ReadElapsedMs: una variabile double passata per riferimento per memorizzare il tempo trascorso nell'operazione.
 char *readMsg(redisContext *c2r, redisReply *reply, char const *stream, char const *username, double &ReadElapsedMs) {
 
     auto start = std::chrono::steady_clock::now();

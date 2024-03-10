@@ -1,6 +1,7 @@
 #include "con2redis.h"
 #include "local.h"
 
+// La funzione print_reply_types stampa i tipi di risposta disponibili nella libreria client di Redis.
 void print_reply_types()
 {
   printf("REDIS_REPLY_STRING=%d,\
@@ -19,7 +20,11 @@ REDIS_REPLY_ARRAY=%d\n",
   
 }
 
-
+// La funzione assertReplyType controlla se il tipo di risposta ricevuta da Redis è quello atteso.
+// Prende in input:
+// - c: un puntatore a una struttura redisContext che rappresenta la connessione a Redis.
+// - r: un puntatore a redisReply che conterrà la risposta di Redis.
+// - type: il tipo di risposta atteso.
 void assertReplyType(redisContext *c, redisReply *r, int type) {
     if (r == NULL)
         dbg_abort("NULL redisReply (error: %s)", c->errstr);
@@ -30,7 +35,10 @@ void assertReplyType(redisContext *c, redisReply *r, int type) {
 }
 
 
-
+// La funzione assertReply verifica se la risposta ricevuta da Redis è nulla e termina il programma in caso affermativo.
+// Prende in input:
+// - c: un puntatore a una struttura redisContext che rappresenta la connessione a Redis.
+// - r: un puntatore a redisReply che conterrà la risposta di Redis.
 void assertReply(redisContext *c, redisReply *r) {
     if (r == NULL)
         dbg_abort("NULL redisReply (error: %s)", c->errstr);
@@ -38,7 +46,10 @@ void assertReply(redisContext *c, redisReply *r) {
 
 
 
-
+// La funzione dumpReply stampa la risposta di Redis formattata.
+// Prende in input:
+// - r: un puntatore a redisReply che conterrà la risposta di Redis.
+// - indent: un intero per l'indentazione della stampa.
 void dumpReply(redisReply *r, int indent) {
 
     sds buffer = sdsempty();
