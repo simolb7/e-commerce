@@ -90,7 +90,7 @@ psql
 ```
 
 ## Utilizzo
-DISCALIMER: se si vuole abilitare la generazione dei prodotti da parte del fornitore nel db, modificare la variabile DEBUG con un valore superiore alle 0. OBBLIGATORIO AL PRIMO RUN DEL PROGRAMMA
+>> **DISCLAIMER**: se si vuole abilitare la generazione dei prodotti da parte del fornitore nel db, modificare la variabile DEBUG con un valore superiore allo 0. OBBLIGATORIO AL PRIMO RUN DEL PROGRAMMA
 
 Una volta compilato tutto il codice, avviato il server redis ed eseguita la creazione del db, si potrà procedere con l'avvio delle varie interfacce. Basterà eseguire in diversi terminali i seguenti codici:
 
