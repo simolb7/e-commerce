@@ -25,22 +25,25 @@ int main(){
     char sqlcmd[1000];
     int idf;
 
+    // Dati del fornitore
     const char *name;
     const char *cognome;
     const char *email;
     const char *password;
     const char *purchType;
 
+    // Inizio transazione
     sprintf(sqlcmd, "BEGIN"); 
     res = db.ExecSQLcmd(sqlcmd);
     PQclear(res);
 
+    // Recupero dell'ID del fornitore dal database
     sprintf(sqlcmd, "SELECT idF FROM Fornitore");
     res = db.ExecSQLtuples(sqlcmd);
     idf = atoi(PQgetvalue(res, 0, PQfnumber(res, "idF")));
     PQclear(res);
 
-
+    // Recupero dei dati del fornitore dal database
     sprintf(sqlcmd, "SELECT * FROM Utente WHERE idU = \'%d\'", idf);
     res = db.ExecSQLtuples(sqlcmd);
     name = PQgetvalue(res, 0, PQfnumber(res, "nameU"));
@@ -48,21 +51,24 @@ int main(){
     email = PQgetvalue(res, 0, PQfnumber(res, "emailU"));
     PQclear(res);
 
+    // Chiude la transazione
     sprintf(sqlcmd, "COMMIT"); 
     res = db.ExecSQLcmd(sqlcmd);
     PQclear(res);
 
+    // Creazione dell'oggetto Fornitore con i dati recuperati dal database
     Fornitore fornitore(name, cognome, email);
 
     
 
 #if (DEBUG > 0)
 
-srand(time(nullptr)); // Inizializza il generatore di numeri casuali
+// Inizializzazione del generatore di numeri casuali
+srand(time(nullptr));
 
     int numProd = 10; 
 
-
+    // Aggiunge oggetti casuali
     cout << "Aggiunta "<< numProd << " prodotti -->" << endl << endl;
     for (int i = 0; i < numProd; ++i) {
         int checkErr= (rand() %2);
@@ -90,11 +96,13 @@ srand(time(nullptr)); // Inizializza il generatore di numeri casuali
 
 #endif
     
+    // Connessione al server redis
     pid = getpid();
     printf("main(): pid %d: user %s: connecting to redis ...\n", pid, email);
     c2r = redisConnect("localhost", 6379);
     printf("main(): pid %d: user %s: connected to redis\n", pid, email);
 
+    // Inizializzazione dei canali di lettura e scrittura per la comunicazione con Redis
     initStreams(c2r, READ_STREAM);
     initStreams(c2r, WRITE_STREAM);
 
@@ -102,8 +110,10 @@ srand(time(nullptr)); // Inizializza il generatore di numeri casuali
     double ReadElapsedMs = 0.0;
 
     while(1){
+        // Lettura del messaggio da Redis
         fval = readMsg(c2r, reply, READ_STREAM, username, ReadElapsedMs);
         printf("result fval : %s\n", fval);
+        // Invio di un messaggio a Redis
         sendMsg(c2r, reply, WRITE_STREAM, key, value, elapsedMs);
     }
     redisFree(c2r);

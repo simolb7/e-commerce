@@ -9,9 +9,12 @@ int main() {
     char sqlcmd[1000];
     Con2DB db("localhost", "5432", "userdb", "47002", "ecommercedb");
 
+    // Inizio transazione
     sprintf(sqlcmd, "BEGIN"); 
     res = db.ExecSQLcmd(sqlcmd);
     PQclear(res);
+
+    // Inserimento dei vari metodi di pagamento all'interno di metpag
 
     sprintf(sqlcmd, 
     "INSERT INTO metpag VALUES (DEFAULT, 'PayPal') ON CONFLICT DO NOTHING"); 
@@ -28,6 +31,7 @@ int main() {
     res = db.ExecSQLcmd(sqlcmd);
     PQclear(res);
 
+    // Chiude la transazione
     sprintf(sqlcmd, "COMMIT");
     res = db.ExecSQLcmd(sqlcmd);
     PQclear(res);
@@ -36,7 +40,7 @@ int main() {
 
     int numPeople = 50; // Numero di persone da generare
 
-
+    // Genera i vari utenti
     cout << "Generated "<< numPeople << " users\n";
     for (int i = 0; i < numPeople; ++i) {
         int checkPsw = (rand() %2);
