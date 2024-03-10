@@ -1,16 +1,18 @@
 #include <test.h>
 
+// Genera un nome casuale
 string generateRandomFirstName() {
     vector<string> firstNames = {"Mario", "Luigi", "Giovanni", "Paolo", "Giulia", "Laura", "Francesca", "Alessandra", "Roberto", "Andrea"};
     return firstNames[rand() % firstNames.size()];
 }
 
-// Funzione per generare un cognome casuale
+// Genera un cognome casuale
 string generateRandomLastName() {
     vector<string> lastNames = {"Rossi", "Bianchi", "Verdi", "Ferrari", "Russo", "Romano", "Gallo", "Conti", "Esposito", "Bruno"};
     return lastNames[rand() % lastNames.size()];
 }
 
+// Genera una mail casuale
 string generateEmail(const char *nome, const char *cognome) { 
     string nomes = nome;
     string surnames = cognome;
@@ -20,16 +22,19 @@ string generateEmail(const char *nome, const char *cognome) {
     return email;
 }
  
+// Genera un tipo di utente casuale
 string generateRandomType() {
     vector<string> lastNames = {"Costumer", "Fornitore", "Trasportatore"};
     return lastNames[rand() % lastNames.size()];
 }
 
+// Genera un metodo di pagamento casuale
 string generateRandomPurchType() {
     vector<string> lastNames = {"Paypal", "Carta di credito"};
     return lastNames[rand() % lastNames.size()];
 }
 
+// Genera una partita iva casuale
 string generateRandomPIva() {
     
     std::random_device rd;
@@ -44,11 +49,13 @@ string generateRandomPIva() {
     return number;
 }
 
+// Genera un'azienda di trasportatori casuali
 string generateRandomAzienda() {
     vector<string> lastNames = {"Bartolini", "GLS", "Fedex", "UPS", "Poste Italiane", "TNT"};
     return lastNames[rand() % lastNames.size()];
 }
 
+// Genera un ooggetto casuale
 string generateRandomObjName() {
     vector<string> objNames = {"Mouse", 
         "Monitor", 
@@ -81,6 +88,7 @@ string generateRandomObjName() {
     return objNames[rand() % objNames.size()];
 }
 
+// Genera un BarCode casuale
 string generateRandomBarCode() {
     
     std::random_device rd;
@@ -96,6 +104,7 @@ string generateRandomBarCode() {
 
 }
 
+// Genera un prezzo casuale
 float generatePrice(){
     int num = rand() %300;
     float numf = static_cast<float>(num) + 0.99f;
