@@ -21,11 +21,13 @@ int main(){
     int idc;
     int idtrasp;
 
+    /*
     const char *name;
     const char *cognome;
     const char *email;
     const char *password;
     const char *purchType;
+    */
     char *NomeOggprov;
 
     char const *nomeOgg;
@@ -54,17 +56,24 @@ int main(){
     idc = atoi(PQgetvalue(res, 0, PQfnumber(res, "idc")));
     PQclear(res);
 
+    sprintf(sqlcmd, "SELECT * FROM Utente WHERE idu = \'%d\'", idc);
+    res = db.ExecSQLtuples(sqlcmd);
+    const char *name = PQgetvalue(res, 0, PQfnumber(res, "nameU"));
+    const char *cognome = PQgetvalue(res, 0, PQfnumber(res, "surnameU"));
+    const char *email = PQgetvalue(res, 0, PQfnumber(res, "emailU"));
+    PQclear(res);
+
     // Chiude la transazione
     sprintf(sqlcmd, "COMMIT"); 
     res = db.ExecSQLcmd(sqlcmd);
     PQclear(res);
-
+    
     Costumer costumer(name, cognome, email);
-
+    string emailCopy(email);
     // Prova ricerca oggetto che non esiste
-
+    
     costumer.ricerca("Kindle", 1, lista, db);
-
+    
     // Fine test
 
     // Inizio transazione
@@ -93,7 +102,6 @@ int main(){
     sprintf(sqlcmd, "COMMIT"); 
     res = db.ExecSQLcmd(sqlcmd);
     PQclear(res);
-
     // Prova ricerca oggetto che esiste ma la cui quantità è insufficiente
 
     costumer.ricerca(NomeOggprov, 500, lista, db);
@@ -102,19 +110,18 @@ int main(){
 
     int quantity = (rand() %15)+1;
     costumer.ricerca(NomeOggprov, quantity, lista, db);
+
     cout << endl;
     cout << "----------------------------------------------------------------" << endl << endl;
 
     const char *idInv = lista[0][0].c_str();
-
+    
     if (strcmp(idInv, ctrlValue) != 0){
-        
         pid = getpid();
-
         // Connessione al server redis
-        printf("main(): pid %d: user %s: connecting to redis ...\n", pid, username);
+        cout << "main(): pid " << pid << ": user " << emailCopy << ": connecting to redis..." << endl;
         c2r = redisConnect("localhost", 6379);
-        printf("main(): pid %d: user %s: connected to redis\n", pid, username);
+        cout << "main(): pid " << pid << ": user " << emailCopy << ": connected to redis" << endl;
 
         costumer.acquisto(idInv, idc, idtrasp, quantity, db);
 
