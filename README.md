@@ -11,9 +11,9 @@ Backend per un sito di e-commerce, sviluppato per il corso "Software engineering
 5. [Licenza](#licenza)
 
 ## Introduzione
-È stato sviluppato un backend basico per un sito di e-commerce. Ogni attore del sistema avrà un proprio terminale separato e con funzioni dedicate al proprio scopo, la comunicazione fra processi è gestita tramite stream **redis**, che permettono ai vari attori in esecuzione di rimanere in ascolto ed eventualmente scrivere. I dati sono memorizzati in un database tramite **Postgres**.
+È stato sviluppato un backend per un sito di e-commerce. Ogni attore del sistema avrà un proprio terminale separato e con funzioni dedicate al proprio scopo, la comunicazione fra processi è gestita tramite stream **redis**, che permettono ai vari attori in esecuzione di rimanere in ascolto ed eventualmente scrivere. I dati sono memorizzati in un database tramite **Postgres**.
 
-Per informazioni piu dettagliate si consiglia la lettura della relazione del progetto.
+Per informazioni più dettagliate si consiglia la lettura della relazione del progetto.
 
 ## Pre-requisiti
 
@@ -82,7 +82,7 @@ sudo -i -u postgres
 
 psql
 
-\c e-commerce //si connette al db creato
+\c ecommercedb //si connette al db creato
 ```
 
 ## Utilizzo
@@ -93,26 +93,26 @@ Il modello **utente** è utilizzato per rappresentare un utente che ancora deve 
 
 ```
 cd e-commerce/models/utente/bin
-.\main.sh
+./main
 ```
 
 Il modello **fornitore** è utilizzato per rappresentare un fornitore tipico del sistema, una volta avviato si connetterà in automatico alle stream redis. Rimane in ascolto sullo stream in attesa di nuovi ordini, una volta ricevuto, si occuperà di assegnarlo al trasportatore scelto.
 
 ```
 cd e-commerce/models/fornitore/bin
-.\main.sh
+./main
 ```
 
 Il modello **trasportatore** è utilizzato per rappresentare un trasportatore tipico del sistema, una volta avviato si connetterà in automatico alle stream redis. Nelle stream si occuperà di apprendere quali ordini gli sono stati assegnati e lavorarli, aggiornandone lo stato.
 
 ```
 cd e-commerce/models/trasportatore/bin
-.\main.sh
+./main
 ```
 
 Il modello **costumer** è utilizzato per rappresentare un utente autenticato, si connette alle stream redis predisposte, che gli permettono di inoltrare un ordine al fornitore corrispondente, e di ricevere informazioni sullo stato degli ordini effettuati.
 
 ```
 cd e-commerce/models/costumer/bin
-.\main.sh
+./main
 ```
