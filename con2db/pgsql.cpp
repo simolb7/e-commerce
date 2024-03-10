@@ -3,7 +3,12 @@
 
 #define DEBUG 1000
 
-
+// Costruttore classe Con2DB con  i parametri necessari per stabilire una connessione al database PostgreSQL: 
+// - hostname, 
+// - porta, 
+// - nome utente, 
+// - password,
+// - nome del database.
 Con2DB::Con2DB(const char *hostname,
 	       const char *port,
 	 const char *username,
@@ -46,10 +51,11 @@ Con2DB::Con2DB(const char *hostname,
 }  /* Con2DB() */
 
 
-
+// La funzione finish termina la connessione al database PostgreSQL.
 void Con2DB::finish() {
     
     PQfinish(conn);
+    //imposta puntatore alla connessione su NULL
     conn = NULL;
     exit(1);
 }
