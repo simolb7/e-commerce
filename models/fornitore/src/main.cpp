@@ -4,7 +4,7 @@
 
 #define READ_STREAM "customer2fornitore"
 #define WRITE_STREAM "fornitore2trasportatore"
-#define DEBUG 1000
+#define DEBUG 0
 
 
 
