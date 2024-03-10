@@ -85,7 +85,7 @@ void Fornitore::addInventario(Oggetto oggetto1, Fornitore fornitore1, Con2DB db1
 
         // Aggiungi l'oggetto all'inventario
         sprintf(sqlcmd,
-        "INSERT INTO Inventario VALUES (DEFAULT, \'%f\', \'%d\', \'%d\', now(), \'%d\', \'%d\') ON CONFLICT DO NOTHING", prezzo, quantity, quantity, idFor, idOgg);       res = db1.ExecSQLcmd(sqlcmd);
+        "INSERT INTO Inventario VALUES (DEFAULT, \'%f\', \'%d\', \'%d\', now(), \'%d\', \'%d\') ON CONFLICT DO NOTHING", prezzo, quantity, quantity, idFor, idOgg);
         res = db1.ExecSQLcmd(sqlcmd);
         PQclear(res);
 

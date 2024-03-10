@@ -49,12 +49,13 @@ int main(){
 
     // Inizializzazione dell'oggetto Trasportatore
     Trasportatore trasportatore(name, surname, email);
-
+    string emailCopy(email);
+    
     // Connessione al server redis
     pid = getpid();
-    printf("main(): pid %d: user %s: connecting to redis ...\n", pid, email);
+    cout << "main(): pid " << pid << ": user " << emailCopy << ": connecting to redis..." << endl;
     c2r = redisConnect("localhost", 6379);
-    printf("main(): pid %d: user %s: connected to redis\n", pid, email);
+    cout << "main(): pid " << pid << ": user " << emailCopy << ": connected to redis" << endl;
 
     // Inizializzazione dei canali di lettura e scrittura per la comunicazione con Redis
     initStreams(c2r, READ_STREAM);

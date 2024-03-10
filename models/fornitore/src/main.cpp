@@ -58,7 +58,7 @@ int main(){
 
     // Creazione dell'oggetto Fornitore con i dati recuperati dal database
     Fornitore fornitore(name, cognome, email);
-
+    string emailCopy(email);
     
 
 #if (DEBUG > 0)
@@ -98,9 +98,9 @@ srand(time(nullptr));
     
     // Connessione al server redis
     pid = getpid();
-    printf("main(): pid %d: user %s: connecting to redis ...\n", pid, email);
+    cout << "main(): pid " << pid << ": user " << emailCopy << ": connecting to redis..." << endl;
     c2r = redisConnect("localhost", 6379);
-    printf("main(): pid %d: user %s: connected to redis\n", pid, email);
+    cout << "main(): pid " << pid << ": user " << emailCopy << ": connected to redis" << endl;
 
     // Inizializzazione dei canali di lettura e scrittura per la comunicazione con Redis
     initStreams(c2r, READ_STREAM);
